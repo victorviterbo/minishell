@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/17 22:48:25 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:42:42 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int		ft_echo(char *str, bool no_nl);
 int		ft_cd(char *path);
 char	*get_absolute_path(char *path);
 
-char	*ft_pwd(void);
+int		ft_pwd(void);
+char	*ft_get_current_path(void);
 
 
 

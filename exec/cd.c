@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/17 22:55:45 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:42:29 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,21 @@ int	ft_cd(char *path)
 	char		*abspath;
 
 	abspath = get_absolute_path(path);
-	printf("abspath = %s\n", abspath);
 	if (access(abspath, R_OK) == -1)
-		ft_perror_exit(ft_strjoin("Minishell: cd", path));
+		ft_perror_exit(ft_strjoin("Minishell: cd: ", path));
 	if (chdir(abspath) == -1)
-		ft_perror_exit("Minishell: cd");
-	return (EXIT_SUCCESS);
+		ft_perror_exit(ft_strjoin("Minishell: cd: ", path));
+	return (free(abspath), EXIT_SUCCESS);
 }
 
 char	*get_absolute_path(char *path)
 {
 	char	*current_path;
 	char	*absolute_path;
-	int		i;
 
 	if (path[0] == '/')
 		return (ft_strdup(path));
-	current_path = ft_cwd();
-	ft_strjoin_ip(current_path, "/", 1);
+	current_path = ft_strjoin_ip(ft_get_current_path(), "/", 1);
 	absolute_path = ft_strjoin(current_path, path);
 	return (absolute_path);
 }

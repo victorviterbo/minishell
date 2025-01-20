@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/17 23:04:41 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/20 10:42:46 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,19 +16,21 @@ HEADER = minishell.h
 
 CFLAGS = -Wall -Wextra -Werror
 
-LIBFT_DIR = libft/
+LIBFT_DIR = ./libft/
 
-LIBFT_SRCS = $(patsubst %.c, ../%.c, $(shell make -C libft/ -s print_srcs))
+LIBFT_SRCS = $(addprefix libft/, $(shell make -C libft/ -s print_srcs))#$(patsubst %.c, ../%.c, )
 
 LIBFT = $(LIBFT_DIR)libft.a
 
-SRCS_EXEC =	cd.c echo.c pwd.c 
+EXEC_F		=	cd.c echo.c pwd.c 
+SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
-SRCS_UTILS = error_handling.c
+UTILS_F		= 	error_handling.c
+SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
-SRCS =	
+SRCS = $(SRCS_EXEC) $(SRCS_UTILS)
 
-OBJS = $(patsubst %.c, %.o, $(SRCS))
+#OBJS = $(addprefix objs/, $(notdir $(patsubst %.c, %.o, $(SRCS))))
 
 CC = cc
 
@@ -48,12 +50,12 @@ objs_folder :
 	@mkdir -p objs/
 
 $(OBJS): $(SRCS)
-	$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT): $(LIBFT_SRCS)
 	$(MAKE) -C $(LIBFT_DIR) all
 
-$(NAME): $(SRCS) $(LIBFT)
-	$(CC) $(CFLAGS) $(SRCS) -L$(LIBFT_DIR) -lft -o $(NAME)
+$(NAME): $(SRCS) tests/rough_tests.c $(LIBFT)
+	$(CC) $(CFLAGS) -L$(LIBFT_DIR) -lft $(SRCS) tests/rough_tests.c -o $(NAME)
 
 .PHONY: all clean fclean re

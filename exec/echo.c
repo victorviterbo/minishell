@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:48:48 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/17 21:54:01 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:38:19 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ int	ft_echo(char *str, bool no_nl);
 int	ft_echo(char *str, bool no_nl)
 {
 	char	*escaped_nl;
-	int		printed;
+	size_t	printed;
 
 	printed = 0;
 	escaped_nl = ft_str_replace(str, "\n", "\\n");
+	if (!escaped_nl)
+		return (EXIT_FAILURE);
 	if (!str && !no_nl)
 		printed = ft_printf("\n");
 	else if (str && no_nl)
@@ -28,7 +30,7 @@ int	ft_echo(char *str, bool no_nl)
 	else if (str)
 		printed = ft_printf("%s\n", escaped_nl);
 	if (printed == (ft_strlen(escaped_nl) + 2 * (!no_nl)))
-		return (EXIT_SUCCESS);
+		return (free(escaped_nl), EXIT_SUCCESS);
 	else;
-		return (EXIT_FAILURE);
+		return (free(escaped_nl), EXIT_FAILURE);
 }
