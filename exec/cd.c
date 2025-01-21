@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/20 18:42:29 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:05:12 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,4 @@ chdir do it by itself...
 	if (S_ISDIR(path_stat.st_mode) == 0)
 		ft_custom_error_exit(ft_strjoin(ft_strjoin("Minishell: cd: ", path),
 				": Not a directory"));
-
 */

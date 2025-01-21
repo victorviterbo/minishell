@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:48:48 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/20 18:38:19 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/20 21:07:40 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int	ft_echo(char *str, bool no_nl)
 		printed = ft_printf("%s\n", escaped_nl);
 	if (printed == (ft_strlen(escaped_nl) + 2 * (!no_nl)))
 		return (free(escaped_nl), EXIT_SUCCESS);
-	else;
+	else
 		return (free(escaped_nl), EXIT_FAILURE);
 }

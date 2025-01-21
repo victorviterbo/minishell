@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:22:20 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/20 18:46:59 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:34:27 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_get_current_path(void)
 		current_path = ft_calloc(PATH_MAX * attempts + 1, sizeof(char));
 		retvalue = getcwd(current_path, PATH_MAX * attempts);
 	}
-	if (retvalue == NULL) // retvalue == ERANGE || retvalue == EACCES || retvalue == EINVAL
+	if (retvalue == NULL) // errno == ERANGE || errno == EACCES || errno == EINVAL
 		ft_perror_exit("Minishell: pwd");
 	else if (retvalue != current_path)
 		ft_custom_error_exit("Minishell: pwd: an unknown error has occured");
