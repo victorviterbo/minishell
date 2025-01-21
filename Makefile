@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/21 01:50:51 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/21 14:03:09 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,10 @@ LIBFT_SRCS = $(addprefix libft/, $(shell make -C libft/ -s print_srcs))
 
 LIBFT = $(LIBFT_DIR)libft.a
 
-EXEC_F		=	cd.c echo.c pwd.c 
+EXEC_F		=	cd.c echo.c pwd.c export.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
-UTILS_F		= 	error_handling.c env_lst.c
+UTILS_F		= 	error_handling.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
 SRCS = $(SRCS_EXEC) $(SRCS_UTILS)

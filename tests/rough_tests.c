@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/21 01:50:36 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:01:39 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	main(int argc, char *argv[], char *envp[])
 	ft_cd("tests/testdir_readonly");
 	chdir(here);
 	ft_cd("tests/testdir_no_right");
+	ft_export()
 	ft_cd("tests/rough_tests.c");
     return (0);
 }

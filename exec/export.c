@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:08:58 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/21 13:50:29 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:07:42 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_export(char *args[], char *envp[]);
 int	change_envp(char *str, char *envp[], bool append);
+int	rewrite_var(char *str, char *envp[], int i, bool append);
 
 int	ft_export(char *args[], char *envp[])
 {
@@ -43,7 +44,6 @@ int	ft_export(char *args[], char *envp[])
 int	change_envp(char *str, char *envp[], bool append)
 {
 	char	*name;
-	size_t	namelen;
 	int		i;
 
 	name = ft_substr(str, 0, ft_strchr(str, '=') - append - str);
@@ -58,7 +58,12 @@ int	change_envp(char *str, char *envp[], bool append)
 		i++;
 	}
 	if (!envp[i])
-		ft_array_append(envp[i], str, false);
+	{
+		ft_array_append(envp, str, false);
+		if (!envp)
+			ft_custom_error_exit("Minishell: export:\
+			 Error in allocating memory");
+	}
 	return (free(name), 0);
 }
 

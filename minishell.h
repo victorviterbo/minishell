@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/21 13:33:04 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:15:50 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char	*get_absolute_path(char *path);
 int		ft_pwd(void);
 char	*ft_get_current_path(void);
 
-int		ft_export(char *args[],  t_list **env);
-int		change_envp(char *str,  t_list **env, bool append);
+int		ft_export(char *args[], char *envp[]);
+int		change_envp(char *str, char *envp[], bool append);
+int		rewrite_var(char *str, char *envp[], int i, bool append);
 
 void	ft_perror_exit(const char *message);
 void	ft_custom_error_exit(const char *message);
