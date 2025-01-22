@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/21 14:03:09 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/22 10:26:16 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 HEADER = minishell.h
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
 LIBFT_DIR = ./libft/
 
@@ -30,7 +30,7 @@ SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
 SRCS = $(SRCS_EXEC) $(SRCS_UTILS)
 
-CC = cc
+CC = gcc
 
 all: objs_folder $(NAME)
 

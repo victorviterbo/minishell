@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/21 17:56:03 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:32:56 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ char	**ft_make_test_strarr(char *str);
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*here;
+	t_env	*env;
 	pid_t	pid;
 
 	here = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	(void)argc;
-	envp = ft_strarray_mapi(envp, ft_strdup);
+	env = ft_calloc(1, sizeof(t_env));
+	env->envp = ft_strarray_mapi(envp, ft_strdup);
 	ft_echo("print this string with newline", false);
 	ft_echo("print this string without newline", true);
 	ft_echo("print this string \n with newline", false);
@@ -46,16 +48,15 @@ int	main(int argc, char *argv[], char *envp[])
 	if (pid == 0)
 		ft_cd("lalala");
 	ft_print_array(envp, true);
-	ft_export(ft_make_test_strarr(argv[1]), envp);
-	ft_printf("1\n");
-	ft_export(ft_make_test_strarr(argv[2]), envp);
-	ft_printf("2\n");
-	ft_export(ft_make_test_strarr(argv[3]), envp);
-	ft_printf("3\n");
+	ft_export(ft_make_test_strarr(argv[1]), env);
+	ft_print_array(envp, true);
+	ft_export(ft_make_test_strarr(argv[2]), env);
+	ft_export(ft_make_test_strarr(argv[3]), env);
 	pid = fork();
 	if (pid == 0)
-		ft_export(ft_make_test_strarr(argv[4]), envp);
-	ft_print_array(envp, true);
+		ft_export(ft_make_test_strarr(argv[4]), env);
+	ft_export(ft_make_test_strarr(argv[5]), env);
+	ft_export(ft_make_test_strarr(argv[6]), env);
 	return (0);
 }
 
