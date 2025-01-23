@@ -160,6 +160,6 @@ Ce projet est réalisé dans le cadre du cursus de l'École 42 et est soumis aux
 
 - [Manuels Linux](https://man7.org/linux/man-pages/)
 - [GNU Bash Documentation](https://www.gnu.org/software/bash/manual/)
-- [42 Docs](https://github.com/42Docs/42Docs)
-
+- [Shell redirections](https://github.com/Xxzer042xX/minishell/blob/main/docs/shell-redirections-readme.md)
+- [Aide memoire Shell](https://github.com/Xxzer042xX/minishell/blob/main/docs/shell-var-env.md)
 ---
