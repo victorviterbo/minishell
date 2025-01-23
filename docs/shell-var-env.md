@@ -103,6 +103,7 @@ echo $SHELL        # Shell par défaut
 bash              # Ouvrir nouveau bash
 exit              # Quitter shell actuel
 exec bash         # Remplacer shell actuel
+chsh -s /chemin/vers/nouveau/shell # Change le shell par défaut de l'utilisateur
 
 # 2. Information Shell
 echo $0           # Nom du shell
