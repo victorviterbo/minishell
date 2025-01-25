@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/25 19:13:42 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/25 20:32:06 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ clean:
 
 fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -f $(NAME)
+	rm -f $(BIN)$(NAME)
 
 re: fclean all
 
@@ -57,7 +57,10 @@ $(OBJS): $(SRCS)
 $(LIBFT): $(LIBFT_SRCS)
 	$(MAKE) -C $(LIBFT_DIR) all
 
-$(NAME): $(SRCS) tests/rough_tests.c $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) tests/rough_tests.c -o $(BIN)$(NAME)
+$(NAME): $(SRCS) $(LIBFT)
+	$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) ./srcs/minishell.c -o $(BIN)$(NAME)
+
+print_srcs:
+	echo $(SRCS)
 
 .PHONY: all clean fclean re
