@@ -1,0 +1,66 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
+#    Updated: 2025/01/25 20:34:55 by vviterbo         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = minishell
+
+HEADER = minishell.h
+
+CFLAGS = -Wall -Wextra -Werror
+
+LIBFT_DIR = ../include/libft/
+
+MINI_DIR = ../
+
+MINI_SRCS =  $(addprefix $(MINI_DIR), $(shell make -C $(MINI_DIR) -s print_srcs))
+
+LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_srcs))
+
+LIBFT = $(LIBFT_DIR)libft.a
+
+
+
+BIN = ./bin/
+
+CC = cc
+
+INCLUDE = -I../include/ -L$(LIBFT_DIR) -lft
+
+SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
+
+make_tests: make_test_echo make_test_cd make_test_export
+
+make_test_echo: $(SRCS) $(LIBFT) test_echo.c
+	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_echo.c -o $(BIN)test_echo
+
+make_test_cd: $(SRCS) $(LIBFT) test_cd.c
+	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_cd.c -o $(BIN)test_cd
+
+make_test_export: $(SRCS) $(LIBFT) test_export.c
+	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_export.c -o $(BIN)test_export
+
+clean:
+	$(MAKE) -C ../ clean
+	rm -f objs/*.o
+
+fclean: clean
+	$(MAKE) -C ../ fclean
+	rm -f $(BIN)*
+
+re: fclean all
+
+$(OBJS): $(SRCS)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(LIBFT): $(LIBFT_SRCS)
+	$(MAKE) -C $(LIBFT_DIR) all
+
+.PHONY: all clean fclean re
