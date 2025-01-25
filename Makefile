@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/25 19:09:22 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/25 19:13:42 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ UTILS_F		= 	error_handling.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
+
+BIN = ./bin/
 
 CC = cc
 
@@ -56,6 +58,6 @@ $(LIBFT): $(LIBFT_SRCS)
 	$(MAKE) -C $(LIBFT_DIR) all
 
 $(NAME): $(SRCS) tests/rough_tests.c $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) tests/rough_tests.c -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) tests/rough_tests.c -o $(BIN)$(NAME)
 
 .PHONY: all clean fclean re
