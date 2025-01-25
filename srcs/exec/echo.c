@@ -6,11 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:48:48 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/21 17:19:16 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/25 19:07:34 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 int	ft_echo(char *str, bool no_nl);
 
