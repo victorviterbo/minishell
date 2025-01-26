@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/22 11:09:34 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:55:16 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,23 @@
 # include <stdio.h>
 
 typedef struct s_env {
-	char	**envp;
+	t_list	**envp;
 }	t_env;
 
-int		ft_echo(char *str, bool no_nl);
+typedef struct s_var{
+	char	*name;
+	char	*value;
+}	t_var;
 
+//exec/echo.c
+int		ft_echo(char *str, bool no_nl);
+//exec/cd.c
 int		ft_cd(char *path);
 char	*get_absolute_path(char *path);
-
+//exec/pwd.c
 int		ft_pwd(void);
 char	*ft_get_current_path(void);
-
+//exec/export.c
 int		ft_export(char *args[], t_env *env);
 int		change_envp(char *str, t_env *env, bool append);
 int		rewrite_var(char *str, t_env *env, int i, bool append);

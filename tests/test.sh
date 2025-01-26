@@ -2,13 +2,9 @@
 
 cd `dirname "$0"`
 
-./bin/test_echo
+./bin/test_echo > ./out/test_echo.out
 
-./bin/test_cd
+./bin/test_cd > ./out/test_cd.out
 
-./bin/test_export "VAR1=test1" "VAR2=test=2" "VAR1=" "=test1" "VAR2+=lala" "VAR2=lili"
-./bin/test_export "VAR1=test1" "VAR2=test=2" "VAR1=" "=test1" "VAR2+=lala" "VAR2=lili"
+./bin/test_export > ./out/test_export.out
 
-cd tests/
-
-diff test.out test.ref

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/25 20:36:29 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:45:43 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,17 @@ int	main(int argc, char *argv[], char *envp[])
 	env = ft_calloc(1, sizeof(t_env));
 	env->envp = ft_strarray_mapi(envp, ft_strdup);
 	ft_print_array(envp, true);
-	ft_export(ft_make_test_strarr(argv[1]), env);
+	ft_export(ft_make_test_strarr("VAR1=test1"), env);
 	ft_print_array(envp, true);
-	ft_export(ft_make_test_strarr(argv[2]), env);
-	ft_export(ft_make_test_strarr(argv[3]), env);
+	ft_export(ft_make_test_strarr("VAR2=test=2"), env);
+	ft_export(ft_make_test_strarr("VAR1="), env);
 	pid = fork();
 	if (pid == 0)
-		ft_export(ft_make_test_strarr(argv[4]), env);
-	ft_export(ft_make_test_strarr(argv[5]), env);
-	ft_export(ft_make_test_strarr(argv[6]), env);
+		ft_export(ft_make_test_strarr("=test1"), env);
+	ft_export(ft_make_test_strarr("VAR2+=lala"), env);
+	ft_export(ft_make_test_strarr("VAR1=lili"), env);
+	ft_export(ft_split("VAR3=3 VAR4=4 VAR5=5", ' '), env);
+	ft_export(ft_split("VAR3=3 =4 VAR5=5", ' '), env);
 	return (0);
 }
 
