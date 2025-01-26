@@ -1,25 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: madelmen <madelmen@student.42lausanne.ch   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 20:41:42 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/21 13:29:34 by vviterbo         ###   ########.fr       */
+/*   Created: 2025/01/23 15:20:06 by madelmen          #+#    #+#             */
+/*   Updated: 2025/01/23 15:20:06 by madelmen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-
-void	ft_perror_exit(const char *message)
-{
-	perror(message);
-	exit(EXIT_FAILURE);
-}
-
-void	ft_custom_error_exit(const char *message)
-{
-	ft_printf("%s\n", message);
-	exit(EXIT_FAILURE);
-}

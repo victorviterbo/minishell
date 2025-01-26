@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/22 10:26:16 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/26 14:57:51 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ NAME = minishell
 
 HEADER = minishell.h
 
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
-LIBFT_DIR = ./libft/
+LIBFT_DIR = ./lib/libft/
 
-LIBFT_SRCS = $(addprefix libft/, $(shell make -C libft/ -s print_srcs))
+LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_srcs))
 
 LIBFT = $(LIBFT_DIR)libft.a
 
@@ -28,9 +28,13 @@ SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 UTILS_F		= 	error_handling.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
-SRCS = $(SRCS_EXEC) $(SRCS_UTILS)
+SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
 
-CC = gcc
+BIN = ./bin/
+
+CC = cc
+
+INCLUDE = -I./include/ -I./lib/ -L$(LIBFT_DIR) -lft
 
 all: objs_folder $(NAME)
 
@@ -54,6 +58,6 @@ $(LIBFT): $(LIBFT_SRCS)
 	$(MAKE) -C $(LIBFT_DIR) all
 
 $(NAME): $(SRCS) tests/rough_tests.c $(LIBFT)
-	$(CC) $(CFLAGS) -L$(LIBFT_DIR) -lft $(SRCS) tests/rough_tests.c -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) tests/rough_tests.c -o $(BIN)$(NAME)
 
 .PHONY: all clean fclean re
