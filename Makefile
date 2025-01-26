@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/25 19:13:42 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/26 14:57:51 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ HEADER = minishell.h
 
 CFLAGS = -Wall -Wextra -Werror
 
-LIBFT_DIR = ./include/libft/
+LIBFT_DIR = ./lib/libft/
 
 LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_srcs))
 
@@ -34,7 +34,7 @@ BIN = ./bin/
 
 CC = cc
 
-INCLUDE = -I./include/ -L$(LIBFT_DIR) -lft
+INCLUDE = -I./include/ -I./lib/ -L$(LIBFT_DIR) -lft
 
 all: objs_folder $(NAME)
 
