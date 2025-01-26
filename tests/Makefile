@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/25 20:34:55 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/26 20:09:00 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ HEADER = minishell.h
 
 CFLAGS = -Wall -Wextra -Werror
 
-LIBFT_DIR = ../include/libft/
+LIBFT_DIR = ../lib/libft/
 
 MINI_DIR = ../
 
@@ -32,19 +32,19 @@ BIN = ./bin/
 
 CC = cc
 
-INCLUDE = -I../include/ -L$(LIBFT_DIR) -lft
+INCLUDE = -I../include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
 
-make_tests: make_test_echo make_test_cd make_test_export
+tests: test_echo test_cd test_export
 
-make_test_echo: $(SRCS) $(LIBFT) test_echo.c
+test_echo: $(SRCS) $(LIBFT) test_echo.c
 	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_echo.c -o $(BIN)test_echo
 
-make_test_cd: $(SRCS) $(LIBFT) test_cd.c
+test_cd: $(SRCS) $(LIBFT) test_cd.c
 	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_cd.c -o $(BIN)test_cd
 
-make_test_export: $(SRCS) $(LIBFT) test_export.c
+test_export: $(SRCS) $(LIBFT) test_export.c
 	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_export.c -o $(BIN)test_export
 
 clean:

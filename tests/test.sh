@@ -2,6 +2,8 @@
 
 cd `dirname "$0"`
 
+make tests
+
 ./bin/test_echo > ./out/test_echo.out
 
 ./bin/test_cd > ./out/test_cd.out

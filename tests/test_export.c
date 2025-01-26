@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/26 13:45:43 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:14:44 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ static char	**ft_make_test_strarr(char *str);
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*here;
-	t_env	*env;
+	t_data	*env;
 	pid_t	pid;
 
 	(void)argc;
+	(void)argv;
 	chdir(here);
-	env = ft_calloc(1, sizeof(t_env));
-	env->envp = ft_strarray_mapi(envp, ft_strdup);
+	env = ft_calloc(1, sizeof(t_data));
+	init_env(envp, env);
 	ft_print_array(envp, true);
 	ft_export(ft_make_test_strarr("VAR1=test1"), env);
 	ft_print_array(envp, true);
