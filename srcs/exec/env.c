@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_unset.c                                       :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/27 11:58:13 by vviterbo         ###   ########.fr       */
+/*   Created: 2025/01/27 16:36:38 by vviterbo          #+#    #+#             */
+/*   Updated: 2025/01/27 16:51:54 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_make_test_strarr(char *str);
+int	ft_env(t_data *data);
 
-int	main(int argc, char *argv[], char *envp[])
+int	ft_env(t_data *data)
 {
-	char	*here;
-	t_data	*data;
-	pid_t	pid;
+	t_list	*current;
+	t_var	*curr_var;
+	int		success;
+	size_t	printed;
 
-	(void)argc;
-	(void)argv;
-	data = ft_calloc(1, sizeof(t_data));
-	init_env(envp, data);
-	if (unset(data, "LALA") == 0)
-		return (1);
-	
-	return (0);
+	current = *(data->envp);
+	success = 0;
+	while (current)
+	{
+		curr_var = current->content;
+		printed = ft_printf("%s=%s\n", curr_var->name, curr_var->value);
+		if (printed != (ft_strlen(curr_var->name)
+				+ ft_strlen(curr_var->value) + 2))
+			success += 1;
+		current = current->next;
+	}
+	return (success);
 }

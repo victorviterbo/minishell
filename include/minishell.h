@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/27 12:05:41 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:48:40 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,15 @@ int		ft_export(t_data *env, char *args[]);
 int		ft_unset(t_data *data, char **varnames);
 int		pop_var(t_data *data, char *varname);
 void	free_var(void *data);
+//exec/env.c
+int		ft_env(t_data *data);
 //utils/error_handlings.c
 void	ft_perror_exit(const char *message);
 void	ft_custom_error_exit(const char *message);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);
 int		new_var(t_list **env, char *str);
-int		dd_var(t_list **env, char *str, size_t name_len);
+int		add_var(t_list **env, char *str, size_t name_len);
 int		change_var(t_list *current, char *first_equal, bool append);
+char	*get_var(t_data *data, char *varname);
 #endif

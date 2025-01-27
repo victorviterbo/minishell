@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/27 11:41:28 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/27 16:47:49 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,19 +36,16 @@ INCLUDE = -I../include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
 
-tests: test_echo test_cd test_export
+tests: test_echo test_cd_pwd test_env
 
 test_echo: $(SRCS) $(LIBFT) test_echo.c
 	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_echo.c -o $(BIN)test_echo
 
-test_cd: $(SRCS) $(LIBFT) test_cd.c
-	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_cd.c -o $(BIN)test_cd
+test_cd_pwd: $(SRCS) $(LIBFT) test_cd_pwd.c
+	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_cd_pwd.c -o $(BIN)test_cd_pwd
 
-test_export: $(SRCS) $(LIBFT) test_export.c
-	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_export.c -o $(BIN)test_export
-
-test_unset: $(SRCS) $(LIBFT) test_unset.c
-	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_unset.c -o $(BIN)test_export
+test_env: $(SRCS) $(LIBFT) test_env.c
+	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_env.c -o $(BIN)test_env
 
 clean:
 	$(MAKE) -C ../ clean

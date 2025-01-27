@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/27 11:39:04 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/27 16:47:12 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_src
 
 LIBFT = $(LIBFT_DIR)libft.a
 
-EXEC_F		=	cd.c echo.c pwd.c export.c unset.c
+EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
 UTILS_F		= 	error_handling.c variables.c

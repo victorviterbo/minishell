@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/25 20:10:19 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:47:25 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	**ft_make_test_strarr(char *str);
 
 int	main(int argc, char *argv[], char *envp[])
 {
-
 	(void)argc;
 	(void)argv;
 	(void)envp;

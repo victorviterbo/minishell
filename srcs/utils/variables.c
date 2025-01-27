@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/27 11:57:53 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:39:26 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ int	new_var(t_list **env, char *str)
 	char	*first_equal;
 	bool	append;
 	size_t	name_len;
-	t_var	*var;
+	t_var	*curr_var;
 	t_list	*current;
 
-	current = *env;
 	first_equal = ft_strchr(str, '=');
 	if (!first_equal || first_equal == str)
 		return (1);
 	append = (*(first_equal - 1) == '+');
 	name_len = first_equal - str - append;
+	current = *env;
 	while (current)
 	{
-		var = current->content;
-		if (ft_strncmp(var->name, str, name_len) == 0
-			&& ft_strlen(var->name) == name_len)
+		curr_var = current->content;
+		if (ft_strncmp(curr_var->name, str, name_len) == 0
+			&& ft_strlen(curr_var->name) == name_len)
 			return (change_var(current, first_equal, append));
 		current = current->next;
 	}

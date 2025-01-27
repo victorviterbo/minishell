@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_cd.c                                          :+:      :+:    :+:   */
+/*   test_cd_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/27 14:41:22 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/27 15:01:33 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_cd("testdir_no_right");
 	pid = fork();
 	if (pid == 0)
-		ft_cd("test_cd.c");
+		ft_cd("test_cd_pwd.c");
 	pid = fork();
 	if (pid == 0)
 		ft_cd("lalala");
