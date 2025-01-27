@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/25 20:13:45 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:41:22 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)envp;
 	here = ft_get_current_path();
 	ft_pwd();
-	ft_cd("tests/testdir");
+	ft_cd("testdir");
 	ft_pwd();
 	ft_cd(here);
 	pid = fork();
 	if (pid == 0)
-		ft_cd("tests/testdir_readonly");
+		ft_cd("testdir_readonly");
 	pid = fork();
 	if (pid == 0)
-		ft_cd("tests/testdir_no_right");
+		ft_cd("testdir_no_right");
 	pid = fork();
 	if (pid == 0)
-		ft_cd("tests/rough_tests.c");
+		ft_cd("test_cd.c");
 	pid = fork();
 	if (pid == 0)
 		ft_cd("lalala");
