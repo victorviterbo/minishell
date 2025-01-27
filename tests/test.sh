@@ -34,9 +34,17 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-./bin/test_env > ./out/test_export.out 2>&1
+./bin/test_env > ./out/test_env.out 2>&1
 
 if [ "$?" -ne 0 ]; then
-        echo "Tests failed for export !"
+        echo "Tests failed for env !"
+        exit 1
+fi
+
+diff_env=$(diff <(sort ./out/test_env.out) <(sort ./out/ref_env.out))
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for env !"
+		echo "$diff_cd"
         exit 1
 fi

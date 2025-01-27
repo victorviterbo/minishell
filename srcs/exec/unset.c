@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 20:21:35 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/27 12:05:25 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/28 00:02:52 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,6 @@ int	ft_unset(t_data *data, char **varnames)
 	return (success);
 }
 
-void	free_var(void *data)
-{
-	t_var	*var;
-	t_list	*node;
-
-	node = data;
-	var = node->content;
-	free(var->name);
-	free(var->value);
-	free(var);
-	return ;
-}
-
 int	pop_var(t_data *data, char *varname)
 {
 	t_list	*current;
@@ -55,7 +42,7 @@ int	pop_var(t_data *data, char *varname)
 	while (current)
 	{
 		var = current->content;
-		if (ft_strncmp(var->name, varname, ft_strlen(varname) + 1) == 0)
+		if (ft_strcmp(var->name, varname) == 0)
 		{
 			if (!last)
 				data->envp = &current->next;
@@ -68,4 +55,15 @@ int	pop_var(t_data *data, char *varname)
 		current = current->next;
 	}
 	return ((current == NULL));
+}
+
+void	free_var(void *data)
+{
+	t_var	*var;
+
+	var = data;
+	free(var->name);
+	free(var->value);
+	free(var);
+	return ;
 }
