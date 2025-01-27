@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/26 20:09:00 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/27 11:41:28 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,9 @@ test_cd: $(SRCS) $(LIBFT) test_cd.c
 
 test_export: $(SRCS) $(LIBFT) test_export.c
 	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_export.c -o $(BIN)test_export
+
+test_unset: $(SRCS) $(LIBFT) test_unset.c
+	$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_unset.c -o $(BIN)test_export
 
 clean:
 	$(MAKE) -C ../ clean

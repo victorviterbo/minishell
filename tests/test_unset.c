@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   test_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 21:08:58 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/27 11:55:37 by vviterbo         ###   ########.fr       */
+/*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
+/*   Updated: 2025/01/27 11:58:13 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_export(t_data *data, char *args[]);
+char	**ft_make_test_strarr(char *str);
 
-int	ft_export(t_data *data, char *args[])
+int	main(int argc, char *argv[], char *envp[])
 {
-	int		i;
-	int		success;
+	char	*here;
+	t_data	*data;
+	pid_t	pid;
 
-	i = 0;
-	success = 0;
-	while (args[i])
-	{
-		success += new_var(data->envp, args[i]);
-		i++;
-	}
-	return (success);
+	(void)argc;
+	(void)argv;
+	data = ft_calloc(1, sizeof(t_data));
+	init_env(envp, data);
+	if (unset(data, "LALA") == 0)
+		return (1);
+	
+	return (0);
 }
