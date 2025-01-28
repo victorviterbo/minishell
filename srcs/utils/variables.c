@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/27 17:06:59 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/28 10:57:34 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	add_var(t_list **env, char *str, size_t name_len)
 	t_var	*new_var;
 
 	first_equal = ft_strchr(str, '=');
+	if (*(first_equal + 1) == '\0')
+		return (EXIT_FAILURE);
 	new_var = ft_calloc(1, sizeof(t_var));
 	if (!new_var)
 		return (EXIT_FAILURE);

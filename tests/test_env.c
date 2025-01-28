@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 00:04:05 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/28 10:58:17 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,23 @@ int	main(int argc, char *argv[], char *envp[])
 
 	(void)argc;
 	(void)argv;
-	chdir(here);
 	data = ft_calloc(1, sizeof(t_data));
 	init_env(data, envp);
+	ft_unset(data, ft_make_test_strarr("VAR1"));
+	ft_unset(data, ft_make_test_strarr("VAR2"));
+	ft_unset(data, ft_make_test_strarr("VAR3"));
+	ft_unset(data, ft_make_test_strarr("VAR4"));
+	ft_unset(data, ft_make_test_strarr("VAR5"));
+	chdir(here);
 	ft_export(data, ft_make_test_strarr("VAR1=test1"));
 	value = get_var(data, "VAR1");
 	if (ft_strcmp(value , "test1"))
 		return (1);
-	free(value);
 	ft_env(data);
+	free(value);
 	ft_unset(data, ft_make_test_strarr("VAR1"));
+	if (*get_var(data, "VAR1"))
+		return (1);
 	value = get_var(data, "VAR1");
 	if (ft_strcmp(value , ""))
 		return (1);
@@ -41,8 +48,10 @@ int	main(int argc, char *argv[], char *envp[])
 	if (ft_strcmp(value , "test=2"))
 		return (1);
 	free(value);
+	ft_printf("\n\n---------------------------\n\n");
 	ft_env(data);
-	ft_export(data, ft_make_test_strarr("VAR1="));
+	if (ft_export(data, ft_make_test_strarr("VAR1=")) == 0)
+		return (1);
 	value = get_var(data, "VAR1");
 	if (ft_strcmp(value , ""))
 		return (1);
@@ -77,6 +86,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	free(value);
 	ft_export(data, ft_split("VAR3=6 =4 VAR5=7", ' '));
+	ft_printf("\n\n---------------------------\n\n");
 	ft_env(data);
 	value = get_var(data, "VAR3");
 	if (ft_strcmp(value , "6"))
@@ -87,6 +97,17 @@ int	main(int argc, char *argv[], char *envp[])
 		return (1);
 	free(value);
 	ft_unset(data, ft_make_test_strarr("NOT_A_VAR"));
+	if (*get_var(data, "NOT_A_VAR"))
+		return (1);
+	ft_printf("\n\n---------------------------\n\n");
+	ft_env(data);
+	ft_unset(data, ft_make_test_strarr("LOGNAME"));
+	if (*get_var(data, "LOGNAME"))
+		return (1);
+	ft_unset(data, ft_split("VAR1 VAR2 ERROR VAR4 VAR5", ' '));
+	if (*get_var(data, "VAR1") || *get_var(data, "VAR2") || *get_var(data, "ERROR") || !*get_var(data, "VAR3") || *get_var(data, "VAR4") || *get_var(data, "VAR5"))
+		return (1);
+	ft_printf("\n\n---------------------------\n\n");
 	ft_env(data);
 	return (0);
 }
