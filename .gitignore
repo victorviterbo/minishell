@@ -2,4 +2,4 @@
 *.out
 *.a
 *.o
-./tests/bin/*.dSYM/*
+tests/bin/*dSYM/
