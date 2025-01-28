@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 11:11:01 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/28 22:27:39 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,16 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	ft_echo("print this string with newline", false);
-	ft_echo("print this string without newline", true);
-	ft_echo("print this string \n with newline", false);
-	ft_echo(NULL, true);
-	ft_echo(NULL, false);
+	if (ft_echo("print this string with newline", true) != 0)
+		return (EXIT_FAILURE);
+	if (ft_echo("print this string without newline", false) != 0)
+		return (EXIT_FAILURE);
+	if (ft_echo("print this string \n with newline", true) != 0)
+		return (EXIT_FAILURE);
+	if (ft_echo(NULL, false) != 0)
+		return (EXIT_FAILURE);
 	return (0);
+	if (ft_echo(NULL, true) != 0)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
