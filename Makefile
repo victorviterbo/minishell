@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/28 20:40:42 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/28 22:33:22 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBFT = $(LIBFT_DIR)libft.a
 EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
-UTILS_F		= 	error_handling.c variables.c
+UTILS_F		= 	error_handling.c variables.c env_to_arr.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))

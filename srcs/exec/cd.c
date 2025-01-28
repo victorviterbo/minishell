@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 20:32:56 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/28 22:43:07 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ft_cd(t_data *data, char *path)
 	char	*pwd;
 	int		success;
 
+	if (!data)
+		ft_custom_error_exit("Minishell: cd: no env found");
 	abspath = get_absolute_path(path);
 	if (access(abspath, R_OK) == -1)
 		ft_perror_exit(ft_strjoin("Minishell: cd: ", path));
@@ -43,10 +45,21 @@ char	*get_absolute_path(char *path)
 	char	*current_path;
 	char	*absolute_path;
 
+	if (!path)
+		ft_custom_error_exit("Minishell: cd: no env found");
 	if (path[0] == '/')
-		return (ft_strdup(path));
+	{
+		absolute_path = ft_strdup(path);
+		if (!absolute_path)
+			ft_custom_error_exit("Minishell: cd: memory allocation failed");
+		return (absolute_path);
+	}
 	current_path = ft_strjoin_ip(ft_get_current_path(), "/", FREE_S1);
+	if (!current_path)
+		ft_custom_error_exit("Minishell: cd: memory allocation failed");
 	absolute_path = ft_strjoin_ip(current_path, path, FREE_S1);
+	if (!absolute_path)
+		ft_custom_error_exit("Minishell: cd: memory allocation failed");
 	return (absolute_path);
 }
 

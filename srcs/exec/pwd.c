@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:22:20 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 20:32:56 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/28 22:45:45 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*ft_get_current_path(void)
 	retvalue = getcwd(current_path, PATH_MAX * attempts);
 	while (attempts < 3 && retvalue == NULL && errno == ERANGE)
 	{
+		attempts++;
 		free(current_path);
 		current_path = ft_calloc(PATH_MAX * attempts + 1, sizeof(char));
 		if (!current_path)

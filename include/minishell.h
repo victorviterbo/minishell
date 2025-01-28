@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 20:33:30 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/28 22:51:18 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_var{
 }	t_var;
 
 //exec/echo.c
-int		ft_echo(char *str, bool no_nl);
+int		ft_echo(char *str, bool nl);
 //exec/cd.c
 int		ft_cd(t_data *data, char *path);
 char	*get_absolute_path(char *path);
@@ -59,5 +59,8 @@ int		new_var(t_list **env, char *str);
 int		add_var(t_list **env, char *str, size_t name_len);
 int		change_var(t_list *current, char *first_equal, bool append);
 char	*get_var(t_data *data, char *varname);
+//utils/env_to_arr.c
+char	**env_to_arr(t_data *data);
+char	*var_to_str(t_list *current);
 
 #endif
