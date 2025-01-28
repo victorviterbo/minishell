@@ -1,5 +1,5 @@
-./tests/testdir_no_right
 *.vscode
 *.out
 *.a
 *.o
+./tests/bin/*.dSYM/*

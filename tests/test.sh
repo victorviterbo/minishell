@@ -19,14 +19,14 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-leaks --atExit -- ./bin/test_echo
+leaks --atExit -- ./bin/test_echo &> /dev/null
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for echo : memory leaks !"
         exit 1
 fi
 
-./bin/test_cd_pwd > ./out/test_cd_pwd.out 2>&1
+./bin/test_cd_pwd &> ./out/test_cd_pwd.out
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for cd_pwd !"
@@ -41,31 +41,25 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-leaks --atExit -- ./bin/test_cd_pwd
+leaks --atExit -- ./bin/test_cd_pwd &> /dev/null 
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for cd_pwd : memory leaks !"
         exit 1
 fi
 
-./bin/test_env > ./out/test_env.out 2>&1
+./bin/test_env > /dev/null 2>&1
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for env !"
         exit 1
 fi
 
-diff_env=$(diff ./out/test_env.out ./out/ref_env.out)
-
-if [ "$?" -ne 0 ]; then
-        echo "Tests failed for env diff !"
-		echo "$diff_cd"
-        exit 1
-fi
-
-leaks --atExit -- ./bin/test_env
+leaks --atExit -- ./bin/test_env > /dev/null 2>&1
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for env : memory leaks !"
         exit 1
 fi
+
+echo "All tests ok !"

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 10:57:34 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:13:43 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	init_env(t_data *data, char **envp)
 	success = 0;
 	data->envp = ft_calloc(1, sizeof(t_list *));
 	if (!data->envp)
-		return (EXIT_FAILURE);
+		ft_custom_error_exit("Minishell: env init: memory allocation failed");
 	while (envp[i])
 	{
 		success += new_var(data->envp, envp[i]);
