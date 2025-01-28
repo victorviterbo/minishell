@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/28 20:02:53 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/28 20:40:42 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,12 @@ INCLUDE = -I./include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft
 all: objs_folder $(NAME)
 
 clean:
-	$(MAKE) -C $(LIBFT_DIR) clean
-	rm -f objs/*.o
+	@$(MAKE) -C $(LIBFT_DIR) clean
+	@rm -f objs/*.o
 
 fclean: clean
-	$(MAKE) -C $(LIBFT_DIR) fclean
-	rm -f $(BIN)$(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@rm -f $(BIN)$(NAME)
 
 re: fclean all
 
@@ -52,15 +52,16 @@ objs_folder :
 	@mkdir -p objs/
 
 $(OBJS): $(SRCS)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT): $(LIBFT_SRCS)
-	$(MAKE) -C $(LIBFT_DIR) all
+	@$(MAKE) -C $(LIBFT_DIR) all
 
 $(NAME): $(SRCS) $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) ./srcs/minishell.c -o $(BIN)$(NAME)
+	@$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) ./srcs/minishell.c -o $(BIN)$(NAME)
+	@echo "Minishell compiled successfully"
 
 print_srcs:
-	echo $(SRCS)
+	@echo $(SRCS)
 
 .PHONY: all clean fclean re

@@ -6,10 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:20:06 by madelmen          #+#    #+#             */
-/*   Updated: 2025/01/25 20:19:27 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/28 20:33:10 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "minishell.h"
 
 int	main(void)
