@@ -1,4 +1,3 @@
-./tests/testdir_no_right
 *.vscode
 *.out
 *.a

@@ -1,18 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 15:20:06 by madelmen          #+#    #+#             */
-/*   Updated: 2025/01/25 20:19:27 by vviterbo         ###   ########.fr       */
+/*   Created: 2025/01/27 16:36:38 by vviterbo          #+#    #+#             */
+/*   Updated: 2025/01/27 16:51:54 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+int	ft_env(t_data *data);
+
+int	ft_env(t_data *data)
 {
-	return (0);
+	t_list	*current;
+	t_var	*curr_var;
+	int		success;
+	size_t	printed;
+
+	current = *(data->envp);
+	success = 0;
+	while (current)
+	{
+		curr_var = current->content;
+		printed = ft_printf("%s=%s\n", curr_var->name, curr_var->value);
+		if (printed != (ft_strlen(curr_var->name)
+				+ ft_strlen(curr_var->value) + 2))
+			success += 1;
+		current = current->next;
+	}
+	return (success);
 }
