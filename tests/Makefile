@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/27 16:47:49 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/28 17:04:07 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 HEADER = minishell.h
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
 LIBFT_DIR = ../lib/libft/
 
@@ -25,8 +25,6 @@ MINI_SRCS =  $(addprefix $(MINI_DIR), $(shell make -C $(MINI_DIR) -s print_srcs)
 LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_srcs))
 
 LIBFT = $(LIBFT_DIR)libft.a
-
-
 
 BIN = ./bin/
 
