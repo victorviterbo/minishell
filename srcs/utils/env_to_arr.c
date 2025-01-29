@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 21:49:19 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 23:15:49 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/29 01:11:43 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,18 @@ char	**env_to_arr(t_data *data)
 
 	if (!data || !data->envp)
 		ft_custom_error_exit("Minishell: env parsing: no env found");
-	ft_printf("1\n");
 	envarr = ft_calloc(ft_lstsize(*data->envp) + 1, sizeof(char *));
 	if (!envarr)
 		ft_custom_error_exit("Minishell: env parsing: memory allocation \
 failed");
-	ft_printf("2\n");
 	current = *data->envp;
 	i = 0;
 	while (current)
 	{
-		ft_printf("3\n");
 		envarr[i] = var_to_str(current);
-		ft_printf("3.5\n");
 		current = current->next;
 		i++;
 	}
-	ft_printf("4\n");
 	envarr[i] = NULL;
 	return (envarr);
 }
@@ -56,7 +51,7 @@ char	*var_to_str(t_list *current)
 	if (!varstr)
 		ft_custom_error_exit("Minishell: env parsing: memory allocation \
 failed");
-	ft_strjoin_ip(varstr, curr_var->value, FREE_S1);
+	varstr = ft_strjoin_ip(varstr, curr_var->value, FREE_S1);
 	if (!varstr)
 		ft_custom_error_exit("Minishell: env parsing: memory allocation \
 failed");

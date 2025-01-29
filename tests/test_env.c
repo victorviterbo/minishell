@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 23:13:07 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/29 01:16:15 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (ft_env(data) != 0)
 		return (EXIT_FAILURE);
 	tmp_arr = ft_make_test_strarr("VAR1=");
-	if (ft_export(data, tmp_arr) == 0)
+	if (ft_export(data, tmp_arr) != 0)
 		return (EXIT_FAILURE);
 	free(tmp_arr);
 	value1 = get_var(data, "VAR1");
@@ -163,7 +163,6 @@ int	main(int argc, char *argv[], char *envp[])
 	free(value4);
 	free(value5);
 	free(value6);
-	ft_printf("coucou\n");
 	if (ft_env(data) != 0)
 		return (EXIT_FAILURE);
 	if (check_env_to_arr(data) != 0)
@@ -194,14 +193,10 @@ static int	check_env_to_arr(t_data *data_orig)
 	t_var	*var_copy;
 	int		success;
 
-	ft_printf("coucou\n");
 	env_arr = env_to_arr(data_orig);
-	ft_printf("envarr[0] = %s\n", env_arr[0]);
 	data_copy = ft_calloc(1, sizeof(t_data));
-	ft_printf("coucou\n");
 	if (init_env(data_copy, env_arr) != 0)
 		return (EXIT_FAILURE);
-	ft_printf("coucou 2\n");
 	curr_orig = *data_orig->envp;
 	curr_copy = *data_copy->envp;
 	while (curr_orig && curr_copy)
@@ -219,6 +214,7 @@ static int	check_env_to_arr(t_data *data_orig)
 		success = EXIT_FAILURE;
 	else
 		success = EXIT_SUCCESS;
+	ft_free_array((void **)env_arr, ft_arrlen(env_arr));
 	ft_lstclear(data_copy->envp, free_var);
 	free(data_copy->envp);
 	free(data_copy);

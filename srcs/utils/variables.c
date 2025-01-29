@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 23:14:55 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/29 01:12:24 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,17 @@ int	new_var(t_list **env, char *str)
 	first_equal = ft_strchr(str, '=');
 	if (!first_equal || first_equal == str)
 		return (EXIT_FAILURE);
-	ft_printf("01\n");
 	append = (*(first_equal - 1) == '+');
 	name_len = first_equal - str - append;
 	current = *env;
 	while (current)
 	{
 		curr_var = current->content;
-		ft_printf("02\n");
 		if (ft_strncmp(curr_var->name, str, name_len) == 0
 			&& ft_strlen(curr_var->name) == name_len)
 			return (change_var(current, first_equal, append));
 		current = current->next;
-		ft_printf("03\n");
 	}
-	ft_printf("04\n");
 	return (add_var(env, str, name_len));
 }
 
@@ -73,11 +69,9 @@ int	add_var(t_list **env, char *str, size_t name_len)
 	t_var	*new_var;
 
 	first_equal = ft_strchr(str, '=');
-	if (*(first_equal + 1) == '\0')
-		return (EXIT_FAILURE);
 	new_var = ft_calloc(1, sizeof(t_var));
 	if (!new_var)
-		return (EXIT_FAILURE);
+		ft_custom_error_exit("Minishell: env: memory allocation failed");
 	new_var->name = ft_substr(str, 0, name_len);
 	if (!new_var->name)
 		ft_custom_error_exit("Minishell: env: memory allocation failed");
