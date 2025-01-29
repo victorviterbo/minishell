@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 18:03:07 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/29 10:41:38 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ int	main(int argc, char *argv[], char *envp[])
 	here = ft_get_current_path();
 	data = ft_calloc(1, sizeof(t_data));
 	init_env(data, envp);
-	ft_pwd();
+	if (ft_pwd() != 0)
+		return (EXIT_FAILURE);
 	if (ft_cd(data, "testdir") != 0)
 		return (EXIT_FAILURE);
-	ft_pwd();
+	if (ft_pwd() != 0)
+		return (EXIT_FAILURE);
 	ft_cd(data, here);
 	pid = fork();
 	if (pid == 0)

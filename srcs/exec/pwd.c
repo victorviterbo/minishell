@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:22:20 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 22:45:45 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/29 10:42:41 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_pwd(void)
 
 	current_path = ft_get_current_path();
 	printed = ft_printf("%s\n", current_path);
-	if (printed != ft_strlen(current_path) + 2)
+	if (printed != ft_strlen(current_path) + 1)
 	{
 		free(current_path);
 		return (EXIT_FAILURE);
