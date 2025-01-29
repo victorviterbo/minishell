@@ -6,14 +6,13 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/22 11:09:34 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/28 22:51:18 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
@@ -21,28 +20,47 @@
 # include <unistd.h>
 # include <errno.h>
 # include <limits.h>
-
 # include <stdio.h>
 
-typedef struct s_env {
-	char	**envp;
-}	t_env;
+# include "libft.h"
 
-int		ft_echo(char *str, bool no_nl);
+typedef struct s_data {
+	t_list	**envp;
+}	t_data;
 
-int		ft_cd(char *path);
+typedef struct s_var{
+	char	*name;
+	char	*value;
+}	t_var;
+
+//exec/echo.c
+int		ft_echo(char *str, bool nl);
+//exec/cd.c
+int		ft_cd(t_data *data, char *path);
 char	*get_absolute_path(char *path);
-
+//exec/pwd.c
 int		ft_pwd(void);
 char	*ft_get_current_path(void);
+//exec/export.c
+int		ft_export(t_data *env, char *args[]);
+//exec/unset.c
+int		ft_unset(t_data *data, char **varnames);
+int		pop_var(t_data *data, char *varname);
+void	free_var(void *data);
+//exec/env.c
+int		ft_env(t_data *data);
 
-int		ft_export(char *args[], t_env *env);
-int		change_envp(char *str, t_env *env, bool append);
-int		rewrite_var(char *str, t_env *env, int i, bool append);
-
+//utils/error_handlings.c
 void	ft_perror_exit(const char *message);
 void	ft_custom_error_exit(const char *message);
-
-void	print_env(char *envp[]);
+//utils/variables.c
+int		init_env(t_data *data, char **envp);
+int		new_var(t_list **env, char *str);
+int		add_var(t_list **env, char *str, size_t name_len);
+int		change_var(t_list *current, char *first_equal, bool append);
+char	*get_var(t_data *data, char *varname);
+//utils/env_to_arr.c
+char	**env_to_arr(t_data *data);
+char	*var_to_str(t_list *current);
 
 #endif

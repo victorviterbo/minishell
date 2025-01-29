@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/28 22:33:22 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/01/28 19:12:07 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,52 +16,49 @@ HEADER = minishell.h
 
 CFLAGS = -Wall -Wextra -Werror
 
-LIBFT_DIR = ./lib/libft/
+LIBFT_DIR = ../lib/libft/
+
+MINI_DIR = ../
+
+MINI_SRCS =  $(addprefix $(MINI_DIR), $(shell make -C $(MINI_DIR) -s print_srcs))
 
 LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_srcs))
 
 LIBFT = $(LIBFT_DIR)libft.a
 
-EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c
-SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
-
-UTILS_F		= 	error_handling.c variables.c env_to_arr.c
-SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
-
-SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
-
 BIN = ./bin/
 
 CC = cc
 
-INCLUDE = -I./include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft
+INCLUDE = -I../include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft
 
-all: objs_folder $(NAME)
+SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
+
+tests: test_echo test_cd_pwd test_env
+
+test_echo: $(SRCS) $(LIBFT) test_echo.c
+	@$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_echo.c -o $(BIN)test_echo
+
+test_cd_pwd: $(SRCS) $(LIBFT) test_cd_pwd.c
+	@$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_cd_pwd.c -o $(BIN)test_cd_pwd
+
+test_env: $(SRCS) $(LIBFT) test_env.c
+	@$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_env.c -o $(BIN)test_env
 
 clean:
-	@$(MAKE) -C $(LIBFT_DIR) clean
-	@rm -f objs/*.o
+	$(MAKE) -C ../ clean
+	rm -f objs/*.o
 
 fclean: clean
-	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@rm -f $(BIN)$(NAME)
+	$(MAKE) -C ../ fclean
+	rm -f $(BIN)*
 
 re: fclean all
 
-objs_folder :
-	@mkdir -p objs/
-
 $(OBJS): $(SRCS)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT): $(LIBFT_SRCS)
-	@$(MAKE) -C $(LIBFT_DIR) all
-
-$(NAME): $(SRCS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) ./srcs/minishell.c -o $(BIN)$(NAME)
-	@echo "Minishell compiled successfully"
-
-print_srcs:
-	@echo $(SRCS)
+	$(MAKE) -C $(LIBFT_DIR) all
 
 .PHONY: all clean fclean re

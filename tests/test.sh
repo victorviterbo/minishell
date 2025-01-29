@@ -1,12 +1,65 @@
 #!/bin/bash
 
 cd `dirname "$0"`
-cd ../
-make
 
-./minishell "VAR1=test1" "VAR2=test=2" "VAR1=" "=test1" "VAR2+=lala" "VAR2=lili"
-# > tests/test.out
+make tests
 
-cd tests/
+./bin/test_echo > ./out/test_echo.out 2>&1
 
-diff test.out test.ref
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for echo !"
+        exit 1
+fi
+
+diff_echo=$(diff ./out/test_echo.out ./out/ref_echo.out)
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for echo diff !"
+		echo "$diff_echo"
+        exit 1
+fi
+
+leaks --atExit -- ./bin/test_echo &> /dev/null
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for echo : memory leaks !"
+        exit 1
+fi
+
+./bin/test_cd_pwd &> ./out/test_cd_pwd.out
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for cd_pwd !"
+        exit 1
+fi
+
+diff_cd=$(diff <(sort ./out/test_cd_pwd.out) <(sort ./out/ref_cd_pwd.out))
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for cd_pwd diff !"
+		echo "$diff_cd"
+        exit 1
+fi
+
+leaks --atExit -- ./bin/test_cd_pwd &> /dev/null 
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for cd_pwd : memory leaks !"
+        exit 1
+fi
+
+./bin/test_env > /dev/null 2>&1
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for env !"
+        exit 1
+fi
+
+leaks --atExit -- ./bin/test_env > /dev/null 2>&1
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for env : memory leaks !"
+        exit 1
+fi
+
+echo "All tests ok !"
