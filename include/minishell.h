@@ -24,11 +24,14 @@
 
 # include "libft.h"
 
-typedef struct s_data {
+typedef struct s_data
+{
 	t_list	**envp;
+	int		exit_status;
 }	t_data;
 
-typedef struct s_var{
+typedef struct s_var
+{
 	char	*name;
 	char	*value;
 }	t_var;
