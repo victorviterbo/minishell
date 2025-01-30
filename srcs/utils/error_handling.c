@@ -27,3 +27,19 @@ void	ft_custom_error_exit(const char *message)
 	ft_printf("%s\n", message);
 	exit(EXIT_FAILURE);
 }
+
+void	ft_print_error(const char *message)
+{
+	if (!message)
+		message = DEFAULT_ERROR;
+	write (STDERR_FILENO, SHELL_NAME, ft_strlen(SHELL_NAME));
+	if (errno)
+		perror(message);
+	else
+	{
+		write(STDERR_FILENO, message, ft_strlen(message));
+		write(STDERR_FILENO, "\n", 1);
+	}
+}
+//veux tu verifier si les retour de write sont bien pris en compte ?
+//pourquoi tu utilise printf pour error handling et pas write ou ft_putstr_fd ?

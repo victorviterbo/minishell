@@ -24,6 +24,10 @@
 
 # include "libft.h"
 
+# define SHELL_NAME "Minishell:"
+# define SHELL_PROMPT "Minishell$ "
+# define DEFAULT_ERROR "an unknown error has occured"
+
 typedef struct s_data
 {
 	t_list	**envp;
@@ -52,7 +56,10 @@ int		pop_var(t_data *data, char *varname);
 void	free_var(void *data);
 //exec/env.c
 int		ft_env(t_data *data);
-
+//exec_external/exec_external_cmd.c
+int		exec_external_cmd(t_data *data, char **args);
+//exec_external/process_exec_external_cmd.c
+int		create_process(t_data *data, char *path, char **args);
 //utils/error_handlings.c
 void	ft_perror_exit(const char *message);
 void	ft_custom_error_exit(const char *message);
