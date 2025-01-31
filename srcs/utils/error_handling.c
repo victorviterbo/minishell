@@ -6,11 +6,14 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:41:42 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/29 10:44:39 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:52:26 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_perror_exit(const char *message);
+void	ft_custom_error_exit(const char *message);
 
 void	ft_perror_exit(const char *message)
 {

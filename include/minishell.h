@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 22:51:18 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:52:21 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,21 @@ int		ft_echo(char *str, bool nl);
 //exec/cd.c
 int		ft_cd(t_data *data, char *path);
 char	*get_absolute_path(char *path);
+//exec/env.c
+int		ft_env(t_data *data);
+//exec/export.c
+int		ft_export(t_data *env, char *args[]);
 //exec/pwd.c
 int		ft_pwd(void);
 char	*ft_get_current_path(void);
-//exec/export.c
-int		ft_export(t_data *env, char *args[]);
 //exec/unset.c
 int		ft_unset(t_data *data, char **varnames);
 int		pop_var(t_data *data, char *varname);
 void	free_var(void *data);
-//exec/env.c
-int		ft_env(t_data *data);
 
+//utils/env_to_arr.c
+char	**env_to_arr(t_data *data);
+char	*var_to_str(t_list *current);
 //utils/error_handlings.c
 void	ft_perror_exit(const char *message);
 void	ft_custom_error_exit(const char *message);
@@ -59,8 +62,5 @@ int		new_var(t_list **env, char *str);
 int		add_var(t_list **env, char *str, size_t name_len);
 int		change_var(t_list *current, char *first_equal, bool append);
 char	*get_var(t_data *data, char *varname);
-//utils/env_to_arr.c
-char	**env_to_arr(t_data *data);
-char	*var_to_str(t_list *current);
 
 #endif
