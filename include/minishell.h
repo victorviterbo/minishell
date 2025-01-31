@@ -6,7 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/02/06 20:14:57 by vviterbo         ###   ########.fr       */
+=======
+/*   Updated: 2025/01/31 17:52:21 by vviterbo         ###   ########.fr       */
+>>>>>>> 469ee0c (added prototypes to error handling)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +82,4 @@ char	*get_var(t_data *data, char *varname);
 char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
 void	update_env_arr(t_data *data);
-
 #endif
