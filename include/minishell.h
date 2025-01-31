@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 19:53:49 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:14:17 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ int		ft_echo(char *str, bool nl);
 //exec/cd.c
 int		ft_cd(t_data *data, char *path);
 char	*get_absolute_path(char *path);
+//exec/env.c
+int		ft_env(t_data *data);
+//exec/export.c
+int		ft_export(t_data *env, char *args[]);
 //exec/pwd.c
 int		ft_pwd(void);
 char	*ft_get_current_path(void);
-//exec/export.c
-int		ft_export(t_data *env, char *args[]);
 //exec/unset.c
 int		ft_unset(t_data *data, char **varnames);
 int		pop_var(t_data *data, char *varname);

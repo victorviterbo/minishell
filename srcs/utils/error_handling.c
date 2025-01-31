@@ -6,13 +6,14 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:41:42 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 19:05:16 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:14:09 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	ft_print_error(const char *message)
+
 {
 	if (!message)
 		message = DEFAULT_ERROR;
