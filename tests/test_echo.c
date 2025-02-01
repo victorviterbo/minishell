@@ -6,19 +6,14 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/04 19:31:20 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:18:30 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_make_test_strarr(char *str);
-
-int	main(int argc, char *argv[], char *envp[])
+int	main(void)
 {
-	(void)argc;
-	(void)argv;
-	(void)envp;
 	if (ft_echo("print this string with newline", true) != 0)
 		return (EXIT_FAILURE);
 	if (ft_echo("print this string without newline", false) != 0)
@@ -27,7 +22,6 @@ int	main(int argc, char *argv[], char *envp[])
 		return (EXIT_FAILURE);
 	if (ft_echo(NULL, false) != 0)
 		return (EXIT_FAILURE);
-	return (0);
 	if (ft_echo(NULL, true) != 0)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

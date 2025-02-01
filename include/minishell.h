@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 20:14:17 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:14:57 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int		ft_execve(t_data *data, char **args);
 char	*find_exec(char *path_list, char *exec);
 //utils/error_handlings.c
 void	ft_print_error(const char *message);
+//utils/parsing_utils.c
+bool	*is_quoted(char *str, char open_char, char close_char);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);
 int		new_var(t_data *data, char *str);
