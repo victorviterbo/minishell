@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/01/28 19:12:07 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/02/01 12:39:56 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ INCLUDE = -I../include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
 
-tests: test_echo test_cd_pwd test_env
+tests: test_echo test_cd_pwd test_env test_parsing
 
 test_echo: $(SRCS) $(LIBFT) test_echo.c
 	@$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_echo.c -o $(BIN)test_echo
@@ -44,6 +44,9 @@ test_cd_pwd: $(SRCS) $(LIBFT) test_cd_pwd.c
 
 test_env: $(SRCS) $(LIBFT) test_env.c
 	@$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_env.c -o $(BIN)test_env
+
+test_parsing: $(SRCS) $(LIBFT) test_parsing.c
+	@$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_parsing.c -o $(BIN)test_parsing
 
 clean:
 	$(MAKE) -C ../ clean

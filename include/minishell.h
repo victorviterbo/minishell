@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/31 17:52:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/01 12:37:59 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	*var_to_str(t_list *current);
 //utils/error_handlings.c
 void	ft_perror_exit(const char *message);
 void	ft_custom_error_exit(const char *message);
+//utils/parsing_utils.c
+bool	*is_quoted(char *str, char open_char, char close_char);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);
 int		new_var(t_list **env, char *str);
