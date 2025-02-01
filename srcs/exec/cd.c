@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 20:15:06 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:43:36 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	ft_cd(t_data *data, char *path)
 		ft_print_error(ft_strjoin("cd: ", path));
 	pwd = ft_strjoin_ip("OLDPWD=", get_var(data, "PWD"), FREE_S2);
 	if (!pwd)
-		ft_print_error("Minishell: cd: error in setting OLDPWD");
+		ft_print_error("cd: error in setting OLDPWD");
 	success = new_var(data, pwd);
 	free(pwd);
 	pwd = ft_strjoin_ip("PWD=", ft_get_current_path(), FREE_S2);
 	if (!pwd)
-		ft_print_error("Minishell: cd: error in setting PWD");
+		ft_print_error("cd: error in setting PWD");
 	success += new_var(data, pwd);
 	return (free(pwd), free(abspath), success);
 }
@@ -73,8 +73,8 @@ chdir do it by itself...
 	struct stat	path_stat;
 
 	if (stat(abspath, &path_stat))
-		ft_perror_exit(ft_strjoin("Minishell: cd", path));
+		ft_perror_exit(ft_strjoin("cd", path));
 	if (S_ISDIR(path_stat.st_mode) == 0)
-		ft_custom_error_exit(ft_strjoin(ft_strjoin("Minishell: cd: ", path),
+		ft_custom_error_exit(ft_strjoin(ft_strjoin("cd: ", path),
 				": Not a directory"));
 */

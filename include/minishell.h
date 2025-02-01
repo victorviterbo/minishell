@@ -85,9 +85,10 @@ void	ft_custom_error_exit(const char *message);
 bool	*is_quoted(char *str, char open_char, char close_char);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);
-int		new_var(t_list **env, char *str);
-int		add_var(t_list **env, char *str, size_t name_len);
-int		change_var(t_list *current, char *first_equal, bool append);
+int		new_var(t_data *data, char *str);
+int		add_var(t_data *data, t_list **env, char *str, size_t name_len);
+int		change_var(t_data *data, t_list *current, char *first_equal,
+			bool append);
 char	*get_var(t_data *data, char *varname);
 
 #endif
