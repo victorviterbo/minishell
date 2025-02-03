@@ -19,19 +19,19 @@ int	main(int argc, char *argv[], char *envp[])
 	pid_t	pid;
 	int		exit_status;
 
+	(void)argc;
+	(void)argv;
 	data = ft_calloc(1, sizeof(t_data));
 	init_env(data, envp);
 	pid = fork();
 	if (pid == 0)
 	{
-		args = ft_split("ls -la /Users/vviterbo/Desktop/42", ' ');
+		args = ft_split("ls -la ../", ' ');
 		ft_execve(data, args);
 	}
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status != 0)
 		return (EXIT_FAILURE);
-	ft_free_array((void **)args, ft_arrlen(args));
-	
 	pid = fork();
 	if (pid == 0)
 	{
@@ -41,36 +41,44 @@ int	main(int argc, char *argv[], char *envp[])
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status == 0)
 		return (EXIT_FAILURE);
-	
-	if (ft_execve(data, args) != 0)
-		return (EXIT_FAILURE);
-	ft_free_array((void **)args, ft_arrlen(args));
-	
-	args = ft_split("ls -la /Users/vviterbo/Desktop/42", ' ');
-	if (ft_execve(data, args) != 0)
-		return (EXIT_FAILURE);
-	ft_free_array((void **)args, ft_arrlen(args));
-	
-	args = ft_split("ls -la /Users/vviterbo/Desktop/42", ' ');
-	if (ft_execve(data, args) != 0)
-		return (EXIT_FAILURE);
-	ft_free_array((void **)args, ft_arrlen(args));
-	
-
-int	monitor_process(int pid)
-{
-	int	exit_status;
-	int	waitpid_status;
-	
-	waitpid_status = ;
-		if (waitpid_status[1] == 0)
-			waitpid_status[1] = waitpid(pid[1], &(exit_status[1]), WNOHANG);
-		if (waitpid_status[0] == -1)
-			ft_perror_exit("waitpid on sender exception in parent process");
-		if (waitpid_status[1] == -1)
-			ft_perror_exit("waitpid on receiver exception in parent process");
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("cat ../srcs/exec/env.c", ' ');
+		ft_execve(data, args);
 	}
-	if (exit_status[1] && exit_status[1] % 256 == 0)
-		exit_status[1] = 1;
-	return (exit_status[1]);
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status != 0)
+		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("grep -A3 -B1 minishell test_env.c", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status != 0)
+		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("sleep 0.1", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status != 0)
+		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("unkown command", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status == 0)
+		return (EXIT_FAILURE);
+	ft_lstclear(data->envp, free_var);
+	free(data->envp);
+	free(data);
+	return (EXIT_SUCCESS);
 }

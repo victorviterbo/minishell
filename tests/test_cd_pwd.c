@@ -48,17 +48,18 @@ int	main(int argc, char *argv[], char *envp[])
 	if (pid == 0)
 		if (ft_cd(data, "lalala") == 0)
 			return (EXIT_FAILURE);
-	if (ft_cd(data, "/Users/vviterbo/Desktop/42/minishell") != 0)
+	if (ft_cd(data, here) != 0)
 		return (EXIT_FAILURE);
-	if (ft_cd(data, "/Users/vviterbo/Desktop/42/minishell/") != 0)
+	here = ft_strjoin_ip(here, "/", FREE_S1);
+	if (ft_cd(data, here) != 0)
 		return (EXIT_FAILURE);
 	pid = fork();
 	if (pid == 0)
-		if (ft_cd(data, "/Users/vviterbo/Desktop/42/not_a_folder") == 0)
+		if (ft_cd(data, "~/Desktop/42/not_a_folder") == 0)
 			return (EXIT_FAILURE);
 	pid = fork();
 	if (pid == 0)
-		if (ft_cd(data, "/Users/vviterbo/Desktop/42/not_a_folder/") == 0)
+		if (ft_cd(data, "~/Desktop/42/not_a_folder/") == 0)
 			return (EXIT_FAILURE);
 	free(here);
 	ft_lstclear(data->envp, free_var);

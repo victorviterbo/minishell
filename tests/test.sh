@@ -1,8 +1,13 @@
 #!/bin/bash
 
+OS=$(uname -s)
+
 cd `dirname "$0"`
 
 make tests
+
+
+################ TEST ECHO ################
 
 ./bin/test_echo > ./out/test_echo.out 2>&1
 
@@ -19,7 +24,11 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-leaks --atExit -- ./bin/test_echo &> /dev/null
+if [[ "$OS" = "Linux" ]]; then
+        valgrind --leak-check=full ./bin/test_echo > /dev/null 2>&1
+elif [[ "$OS" = "Darwin" ]]; then
+        leaks --atExit -- ./bin/test_echo > /dev/null 2>&1
+fi
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for echo : memory leaks !"
@@ -27,6 +36,9 @@ if [ "$?" -ne 0 ]; then
 fi
 
 echo -e "Tests echo \t OK!"
+
+
+################ TEST CD PWD ################
 
 ./bin/test_cd_pwd &> ./out/test_cd_pwd.out
 
@@ -43,7 +55,11 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-leaks --atExit -- ./bin/test_cd_pwd &> /dev/null 
+if [[ "$OS" = "Linux" ]]; then
+        valgrind --leak-check=full ./bin/test_cd_pwd > /dev/null 2>&1
+elif [[ "$OS" = "Darwin" ]]; then
+        leaks --atExit -- ./bin/test_cd_pwd > /dev/null 2>&1
+fi
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for cd_pwd : memory leaks !"
@@ -52,6 +68,9 @@ fi
 
 echo -e "Tests cd pwd \t OK!"
 
+
+################ TEST ENV ################
+
 ./bin/test_env > /dev/null 2>&1
 
 if [ "$?" -ne 0 ]; then
@@ -59,7 +78,11 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-leaks --atExit -- ./bin/test_env > /dev/null 2>&1
+if [[ "$OS" = "Linux" ]]; then
+        valgrind --leak-check=full ./bin/test_env > /dev/null 2>&1
+elif [[ "$OS" == "Darwin" ]]; then
+        leaks --atExit -- ./bin/test_env > /dev/null 2>&1
+fi
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for env : memory leaks !"
@@ -67,5 +90,35 @@ if [ "$?" -ne 0 ]; then
 fi
 
 echo -e "Tests env \t OK!"
+
+################ TEST EXECVE ################
+
+./bin/test_execve > ./out/test_execve.out 2>&1
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for execve !"
+        exit 1
+fi
+
+diff_cd=$(diff <(sort ./out/test_execve.out) <(sort ./out/ref_execve.out))
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for execve diff !"
+	echo "$diff_cd"
+        exit 1
+fi
+
+if [[ "$OS" = "Linux" ]]; then
+        valgrind --leak-check=full ./bin/test_execve > /dev/null 2>&1
+elif [[ "$OS" = "Darwin" ]]; then
+        leaks --atExit -- ./bin/test_execve > /dev/null 2>&1
+fi
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for execve : memory leaks !"
+        exit 1
+fi
+
+echo -e "Tests execve \t OK!"
 
 echo -e "All tests \t OK!"

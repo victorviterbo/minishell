@@ -34,20 +34,22 @@ INCLUDE = -I../include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
 
-tests: test_echo test_cd_pwd test_env
+tests: folders test_echo test_cd_pwd test_env test_execve
 
 test_echo: $(SRCS) $(LIBFT) test_echo.c
-	@$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_echo.c -o $(BIN)test_echo
+	@$(CC) $(CFLAGS) $(MINI_SRCS) test_echo.c $(INCLUDE) -o $(BIN)test_echo
 
 test_cd_pwd: $(SRCS) $(LIBFT) test_cd_pwd.c
-	@$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_cd_pwd.c -o $(BIN)test_cd_pwd
+	@$(CC) $(CFLAGS) $(MINI_SRCS) test_cd_pwd.c $(INCLUDE) -o $(BIN)test_cd_pwd
 
 test_env: $(SRCS) $(LIBFT) test_env.c
-	@$(CC) $(CFLAGS) $(INCLUDE) $(MINI_SRCS) test_env.c -o $(BIN)test_env
+	@$(CC) $(CFLAGS) $(MINI_SRCS) test_env.c $(INCLUDE) -o $(BIN)test_env
+
+test_execve: $(SRCS) $(LIBFT) test_execve.c
+	@$(CC) $(CFLAGS) $(MINI_SRCS) test_execve.c $(INCLUDE) -o $(BIN)test_execve
 
 clean:
 	$(MAKE) -C ../ clean
-	rm -f objs/*.o
 
 fclean: clean
 	$(MAKE) -C ../ fclean
@@ -60,5 +62,9 @@ $(OBJS): $(SRCS)
 
 $(LIBFT): $(LIBFT_SRCS)
 	$(MAKE) -C $(LIBFT_DIR) all
+
+folders :
+	@mkdir -p bin/
+	@mkdir -p out/
 
 .PHONY: all clean fclean re
