@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:41:42 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/29 10:44:39 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:26:03 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_print_error(const char *message)
 		write(STDERR_FILENO, message, ft_strlen(message));
 		write(STDERR_FILENO, "\n", 1);
 	}
+	exit (EXIT_FAILURE);
 }
 //veux tu verifier si les retour de write sont bien pris en compte ?
 //pourquoi tu utilise printf pour error handling et pas write ou ft_putstr_fd ?

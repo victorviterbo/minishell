@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 22:51:18 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:09:55 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 typedef struct s_data
 {
 	t_list	**envp;
+	char	**env_arr;
 	int		exit_status;
 }	t_data;
 
@@ -56,13 +57,13 @@ int		pop_var(t_data *data, char *varname);
 void	free_var(void *data);
 //exec/env.c
 int		ft_env(t_data *data);
-//exec_external/exec_external_cmd.c
-int		exec_external_cmd(t_data *data, char **args);
-//exec_external/process_exec_external_cmd.c
-int		create_process(t_data *data, char *path, char **args);
+//exec/execve.c
+int		ft_execve(t_data *data, char **args);
+char	*find_exec(char *path_list, char *exec);
 //utils/error_handlings.c
 void	ft_perror_exit(const char *message);
 void	ft_custom_error_exit(const char *message);
+void	ft_print_error(const char *message);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);
 int		new_var(t_list **env, char *str);

@@ -26,6 +26,8 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
+echo -e "Tests echo \t OK!"
+
 ./bin/test_cd_pwd &> ./out/test_cd_pwd.out
 
 if [ "$?" -ne 0 ]; then
@@ -48,6 +50,8 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
+echo -e "Tests cd pwd \t OK!"
+
 ./bin/test_env > /dev/null 2>&1
 
 if [ "$?" -ne 0 ]; then
@@ -62,4 +66,6 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-echo "All tests ok !"
+echo -e "Tests env \t OK!"
+
+echo -e "All tests \t OK!"
