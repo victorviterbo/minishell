@@ -22,7 +22,7 @@ int	ft_execve(t_data *data, char **args)
 	char	*path_exec;
 
 	env_arr = env_to_arr(data);
-	if (!env_arr || !*env_arr)
+	if (!env_arr)
 		ft_print_error("memory allocation failed");
 	path = get_var(data, "PATH");
 	if (!path)
@@ -45,13 +45,13 @@ char	*find_exec(char *path_list, char *exec)
 	if (access(exec, X_OK) == 0)
 		return (ft_strdup(exec));
 	paths = ft_split(path_list, ':');
-	if (!paths || !*paths)
+	if (!paths)
 		ft_print_error("execve: memory allocation failed");
 	i = 0;
 	exec = ft_strjoin_ip("/", exec, FREE_S2);
 	while (paths[i])
 	{
-		full_path = ft_strjoin_ip(paths[i], exec, FREE_S1);
+		full_path = ft_strjoin(paths[i], exec);
 		if (!full_path)
 			ft_print_error("execve: memory allocation failed");
 		if (access(full_path, X_OK) == 0)

@@ -14,5 +14,9 @@
 
 int	main(void)
 {
+	char	*test;
+
+	test = ft_calloc(1, sizeof(char));
+	test[0] = 'a';
 	return (0);
 }

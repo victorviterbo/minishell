@@ -36,7 +36,7 @@ CC = cc
 
 INCLUDE = -I./include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft
 
-all: objs_folder $(NAME)
+all: folders $(NAME)
 
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
@@ -48,8 +48,9 @@ fclean: clean
 
 re: fclean all
 
-objs_folder :
+folders :
 	@mkdir -p objs/
+	@mkdir -p bin/
 
 $(OBJS): $(SRCS)
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -58,7 +59,7 @@ $(LIBFT): $(LIBFT_SRCS)
 	@$(MAKE) -C $(LIBFT_DIR) all
 
 $(NAME): $(SRCS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(INCLUDE) $(SRCS) ./srcs/minishell.c -o $(BIN)$(NAME)
+	@$(CC) $(CFLAGS) $(SRCS) ./srcs/minishell.c $(INCLUDE) -o $(BIN)$(NAME)
 	@echo "Minishell compiled successfully"
 
 print_srcs:
