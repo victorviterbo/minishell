@@ -1,5 +1,4 @@
 *.vscode
-*.out
 *.a
 *.o
 tests/bin/*

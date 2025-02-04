@@ -6,6 +6,13 @@ cd `dirname "$0"`
 
 make tests
 
+if [ ! -e segfault_test ]; then
+	cc -Wall -Wextra -Werror segfault_test.c -o segfault_test
+fi
+
+if [ ! -e miniprint ]; then
+	cc -Wall -Wextra -Werror miniprint.c -o miniprint
+fi
 
 ################ TEST ECHO ################
 

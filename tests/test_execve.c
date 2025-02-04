@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:11:37 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/03 17:29:42 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/04 10:25:07 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,43 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status == 0)
+		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("./segfault_test", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status == 0)
+		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("/bin/ls -la ../", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status != 0)
+		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("./miniprint", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status != 0)
+		return (EXIT_FAILURE);
+	return (0);
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("", ' '); //TODO FIX THIS
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status != 0)
 		return (EXIT_FAILURE);
 	ft_lstclear(data->envp, free_var);
 	free(data->envp);
