@@ -73,7 +73,6 @@ if [ "$?" -ne 0 ]; then
 fi
 
 echo -e "Tests cd pwd \t OK!"
-
 ############### TEST ENV ###############
 
 ./bin/test_env > /dev/null 2>&1
