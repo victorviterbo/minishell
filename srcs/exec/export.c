@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:08:58 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/04 15:46:34 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:54:15 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_export(t_data *data, char *args[])
 	success = 0;
 	while (args[i])
 	{
-		success += new_var(data->envp, args[i]);
+		success += new_var(data, args[i]);
 		i++;
 	}
 	return (success);

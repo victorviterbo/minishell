@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 17:18:55 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:58:18 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main(int argc, char *argv[], char *envp[])
 	free(here);
 	ft_lstclear(data->envp, free_var);
 	free(data->envp);
+	ft_free_array((void **)data->env_arr, ft_arrlen(data->env_arr));
 	free(data);
 	return (EXIT_SUCCESS);
 }

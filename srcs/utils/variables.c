@@ -6,16 +6,17 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/04 15:51:50 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:56:26 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int		init_env(t_data *data, char **envp);
-int		new_var(t_list **env, char *str);
-int		add_var(t_list **env, char *str, size_t name_len);
-int		change_var(t_list *current, char *first_equal, bool append);
+int		new_var(t_data *data, char *str);
+int		add_var(t_data *data, t_list **env, char *str, size_t name_len);
+int		change_var(t_data *data, t_list *current, char *first_equal,
+			bool append);
 char	*get_var(t_data *data, char *varname);
 
 int	init_env(t_data *data, char **envp)
@@ -34,13 +35,14 @@ int	init_env(t_data *data, char **envp)
 		ft_print_error("env init: memory allocation failed");
 	while (envp[i])
 	{
-		success += new_var(data->envp, envp[i]);
+		success += new_var(data, envp[i]);
 		i++;
 	}
+	update_env_arr(data);
 	return (success);
 }
 
-int	new_var(t_list **env, char *str)
+int	new_var(t_data *data, char *str)
 {
 	char	*first_equal;
 	bool	append;
@@ -53,19 +55,19 @@ int	new_var(t_list **env, char *str)
 		return (EXIT_FAILURE);
 	append = (*(first_equal - 1) == '+');
 	name_len = first_equal - str - append;
-	current = *env;
+	current = *(data->envp);
 	while (current)
 	{
 		curr_var = current->content;
 		if (ft_strncmp(curr_var->name, str, name_len) == 0
 			&& ft_strlen(curr_var->name) == name_len)
-			return (change_var(current, first_equal, append));
+			return (change_var(data, current, first_equal, append));
 		current = current->next;
 	}
-	return (add_var(env, str, name_len));
+	return (add_var(data, data->envp, str, name_len));
 }
 
-int	add_var(t_list **env, char *str, size_t name_len)
+int	add_var(t_data *data, t_list **env, char *str, size_t name_len)
 {
 	char	*first_equal;
 	t_var	*new_var;
@@ -81,10 +83,11 @@ int	add_var(t_list **env, char *str, size_t name_len)
 	if (!new_var->value)
 		ft_print_error("env: memory allocation failed");
 	ft_lstadd_back(env, ft_lstnew_void(new_var));
+	update_env_arr(data);
 	return (EXIT_SUCCESS);
 }
 
-int	change_var(t_list *current, char *first_equal, bool append)
+int	change_var(t_data *data, t_list *current, char *first_equal, bool append)
 {
 	t_var	*var;
 
@@ -98,6 +101,7 @@ int	change_var(t_list *current, char *first_equal, bool append)
 	}
 	if (!var->value)
 		ft_print_error("env: memory allocation failed");
+	update_env_arr(data);
 	return (EXIT_SUCCESS);
 }
 

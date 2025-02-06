@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 21:49:19 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/04 15:52:27 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:57:32 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
+void	update_env_arr(t_data *data);
 
 char	**env_to_arr(t_data *data)
 {
@@ -53,4 +54,14 @@ char	*var_to_str(t_list *current)
 	if (!varstr)
 		ft_print_error("env parsing: memory allocation failed");
 	return (varstr);
+}
+
+void	update_env_arr(t_data *data)
+{
+	if (data->env_arr)
+		ft_free_array((void **)data->env_arr, ft_arrlen(data->env_arr));
+	data->env_arr = env_to_arr(data);
+	if (!data->env_arr)
+		ft_print_error("env array update: memory allocation failed");
+	return ;
 }

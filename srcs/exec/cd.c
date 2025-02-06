@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/04 15:37:20 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:57:44 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int	ft_cd(t_data *data, char *path)
 	pwd = ft_strjoin_ip("OLDPWD=", get_var(data, "PWD"), FREE_S2);
 	if (!pwd)
 		ft_print_error("Minishell: cd: error in setting OLDPWD");
-	success = new_var(data->envp, pwd);
+	success = new_var(data, pwd);
 	free(pwd);
 	pwd = ft_strjoin_ip("PWD=", ft_get_current_path(), FREE_S2);
 	if (!pwd)
 		ft_print_error("Minishell: cd: error in setting PWD");
-	success += new_var(data->envp, pwd);
+	success += new_var(data, pwd);
 	return (free(pwd), free(abspath), success);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/04 15:31:24 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:53:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,15 @@ char	*find_exec(char *path_list, char *exec);
 void	ft_print_error(const char *message);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);
-int		new_var(t_list **env, char *str);
-int		add_var(t_list **env, char *str, size_t name_len);
-int		change_var(t_list *current, char *first_equal, bool append);
+int		new_var(t_data *data, char *str);
+int		add_var(t_data *data, t_list **env, char *str, size_t name_len);
+int		change_var(t_data *data, t_list *current, char *first_equal,
+			bool append);
+char	*get_var(t_data *data, char *varname);
 char	*get_var(t_data *data, char *varname);
 //utils/env_to_arr.c
 char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
+void	update_env_arr(t_data *data);
 
 #endif

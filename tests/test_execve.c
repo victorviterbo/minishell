@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:11:37 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 19:07:08 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:08:39 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,19 @@ int	main(int argc, char *argv[], char *envp[])
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status != 0)
 		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("cat lalalala", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status == 0)
+		return (EXIT_FAILURE);
 	ft_printf("done !\n");
 	ft_lstclear(data->envp, free_var);
 	free(data->envp);
+	ft_free_array((void **)data->env_arr, ft_arrlen(data->env_arr));
 	free(data);
 	return (EXIT_SUCCESS);
 }
