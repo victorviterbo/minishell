@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 10:10:25 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/04 10:11:57 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:47:00 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main(void)
 {
-	write(1, "test execve\n", 13);
+	write(1, "test execve\n", 12);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/03 17:09:55 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:31:24 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # include "libft.h"
 
-# define SHELL_NAME "Minishell:"
+# define SHELL_NAME "Minishell: "
 # define SHELL_PROMPT "Minishell$ "
 # define DEFAULT_ERROR "an unknown error has occured"
 
@@ -61,8 +61,6 @@ int		ft_env(t_data *data);
 int		ft_execve(t_data *data, char **args);
 char	*find_exec(char *path_list, char *exec);
 //utils/error_handlings.c
-void	ft_perror_exit(const char *message);
-void	ft_custom_error_exit(const char *message);
 void	ft_print_error(const char *message);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);

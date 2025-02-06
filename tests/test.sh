@@ -47,7 +47,7 @@ echo -e "Tests echo \t OK!"
 
 ################ TEST CD PWD ################
 
-./bin/test_cd_pwd &> ./out/test_cd_pwd.out
+./bin/test_cd_pwd > ./out/test_cd_pwd.out 2>&1
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for cd_pwd !"
@@ -115,10 +115,12 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
+make test_execve
+
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full ./bin/test_execve > /dev/null 2>&1
+        valgrind --leak-check=full ./bin/test_execve_leaks > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
-        leaks --atExit -- ./bin/test_execve > /dev/null 2>&1
+        leaks --atExit -- ./bin/test_execve_leaks > /dev/null 2>&1
 fi
 
 if [ "$?" -ne 0 ]; then

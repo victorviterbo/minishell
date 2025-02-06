@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 20:21:35 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 22:47:09 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:48:47 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int	pop_var(t_data *data, char *varname)
 	t_var	*var;
 
 	if (!data || !data->envp || !varname)
-		ft_custom_error_exit("Minishell: unset: no env found or not a valid \
-argument");
+		ft_print_error("unset: no env found or not a valid argument");
 	current = *(data->envp);
 	last = NULL;
 	while (current)

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:11:37 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/04 10:25:07 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:07:08 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char *argv[], char *envp[])
 	pid = fork();
 	if (pid == 0)
 	{
-		args = ft_split("ls -la ../", ' ');
+		args = ft_split("/bin/cat ../srcs/exec/cd.c", ' ');
 		ft_execve(data, args);
 	}
 	waitpid(pid, &(exit_status), 0);
@@ -35,7 +35,7 @@ int	main(int argc, char *argv[], char *envp[])
 	pid = fork();
 	if (pid == 0)
 	{
-		args = ft_split("cd lalala", ' ');
+		args = ft_split("cd not_a_dir", ' ');
 		ft_execve(data, args);
 	}
 	waitpid(pid, &(exit_status), 0);
@@ -71,6 +71,14 @@ int	main(int argc, char *argv[], char *envp[])
 	pid = fork();
 	if (pid == 0)
 	{
+		ft_execve(data, NULL);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status == 0)
+		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == 0)
+	{
 		args = ft_split("unkown command", ' ');
 		ft_execve(data, args);
 	}
@@ -89,31 +97,13 @@ int	main(int argc, char *argv[], char *envp[])
 	pid = fork();
 	if (pid == 0)
 	{
-		args = ft_split("/bin/ls -la ../", ' ');
-		ft_execve(data, args);
-	}
-	waitpid(pid, &(exit_status), 0);
-	if (exit_status != 0)
-		return (EXIT_FAILURE);
-	pid = fork();
-	if (pid == 0)
-	{
 		args = ft_split("./miniprint", ' ');
 		ft_execve(data, args);
 	}
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status != 0)
 		return (EXIT_FAILURE);
-	return (0);
-	pid = fork();
-	if (pid == 0)
-	{
-		args = ft_split("", ' '); //TODO FIX THIS
-		ft_execve(data, args);
-	}
-	waitpid(pid, &(exit_status), 0);
-	if (exit_status != 0)
-		return (EXIT_FAILURE);
+	ft_printf("done !\n");
 	ft_lstclear(data->envp, free_var);
 	free(data->envp);
 	free(data);

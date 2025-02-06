@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:22:20 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/29 10:42:41 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:16:09 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_get_current_path(void)
 	attempts = 1;
 	current_path = ft_calloc(PATH_MAX + 1, sizeof(char));
 	if (!current_path)
-		ft_custom_error_exit("Minishell: pwd: memory allocation failed");
+		ft_print_error("pwd: memory allocation failed");
 	retvalue = getcwd(current_path, PATH_MAX * attempts);
 	while (attempts < 3 && retvalue == NULL && errno == ERANGE)
 	{
@@ -48,12 +48,12 @@ char	*ft_get_current_path(void)
 		free(current_path);
 		current_path = ft_calloc(PATH_MAX * attempts + 1, sizeof(char));
 		if (!current_path)
-			ft_custom_error_exit("Minishell: pwd: memory allocation failed");
+			ft_print_error("pwd: memory allocation failed");
 		retvalue = getcwd(current_path, PATH_MAX * attempts);
 	}
 	if (retvalue == NULL)
-		ft_perror_exit("Minishell: pwd");
+		ft_print_error("pwd: could not load path");
 	else if (retvalue != current_path)
-		ft_custom_error_exit("Minishell: pwd: an unknown error has occured");
+		ft_print_error("pwd: an unknown error has occured");
 	return (current_path);
 }

@@ -1,67 +1,73 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_cd_pwd.c                                      :+:      :+:    :+:   */
+/*   test_execve_leaks.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 17:18:55 by vviterbo         ###   ########.fr       */
+/*   Created: 2025/02/03 17:11:37 by vviterbo          #+#    #+#             */
+/*   Updated: 2025/02/06 18:59:20 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_make_test_strarr(char *str);
-
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	*here;
 	t_data	*data;
+	char	**args;
 	pid_t	pid;
+	int		exit_status;
 
 	(void)argc;
 	(void)argv;
-	here = ft_get_current_path();
 	data = ft_calloc(1, sizeof(t_data));
 	init_env(data, envp);
-	if (ft_pwd() != 0)
-		return (EXIT_FAILURE);
-	if (ft_cd(data, "testdir") != 0)
-		return (EXIT_FAILURE);
-	if (ft_pwd() != 0)
-		return (EXIT_FAILURE);
-	ft_cd(data, here);
 	pid = fork();
 	if (pid == 0)
-		if (ft_cd(data, "testdir_readonly") == 0)
-			return (EXIT_FAILURE);
-	pid = fork();
-	if (pid == 0)
-		if (ft_cd(data, "testdir_no_right") == 0)
-			return (EXIT_FAILURE);
-	pid = fork();
-	if (pid == 0)
-		if (ft_cd(data, "test_cd_pwd.c") == 0)
-			return (EXIT_FAILURE);
-	pid = fork();
-	if (pid == 0)
-		if (ft_cd(data, "lalala") == 0)
-			return (EXIT_FAILURE);
-	if (ft_cd(data, here) != 0)
-		return (EXIT_FAILURE);
-	here = ft_strjoin_ip(here, "/", FREE_S1);
-	if (ft_cd(data, here) != 0)
+	{
+		args = ft_split("/bin/cat ../srcs/exec/cd.c", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status != 0)
 		return (EXIT_FAILURE);
 	pid = fork();
 	if (pid == 0)
-		if (ft_cd(data, "~/Desktop/42/not_a_folder") == 0)
-			return (EXIT_FAILURE);
+	{
+		args = ft_split("cd not_a_dir", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status == 0)
+		return (EXIT_FAILURE);
 	pid = fork();
 	if (pid == 0)
-		if (ft_cd(data, "~/Desktop/42/not_a_folder/") == 0)
-			return (EXIT_FAILURE);
-	free(here);
+	{
+		args = ft_split("cat ../srcs/exec/env.c", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status != 0)
+		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("grep -A3 -B1 minishell test_env.c", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status != 0)
+		return (EXIT_FAILURE);
+	pid = fork();
+	if (pid == 0)
+	{
+		args = ft_split("sleep 0.1", ' ');
+		ft_execve(data, args);
+	}
+	waitpid(pid, &(exit_status), 0);
+	if (exit_status != 0)
+		return (EXIT_FAILURE);
 	ft_lstclear(data->envp, free_var);
 	free(data->envp);
 	free(data);

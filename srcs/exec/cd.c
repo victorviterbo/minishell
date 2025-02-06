@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/28 22:43:07 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:37:20 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,22 @@ int	ft_cd(t_data *data, char *path)
 	int		success;
 
 	if (!data)
-		ft_custom_error_exit("Minishell: cd: no env found");
+		ft_print_error("cd: no env found");
+	if (!path)
+		ft_print_error("cd: no path given");
 	abspath = get_absolute_path(path);
 	if (access(abspath, R_OK) == -1)
-		ft_perror_exit(ft_strjoin("Minishell: cd: ", path));
+		ft_print_error(ft_strjoin("cd: ", path));
 	if (chdir(abspath) == -1)
-		ft_perror_exit(ft_strjoin("Minishell: cd: ", path));
+		ft_print_error(ft_strjoin("cd: ", path));
 	pwd = ft_strjoin_ip("OLDPWD=", get_var(data, "PWD"), FREE_S2);
 	if (!pwd)
-		ft_custom_error_exit("Minishell: cd: error in setting OLDPWD");
+		ft_print_error("Minishell: cd: error in setting OLDPWD");
 	success = new_var(data->envp, pwd);
 	free(pwd);
 	pwd = ft_strjoin_ip("PWD=", ft_get_current_path(), FREE_S2);
 	if (!pwd)
-		ft_custom_error_exit("Minishell: cd: error in setting PWD");
+		ft_print_error("Minishell: cd: error in setting PWD");
 	success += new_var(data->envp, pwd);
 	return (free(pwd), free(abspath), success);
 }
@@ -46,20 +48,20 @@ char	*get_absolute_path(char *path)
 	char	*absolute_path;
 
 	if (!path)
-		ft_custom_error_exit("Minishell: cd: no env found");
+		ft_print_error("cd: no env found");
 	if (path[0] == '/')
 	{
 		absolute_path = ft_strdup(path);
 		if (!absolute_path)
-			ft_custom_error_exit("Minishell: cd: memory allocation failed");
+			ft_print_error("cd: memory allocation failed");
 		return (absolute_path);
 	}
 	current_path = ft_strjoin_ip(ft_get_current_path(), "/", FREE_S1);
 	if (!current_path)
-		ft_custom_error_exit("Minishell: cd: memory allocation failed");
+		ft_print_error("cd: memory allocation failed");
 	absolute_path = ft_strjoin_ip(current_path, path, FREE_S1);
 	if (!absolute_path)
-		ft_custom_error_exit("Minishell: cd: memory allocation failed");
+		ft_print_error("cd: memory allocation failed");
 	return (absolute_path);
 }
 

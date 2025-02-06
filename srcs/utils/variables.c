@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/29 01:12:24 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:51:50 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ int	init_env(t_data *data, char **envp)
 	i = 0;
 	success = 0;
 	if (!data)
-		ft_custom_error_exit("Minishell: env init: invalid argument");
+		ft_print_error("env init: invalid call to function");
+	if (!envp)
+		ft_print_error("env init: invalid argument");
 	data->envp = ft_calloc(1, sizeof(t_list *));
 	if (!data->envp)
-		ft_custom_error_exit("Minishell: env init: memory allocation failed");
+		ft_print_error("env init: memory allocation failed");
 	while (envp[i])
 	{
 		success += new_var(data->envp, envp[i]);
@@ -71,13 +73,13 @@ int	add_var(t_list **env, char *str, size_t name_len)
 	first_equal = ft_strchr(str, '=');
 	new_var = ft_calloc(1, sizeof(t_var));
 	if (!new_var)
-		ft_custom_error_exit("Minishell: env: memory allocation failed");
+		ft_print_error("env: memory allocation failed");
 	new_var->name = ft_substr(str, 0, name_len);
 	if (!new_var->name)
-		ft_custom_error_exit("Minishell: env: memory allocation failed");
+		ft_print_error("env: memory allocation failed");
 	new_var->value = ft_strdup(first_equal + 1);
 	if (!new_var->value)
-		ft_custom_error_exit("Minishell: env: memory allocation failed");
+		ft_print_error("env: memory allocation failed");
 	ft_lstadd_back(env, ft_lstnew_void(new_var));
 	return (EXIT_SUCCESS);
 }
@@ -95,7 +97,7 @@ int	change_var(t_list *current, char *first_equal, bool append)
 		var->value = ft_strdup(first_equal + 1);
 	}
 	if (!var->value)
-		ft_custom_error_exit("Minishell: env: memory allocation failed");
+		ft_print_error("env: memory allocation failed");
 	return (EXIT_SUCCESS);
 }
 

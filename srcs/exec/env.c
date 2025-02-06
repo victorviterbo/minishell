@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 16:36:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/01/29 10:43:10 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:53:48 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	ft_env(t_data *data)
 	int		success;
 	size_t	printed;
 
-	if (!data || !data->envp)
-		ft_custom_error_exit("Minishell: env: no env found");
+	if (!data)
+		ft_print_error("env: invalid function call");
+	if (!data->envp)
+		ft_print_error("env: no environment found");
 	current = *(data->envp);
 	success = 0;
 	while (current)
