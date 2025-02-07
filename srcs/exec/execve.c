@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by madelmen          #+#    #+#             */
-/*   Updated: 2025/02/06 18:58:26 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:41:29 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,11 @@ char	*find_exec(char *path_list, char *exec);
 
 int	ft_execve(t_data *data, char **args)
 {
-	char	**env_arr;
 	char	*path;
 	char	*path_exec;
 
 	if (!args)
 		ft_print_error("execve: empty command");
-	env_arr = env_to_arr(data);
-	if (!env_arr)
-		ft_print_error("execve: memory allocation failed");
 	path = get_var(data, "PATH");
 	if (!path)
 		ft_print_error("execve: no path variable found");
@@ -33,7 +29,7 @@ int	ft_execve(t_data *data, char **args)
 	free(path);
 	if (!path_exec)
 		ft_print_error("execve: could not find executable");
-	if (execve(path_exec, args, env_arr) == -1)
+	if (execve(path_exec, args, data->env_arr) == -1)
 		ft_print_error("execve: calling of executable failed !");
 	return (EXIT_SUCCESS);
 }
