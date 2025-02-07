@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 09:40:51 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:59:52 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*here;
+	char	*pwd_var;
+	char	*oldpwd_var;
+	char	*curr_path;
 	t_data	*data;
 	pid_t	pid;
 	int		exit_status;
@@ -26,8 +29,24 @@ int	main(int argc, char *argv[], char *envp[])
 	init_env(data, envp);
 	if (ft_pwd() != 0)
 		return (EXIT_FAILURE);
+	pwd_var = get_var(data, "PWD");
+	curr_path = ft_get_current_path();
+	if (ft_strcmp(pwd_var, curr_path))
+		return (EXIT_FAILURE);
 	if (ft_cd(data, "testdir") != 0)
 		return (EXIT_FAILURE);
+	oldpwd_var = get_var(data, "OLDPWD");
+	if (ft_strcmp(pwd_var, oldpwd_var))
+		return (EXIT_FAILURE);
+	free(oldpwd_var);
+	free(pwd_var);
+	free(curr_path);
+	pwd_var = get_var(data, "PWD");
+	curr_path = ft_get_current_path();
+	if (ft_strcmp(pwd_var, curr_path))
+		return (EXIT_FAILURE);
+	free(pwd_var);
+	free(curr_path);
 	if (ft_pwd() != 0)
 		return (EXIT_FAILURE);
 	pid = fork();
