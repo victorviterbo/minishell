@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 20:04:25 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:35:13 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*value6;
 	char	**tmp_arr;
 	char	**tmp_arr2;
+	int		old_shlvl;
+	int		new_shlvl;
 
 	(void)argc;
 	(void)argv;
@@ -167,6 +169,22 @@ int	main(int argc, char *argv[], char *envp[])
 		return (EXIT_FAILURE);
 	if (check_env_to_arr(data) != 0)
 		return (EXIT_FAILURE);
+	value1 = get_var(data, "SHLVL");
+	old_shlvl = ft_atoi(value1);
+	free(value1);
+	change_shlvl(data, 1);
+	value1 = get_var(data, "SHLVL");
+	new_shlvl = ft_atoi(value1);
+	free(value1);
+	if (old_shlvl + 1 != new_shlvl)
+		return (EXIT_FAILURE);
+	old_shlvl = new_shlvl;
+	change_shlvl(data, -3);
+	value1 = get_var(data, "SHLVL");
+	new_shlvl = ft_atoi(value1);
+	if (old_shlvl - 3 != new_shlvl)
+		return (EXIT_FAILURE);
+	free(value1);
 	ft_lstclear(data->envp, free_var);
 	free(data->envp);
 	ft_free_array((void **)data->env_arr, ft_arrlen(data->env_arr));

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 11:02:11 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:23:13 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*get_var(t_data *data, char *varname);
 char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
 void	update_env_arr(t_data *data);
+void	change_shlvl(t_data *data, int change);
 //utils/error_handlings.c
 void	ft_perror_exit(const char *message);
 void	ft_custom_error_exit(const char *message);

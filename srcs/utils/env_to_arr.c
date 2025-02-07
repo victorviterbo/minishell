@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 21:49:19 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 19:57:32 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:26:15 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
 void	update_env_arr(t_data *data);
+void	change_shlvl(t_data *data, int change);
 
 char	**env_to_arr(t_data *data)
 {
@@ -63,5 +64,24 @@ void	update_env_arr(t_data *data)
 	data->env_arr = env_to_arr(data);
 	if (!data->env_arr)
 		ft_print_error("env array update: memory allocation failed");
+	return ;
+}
+
+void	change_shlvl(t_data *data, int change)
+{
+	int		current_shlvl;
+	char	*shlvl;
+
+	shlvl = get_var(data, "SHLVL");
+	if (!ft_isint(shlvl))
+		ft_print_error("env parsing: shlvl is not an int");
+	current_shlvl = ft_atoi(shlvl);
+	free(shlvl);
+	shlvl = ft_itoa(current_shlvl + change);
+	if (!shlvl)
+		ft_print_error("env parsing: memory allocation failed");
+	shlvl = ft_strjoin_ip("SHLVL=", shlvl, FREE_S2);
+	new_var(data, shlvl);
+	free(shlvl);
 	return ;
 }
