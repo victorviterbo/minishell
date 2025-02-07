@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 11:28:16 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:34:39 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,5 @@ char	*get_var(t_data *data, char *varname)
 			return (ft_strdup(curr_var->value));
 		current = current->next;
 	}
-	return (ft_strdup(""));
+	return (NULL);
 }

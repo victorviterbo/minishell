@@ -6,13 +6,14 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 11:01:38 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/07 14:27:09 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 bool	*is_quoted(char *str, char open_char, char close_char);
+size_t	go_to_next(char *cmd, size_t i, char c, bool esc);
 
 bool	*is_quoted(char *str, char open_char, char close_char)
 {
@@ -37,3 +38,20 @@ bool	*is_quoted(char *str, char open_char, char close_char)
 	return (isquoted);
 }
 
+size_t	go_to_next(char *cmd, size_t i, char c, bool esc)
+{
+	if (c == '(')
+		c = ')';
+	if (c == '{')
+		c = '}';
+	if (c != ' ')
+		while (cmd[i] && cmd[i] != c && (!i || cmd[i - 1] != '\\' || !esc))
+			i++;
+	else
+		while (cmd[i] && !ft_iswhitespace_eq(cmd[i])
+			&& (!i || cmd[i - 1] != '\\' || !esc))
+			i++;
+	if (!cmd[i])
+		ft_print_error("var expansion: unfinished experession");
+	return (i);
+}
