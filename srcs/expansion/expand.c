@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 14:45:51 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:25:11 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	expand_var(t_data *data, char *str)
 	while (str[i])
 	{
 		if (str[i] == '$' && !isquoted[i])
-			expanded = replace_var(data, expanded, i + 1, true);
+			expanded = replace_var(data, expanded, i, true);
 		i++;
 	}
 }
@@ -41,20 +41,23 @@ char	*replace_var(t_data *data, char *str, size_t i, bool inplace)
 	char	*newstr;
 	char	*varname;
 	char	*varvalue;
-	size_t	j;
 	bool	*isquoted;
+	size_t	j;
 
-	if (str[0] == '{')
+	if (str[i + 1] == '{')
 	{
-		j = go_to_next(str, i, '{', false);
+		j = go_to_next(str, "}", i);
 		i += 1;
 	}
 	else
-		j = go_to_next(str, i, ' ', false);
-	varname = ft_substr(str, i, j - i);
+	{
+		j = go_to_next(str, i, ' ', );
+		varname = ft_substr(str, i, j - i); go_to_next(str, i, ' ', false);
+	}
 	varvalue = get_var(data, varname);
+	free(varname);
 	if (!varvalue)
-		
-	newstr = ft_substr(str, 0, i - 1);
-	new_str = ft
+		varvalue = ft_strdup("");
+	newstr = ft_substr(str, 0, i);
+	new_str = ft_strjoin_ip(newstr, varvalue)
 }
