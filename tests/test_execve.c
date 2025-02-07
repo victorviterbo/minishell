@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:11:37 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 20:08:39 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/07 10:45:48 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ int	main(int argc, char *argv[], char *envp[])
 	pid = fork();
 	if (pid == 0)
 	{
-		args = ft_split("/bin/cat ../srcs/exec/cd.c", ' ');
+		args = ft_split("/bin/cat miniprint.c", ' ');
 		ft_execve(data, args);
 	}
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status != 0)
 		return (EXIT_FAILURE);
+	ft_printf("/bin/cat miniprint.c ok\n");
 	pid = fork();
 	if (pid == 0)
 	{
@@ -44,12 +45,13 @@ int	main(int argc, char *argv[], char *envp[])
 	pid = fork();
 	if (pid == 0)
 	{
-		args = ft_split("cat ../srcs/exec/env.c", ' ');
+		args = ft_split("cat miniprint.c", ' ');
 		ft_execve(data, args);
 	}
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status != 0)
 		return (EXIT_FAILURE);
+	ft_printf("cat miniprint.c ok\n");
 	pid = fork();
 	if (pid == 0)
 	{
@@ -59,6 +61,7 @@ int	main(int argc, char *argv[], char *envp[])
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status != 0)
 		return (EXIT_FAILURE);
+	ft_printf("grep -A3 -B1 minishell test_env.c ok\n");
 	pid = fork();
 	if (pid == 0)
 	{
@@ -68,6 +71,7 @@ int	main(int argc, char *argv[], char *envp[])
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status != 0)
 		return (EXIT_FAILURE);
+	ft_printf("sleep 0.1 ok\n");
 	pid = fork();
 	if (pid == 0)
 	{
@@ -76,6 +80,7 @@ int	main(int argc, char *argv[], char *envp[])
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status == 0)
 		return (EXIT_FAILURE);
+	ft_printf("NULL ok\n");
 	pid = fork();
 	if (pid == 0)
 	{
@@ -85,6 +90,7 @@ int	main(int argc, char *argv[], char *envp[])
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status == 0)
 		return (EXIT_FAILURE);
+	ft_printf("unkown command ok\n");
 	pid = fork();
 	if (pid == 0)
 	{
@@ -94,15 +100,20 @@ int	main(int argc, char *argv[], char *envp[])
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status == 0)
 		return (EXIT_FAILURE);
+	ft_printf("segfault_test ok\n");
 	pid = fork();
 	if (pid == 0)
 	{
 		args = ft_split("./miniprint", ' ');
+		ft_printf("1\n");
+		ft_print_array(args, true);
+		ft_printf("%i\n", ft_arrlen(args));
 		ft_execve(data, args);
 	}
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status != 0)
 		return (EXIT_FAILURE);
+	ft_printf("miniprint ok\n");
 	pid = fork();
 	if (pid == 0)
 	{
@@ -112,6 +123,7 @@ int	main(int argc, char *argv[], char *envp[])
 	waitpid(pid, &(exit_status), 0);
 	if (exit_status == 0)
 		return (EXIT_FAILURE);
+	ft_printf("cat lalalala ok\n");
 	ft_printf("done !\n");
 	ft_lstclear(data->envp, free_var);
 	free(data->envp);

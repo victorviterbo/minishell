@@ -1,130 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   miniprint.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 20:15:06 by vviterbo         ###   ########.fr       */
+/*   Created: 2025/02/04 10:10:25 by vviterbo          #+#    #+#             */
+/*   Updated: 2025/02/04 19:47:00 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <unistd.h>
 
-int		ft_cd(t_data *data, char *path);
-char	*get_absolute_path(char *path);
-
-int	ft_cd(t_data *data, char *path)
+int	main(void)
 {
-	char	*abspath;
-	char	*pwd;
-	int		success;
-
-	if (!data)
-		ft_print_error("cd: no env found");
-	if (!path)
-		ft_print_error("cd: no path given");
-	abspath = get_absolute_path(path);
-	if (access(abspath, R_OK) == -1)
-		ft_print_error(ft_strjoin("cd: ", path));
-	if (chdir(abspath) == -1)
-		ft_print_error(ft_strjoin("cd: ", path));
-	pwd = ft_strjoin_ip("OLDPWD=", get_var(data, "PWD"), FREE_S2);
-	if (!pwd)
-		ft_print_error("Minishell: cd: error in setting OLDPWD");
-	success = new_var(data, pwd);
-	free(pwd);
-	pwd = ft_strjoin_ip("PWD=", ft_get_current_path(), FREE_S2);
-	if (!pwd)
-		ft_print_error("Minishell: cd: error in setting PWD");
-	success += new_var(data, pwd);
-	return (free(pwd), free(abspath), success);
+	write(1, "test execve\n", 12);
+	return (0);
 }
-
-char	*get_absolute_path(char *path)
-{
-	char	*current_path;
-	char	*absolute_path;
-
-	if (!path)
-		ft_print_error("cd: no env found");
-	if (path[0] == '/')
-	{
-		absolute_path = ft_strdup(path);
-		if (!absolute_path)
-			ft_print_error("cd: memory allocation failed");
-		return (absolute_path);
-	}
-	current_path = ft_strjoin_ip(ft_get_current_path(), "/", FREE_S1);
-	if (!current_path)
-		ft_print_error("cd: memory allocation failed");
-	absolute_path = ft_strjoin_ip(current_path, path, FREE_S1);
-	if (!absolute_path)
-		ft_print_error("cd: memory allocation failed");
-	return (absolute_path);
-}
-
-/*
-if we want to handle the checking of whether or not the file we are trying to cd
-to is a directory or not we should include this code in ft_cd. Otherwise,
-chdir do it by itself...
-
-	struct stat	path_stat;
-
-	if (stat(abspath, &path_stat))
-		ft_perror_exit(ft_strjoin("Minishell: cd", path));
-	if (S_ISDIR(path_stat.st_mode) == 0)
-		ft_custom_error_exit(ft_strjoin(ft_strjoin("Minishell: cd: ", path),
-				": Not a directory"));
-*//usr/bin/cd: line 4: cd: not_a_dir: No such file or directory
+/bin/cat miniprint.c ok
+Minishell: execve: could not find executable: No such file or directory
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   miniprint.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/27 16:36:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/04 15:53:48 by vviterbo         ###   ########.fr       */
+/*   Created: 2025/02/04 10:10:25 by vviterbo          #+#    #+#             */
+/*   Updated: 2025/02/04 19:47:00 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <unistd.h>
 
-int	ft_env(t_data *data);
-
-int	ft_env(t_data *data)
+int	main(void)
 {
-	t_list	*current;
-	t_var	*curr_var;
-	int		success;
-	size_t	printed;
-
-	if (!data)
-		ft_print_error("env: invalid function call");
-	if (!data->envp)
-		ft_print_error("env: no environment found");
-	current = *(data->envp);
-	success = 0;
-	while (current)
-	{
-		curr_var = current->content;
-		printed = ft_printf("%s=%s\n", curr_var->name, curr_var->value);
-		if (printed != (ft_strlen(curr_var->name)
-				+ ft_strlen(curr_var->value) + 2))
-			success += 1;
-		current = current->next;
-	}
-	return (success);
+	write(1, "test execve\n", 12);
+	return (0);
 }
+cat miniprint.c ok
 
 #include "minishell.h"
 
 static char	**ft_make_test_strarr(char *str);
 static int	check_env_to_arr(t_data *data_orig);
-Minishell: execve: empty command: Invalid argument
+grep -A3 -B1 minishell test_env.c ok
+sleep 0.1 ok
+Minishell: execve: empty command
+NULL ok
 Minishell: execve: could not find executable: No such file or directory
+unkown command ok
+segfault_test ok
+1
+./miniprint
+1
 test execve
+miniprint ok
 cat: lalalala: No such file or directory
+cat lalalala ok
 done !

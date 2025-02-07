@@ -6,13 +6,11 @@ cd `dirname "$0"`
 
 make tests
 
-if [ ! -e segfault_test ]; then
-	cc -Wall -Wextra -Werror segfault_test.c -o segfault_test
-fi
+rm segfault_test
+cc -Wall -Wextra -Werror segfault_test.c -o segfault_test
 
-if [ ! -e miniprint ]; then
-	cc -Wall -Wextra -Werror miniprint.c -o miniprint
-fi
+rm miniprint
+cc -Wall -Wextra -Werror miniprint.c -o miniprint
 
 ################ TEST ECHO ################
 
@@ -32,7 +30,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full ./bin/test_echo > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 ./bin/test_echo > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
         leaks --atExit -- ./bin/test_echo > /dev/null 2>&1
 fi
@@ -44,31 +42,54 @@ fi
 
 echo -e "Tests echo \t OK!"
 
-################ TEST CD PWD ################
+################ TEST CD ################
 
-./bin/test_cd_pwd > ./out/test_cd_pwd.out 2>&1
+./bin/test_cd > ./out/test_cd.out 2>&1
 
 if [ "$?" -ne 0 ]; then
-        echo "Tests failed for cd_pwd !"
+        echo "Tests failed for cd !"
         exit 1
 fi
 
-diff_cd=$(diff <(sort ./out/test_cd_pwd.out) <(sort ./out/ref_cd_pwd.out))
+diff_cd=$(diff <(sort ./out/test_cd.out) <(sort ./out/ref_cd.out))
 
 if [ "$?" -ne 0 ]; then
-        echo "Tests failed for cd_pwd diff !"
+        echo "Tests failed for cd diff !"
 		echo "$diff_cd"
         exit 1
 fi
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full ./bin/test_cd_pwd > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 ./bin/test_cd > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
-        leaks --atExit -- ./bin/test_cd_pwd > /dev/null 2>&1
+        leaks --atExit -- ./bin/test_cd > /dev/null 2>&1
 fi
 
 if [ "$?" -ne 0 ]; then
-        echo "Tests failed for cd_pwd : memory leaks !"
+        echo "Tests failed for cd : memory leaks !"
+        exit 1
+fi
+
+echo -e "Tests cd \t OK!"
+
+
+################ TEST PWD ################
+
+./bin/test_cd_pwd > ./out/test_pwd.out 2>&1
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for pwd !"
+        exit 1
+fi
+
+if [[ "$OS" = "Linux" ]]; then
+        valgrind --leak-check=full --error-exitcode=1 ./bin/test_pwd > /dev/null 2>&1
+elif [[ "$OS" = "Darwin" ]]; then
+        leaks --atExit -- ./bin/test_pwd > /dev/null 2>&1
+fi
+
+if [ "$?" -ne 0 ]; then
+        echo "Tests failed for pwd : memory leaks !"
         exit 1
 fi
 
@@ -84,7 +105,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full ./bin/test_env > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 ./bin/test_env > /dev/null 2>&1
 elif [[ "$OS" == "Darwin" ]]; then
         leaks --atExit -- ./bin/test_env > /dev/null 2>&1
 fi
@@ -116,7 +137,7 @@ fi
 make test_execve
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full ./bin/test_execve_leaks > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 ./bin/test_execve_leaks > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
         leaks --atExit -- ./bin/test_execve_leaks > /dev/null 2>&1
 fi
@@ -145,7 +166,11 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-leaks --atExit -- ./bin/test_parsing &> /dev/null 
+if [[ "$OS" = "Linux" ]]; then
+        valgrind --leak-check=full --error-exitcode=1 ./bin/test_parsing > /dev/null 2>&1
+elif [[ "$OS" = "Darwin" ]]; then
+        leaks --atExit -- ./bin/test_parsing > /dev/null 2>&1
+fi
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for parsing : memory leaks !"
