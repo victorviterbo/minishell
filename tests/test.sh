@@ -60,9 +60,9 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full --error-exitcode=1 ./bin/test_cd > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 ./bin/test_cd_leaks > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
-        leaks --atExit -- ./bin/test_cd > /dev/null 2>&1
+        leaks --atExit -- ./bin/test_cd_leaks > /dev/null 2>&1
 fi
 
 if [ "$?" -ne 0 ]; then

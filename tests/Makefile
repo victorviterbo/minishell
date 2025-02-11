@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/07 11:03:16 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/02/11 15:23:51 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
 all: tests
 	@$(MAKE) -C ../ all
 
-tests:	folders test_echo test_cd test_pwd test_env test_execve \
+tests:	folders test_echo test_cd test_cd_leaks test_pwd test_env test_execve \
 		test_execve_leaks test_parsing
 
 test_echo: $(SRCS) $(LIBFT) test_echo.c
@@ -45,6 +45,9 @@ test_echo: $(SRCS) $(LIBFT) test_echo.c
 
 test_cd: $(SRCS) $(LIBFT) test_cd.c
 	@$(CC) $(CFLAGS) $(MINI_SRCS) test_cd.c $(INCLUDE) -o $(BIN)test_cd
+	
+test_cd_leaks: $(SRCS) $(LIBFT) test_cd_leaks.c
+	@$(CC) $(CFLAGS) $(MINI_SRCS) test_cd_leaks.c $(INCLUDE) -o $(BIN)test_cd_leaks
 
 test_pwd: $(SRCS) $(LIBFT) test_pwd.c
 	@$(CC) $(CFLAGS) $(MINI_SRCS) test_pwd.c $(INCLUDE) -o $(BIN)test_pwd

@@ -6,16 +6,18 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 19:29:32 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 09:53:40 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/11 15:21:52 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdio.h>
 
 int	main(void)
 {
 	char	*ptr;
 	char	c;
 
-	ptr = '\0';
+	ptr = NULL;
 	c = ptr[0];
 	(void)c;
 }
