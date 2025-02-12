@@ -6,14 +6,14 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 15:08:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:58:59 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 bool	*is_quoted(char *str, char open_char, char close_char);
-size_t	go_to_next(char *cmd, char *chars, size_t i);
+size_t	go_to_next(char *str, char *chars, size_t i);
 
 bool	*is_quoted(char *str, char open_char, char close_char)
 {
@@ -38,13 +38,13 @@ bool	*is_quoted(char *str, char open_char, char close_char)
 	return (isquoted);
 }
 
-size_t	go_to_next(char *cmd, char *chars, size_t i)
+size_t	go_to_next(char *str, char *chars, size_t i)
 {
 	bool	ws;
 
 	ws = (ft_strchr(chars, ' ') != NULL);
-	while (cmd[i] && !(ft_strchr(chars, cmd[i])
-			|| (ft_iswhitespace_eq(cmd[i]) && ws)))
+	while (str[i] && ((ft_strchr(chars, str[i]) == NULL)
+			&& !(ft_iswhitespace_eq(str[i]) && ws)))
 		i++;
 	return (i);
 }

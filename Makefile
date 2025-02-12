@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/07 11:03:01 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/02/12 15:07:35 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,10 +25,13 @@ LIBFT = $(LIBFT_DIR)libft.a
 EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c execve.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
+PARSING_F		= 	expand.c parse.c
+SRCS_PARSING	=	$(addprefix parsing/, $(PARSING_F))
+
 UTILS_F		= 	error_handling.c variables.c env_to_arr.c parsing_utils.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
-SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
+SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING))
 
 BIN = ./bin/
 
