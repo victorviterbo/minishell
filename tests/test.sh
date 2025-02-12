@@ -48,7 +48,7 @@ echo -e "Tests echo \t OK!"
 
 ################ TEST CD ################
 
-./bin/test_cd > ./out/test_cd.out 2>&1
+./bin/test_cd > /dev/null 2>&1
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for cd !"
@@ -79,7 +79,7 @@ echo -e "Tests cd \t OK!"
 
 ################ TEST PWD ################
 
-./bin/test_cd_pwd > ./out/test_pwd.out 2>&1
+./bin/test_pwd > ./out/test_pwd.out 2>&1
 
 if [ "$?" -ne 0 ]; then
         echo "Tests failed for pwd !"
@@ -97,7 +97,7 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-echo -e "Tests cd pwd \t OK!"
+echo -e "Tests pwd \t OK!"
 
 ############### TEST ENV ###############
 

@@ -6,13 +6,12 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 20:04:25 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:49:44 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "tests.h"
 
-static char	**ft_make_test_strarr(char *str);
 static int	check_env_to_arr(t_data *data_orig);
 
 int	main(int argc, char *argv[], char *envp[])
@@ -27,6 +26,8 @@ int	main(int argc, char *argv[], char *envp[])
 	char	*value6;
 	char	**tmp_arr;
 	char	**tmp_arr2;
+	int		old_shlvl;
+	int		new_shlvl;
 
 	(void)argc;
 	(void)argv;
@@ -53,24 +54,21 @@ int	main(int argc, char *argv[], char *envp[])
 	value1 = get_var(data, "VAR1");
 	if (ft_strcmp(value1 , "test1"))
 		return (EXIT_FAILURE);
+	ft_printf("VAR1=test1 ok\n");
 	free(value1);
 	tmp_arr = ft_make_test_strarr("VAR1");
 	ft_unset(data, tmp_arr);
 	free(tmp_arr);
 	value1 = get_var(data, "VAR1");
-	if (*value1)
+	if (value1 != NULL)
 		return (EXIT_FAILURE);
-	free(value1);
-	value1 = get_var(data, "VAR1");
-	if (ft_strcmp(value1 , ""))
-		return (EXIT_FAILURE);
-	free(value1);
 	tmp_arr = ft_make_test_strarr("VAR2=test=2");
 	ft_export(data, tmp_arr);
 	free(tmp_arr);
 	value1 = get_var(data, "VAR2");
 	if (ft_strcmp(value1 , "test=2"))
 		return (EXIT_FAILURE);
+	ft_printf("VAR2=test=2 ok\n");
 	free(value1);
 	if (ft_env(data) != 0)
 		return (EXIT_FAILURE);
@@ -96,6 +94,7 @@ int	main(int argc, char *argv[], char *envp[])
 	value1 = get_var(data, "VAR2");
 	if (ft_strcmp(value1 , "test=2lala"))
 		return (EXIT_FAILURE);
+	ft_printf("VAR2+=lala ok\n");
 	free(value1);
 	tmp_arr = ft_make_test_strarr("VAR1=lili");
 	ft_export(data, tmp_arr);
@@ -110,6 +109,7 @@ int	main(int argc, char *argv[], char *envp[])
 	value1 = get_var(data, "VAR3");
 	if (ft_strcmp(value1 , "3"))
 		return (EXIT_FAILURE);
+	ft_printf("VAR3=3 VAR4=4 VAR5=5 ok\n");
 	free(value1);
 	value1 = get_var(data, "VAR4");
 	if (ft_strcmp(value1 , "4"))
@@ -132,19 +132,20 @@ int	main(int argc, char *argv[], char *envp[])
 	if (ft_strcmp(value1 , "7"))
 		return (EXIT_FAILURE);
 	free(value1);
+	ft_printf("VAR3=6 =4 VAR5=7 ok\n");
 	tmp_arr = ft_make_test_strarr("NOT_A_VAR");
 	ft_unset(data, tmp_arr);
 	free(tmp_arr);
 	value1 = get_var(data, "NOT_A_VAR");
-	if (*value1)
+	if (value1 != NULL)
 		return (EXIT_FAILURE);
-	free(value1);
 	tmp_arr = ft_make_test_strarr("LOGNAME");
 	ft_unset(data, tmp_arr);
 	free(tmp_arr);
 	value1 = get_var(data, "LOGNAME");
-	if (*value1)
+	if (value1 != NULL)
 		return (EXIT_FAILURE);
+	ft_printf("LOGNAME ok\n");
 	free(value1);
 	tmp_arr = ft_split("VAR1 VAR2 ERROR VAR4 VAR5", ' ');
 	ft_unset(data, tmp_arr);
@@ -155,33 +156,35 @@ int	main(int argc, char *argv[], char *envp[])
 	value4 = get_var(data, "VAR3");
 	value5 = get_var(data, "VAR4");
 	value6 = get_var(data, "VAR5");
-	if (*value1 || *value2 || *value3 || !*value4 || *value5 || *value6)
+	ft_printf("unset VAR1 VAR2 ERROR VAR4 VAR5 ok\n");
+	if (value1 != NULL || value2 != NULL || value3 != NULL || !*value4 || value5 != NULL || value6 != NULL)
 		return (EXIT_FAILURE);
-	free(value1);
-	free(value2);
-	free(value3);
 	free(value4);
-	free(value5);
-	free(value6);
 	if (ft_env(data) != 0)
 		return (EXIT_FAILURE);
 	if (check_env_to_arr(data) != 0)
 		return (EXIT_FAILURE);
+	value1 = get_var(data, "SHLVL");
+	old_shlvl = ft_atoi(value1);
+	free(value1);
+	change_shlvl(data, 1);
+	value1 = get_var(data, "SHLVL");
+	new_shlvl = ft_atoi(value1);
+	free(value1);
+	if (old_shlvl + 1 != new_shlvl)
+		return (EXIT_FAILURE);
+	old_shlvl = new_shlvl;
+	change_shlvl(data, -3);
+	value1 = get_var(data, "SHLVL");
+	new_shlvl = ft_atoi(value1);
+	if (old_shlvl - 3 != new_shlvl)
+		return (EXIT_FAILURE);
+	free(value1);
 	ft_lstclear(data->envp, free_var);
 	free(data->envp);
 	ft_free_array((void **)data->env_arr, ft_arrlen(data->env_arr));
 	free(data);
 	return (EXIT_SUCCESS);
-}
-
-static char	**ft_make_test_strarr(char *str)
-{
-	char	**test_arr;
-
-	test_arr = ft_calloc(2, sizeof(char *));
-	test_arr[0] = str;
-	test_arr[1] = NULL;
-	return (test_arr);
 }
 
 static int	check_env_to_arr(t_data *data_orig)

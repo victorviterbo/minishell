@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 11:02:11 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:15:57 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,21 @@ int		ft_env(t_data *data);
 //exec/execve.c
 int		ft_execve(t_data *data, char **args);
 char	*find_exec(char *path_list, char *exec);
-//utils/error_handlings.c
-void	ft_print_error(const char *message);
-//utils/parsing_utils.c
-bool	*is_quoted(char *str, char open_char, char close_char);
-//utils/variables.c
-int		init_env(t_data *data, char **envp);
-int		new_var(t_data *data, char *str);
-int		add_var(t_data *data, t_list **env, char *str, size_t name_len);
-int		change_var(t_data *data, t_list *current, char *first_equal,
-			bool append);
-char	*get_var(t_data *data, char *varname);
-char	*get_var(t_data *data, char *varname);
+//parsing/parse.c
+char	*parse_str(t_data *data, char *str);
+//parsing/expand.c
+char	*expand_var(t_data *data, char *str);
+char	*replace_var(t_data *data, char *str, size_t *i);
 //utils/env_to_arr.c
 char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
 void	update_env_arr(t_data *data);
+void	change_shlvl(t_data *data, int change);
 //utils/error_handlings.c
-void	ft_perror_exit(const char *message);
-void	ft_custom_error_exit(const char *message);
+void	ft_print_error(const char *message);
 //utils/parsing_utils.c
 bool	*is_quoted(char *str, char open_char, char close_char);
+size_t	go_to_next(char *str, char *chars, size_t i);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);
 int		new_var(t_data *data, char *str);

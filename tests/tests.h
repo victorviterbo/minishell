@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   segfault_test.c                                    :+:      :+:    :+:   */
+/*   tests.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 19:29:32 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/12 19:27:22 by vviterbo         ###   ########.fr       */
+/*   Created: 2025/02/12 17:46:11 by vviterbo          #+#    #+#             */
+/*   Updated: 2025/02/12 17:47:45 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "minishell.h"
 
-int	main(void)
-{
-	char	*ptr;
-	char	c;
-
-	ptr = NULL;
-	c = ptr[0];
-	(void)c;
-}
+char	**ft_make_test_strarr(char *str);
+void	free_env(t_data *data);
