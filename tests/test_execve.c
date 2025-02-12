@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:11:37 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 10:45:48 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:55:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,6 @@ int	main(int argc, char *argv[], char *envp[])
 	if (pid == 0)
 	{
 		args = ft_split("./miniprint", ' ');
-		ft_printf("1\n");
-		ft_print_array(args, true);
-		ft_printf("%i\n", ft_arrlen(args));
 		ft_execve(data, args);
 	}
 	waitpid(pid, &(exit_status), 0);

@@ -4,6 +4,10 @@ OS=$(uname -s)
 
 cd `dirname "$0"`
 
+chmod 444 testdir_readonly/
+
+chmod 000 testdir_no_right/
+
 make tests
 
 rm segfault_test
@@ -83,9 +87,9 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full --error-exitcode=1 ./bin/test_pwd > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 ./bin/test_pwd_leaks > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
-        leaks --atExit -- ./bin/test_pwd > /dev/null 2>&1
+        leaks --atExit -- ./bin/test_pwd_leaks > /dev/null 2>&1
 fi
 
 if [ "$?" -ne 0 ]; then
