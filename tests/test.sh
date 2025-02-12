@@ -93,7 +93,7 @@ if [ "$?" -ne 0 ]; then
         exit 1
 fi
 
-echo -e "Tests cd pwd \t OK!"
+echo -e "Tests pwd \t OK!"
 
 ############### TEST ENV ###############
 

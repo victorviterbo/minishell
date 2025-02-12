@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/07 11:03:16 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/02/12 17:50:06 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ test_pwd: $(SRCS) $(LIBFT) test_pwd.c
 	@$(CC) $(CFLAGS) $(MINI_SRCS) test_pwd.c $(INCLUDE) -o $(BIN)test_pwd
 
 test_env: $(SRCS) $(LIBFT) test_env.c
-	@$(CC) $(CFLAGS) $(MINI_SRCS) test_env.c $(INCLUDE) -o $(BIN)test_env
+	@$(CC) $(CFLAGS) $(MINI_SRCS) test_env.c test_utils.c $(INCLUDE) -o $(BIN)test_env
 
 test_execve: $(SRCS) $(LIBFT) test_execve.c
 	@$(CC) $(CFLAGS) $(MINI_SRCS) test_execve.c $(INCLUDE) -o $(BIN)test_execve
@@ -59,7 +59,7 @@ test_execve_leaks: $(SRCS) $(LIBFT) test_execve_leaks.c
 	@$(CC) $(CFLAGS) $(MINI_SRCS) test_execve_leaks.c $(INCLUDE) -o $(BIN)test_execve_leaks
 
 test_parsing: $(SRCS) $(LIBFT) test_parsing.c
-	@$(CC) $(CFLAGS) $(MINI_SRCS) test_parsing.c $(INCLUDE) -o $(BIN)test_parsing
+	@$(CC) $(CFLAGS) $(MINI_SRCS) test_parsing.c test_utils.c $(INCLUDE) -o $(BIN)test_parsing
 
 clean:
 	$(MAKE) -C ../ clean

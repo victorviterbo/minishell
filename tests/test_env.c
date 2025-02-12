@@ -6,13 +6,12 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 14:45:32 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:49:44 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "tests.h"
 
-static char	**ft_make_test_strarr(char *str);
 static int	check_env_to_arr(t_data *data_orig);
 
 int	main(int argc, char *argv[], char *envp[])
@@ -186,16 +185,6 @@ int	main(int argc, char *argv[], char *envp[])
 	ft_free_array((void **)data->env_arr, ft_arrlen(data->env_arr));
 	free(data);
 	return (EXIT_SUCCESS);
-}
-
-static char	**ft_make_test_strarr(char *str)
-{
-	char	**test_arr;
-
-	test_arr = ft_calloc(2, sizeof(char *));
-	test_arr[0] = str;
-	test_arr[1] = NULL;
-	return (test_arr);
 }
 
 static int	check_env_to_arr(t_data *data_orig)

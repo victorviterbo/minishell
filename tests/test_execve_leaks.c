@@ -6,11 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:11:37 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/06 20:08:18 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:59:04 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "tests.h"
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -53,7 +53,7 @@ int	main(int argc, char *argv[], char *envp[])
 	pid = fork();
 	if (pid == 0)
 	{
-		args = ft_split("grep -A3 -B1 minishell test_env.c", ' ');
+		args = ft_split("grep -A3 -B1 tests test_env.c", ' ');
 		ft_execve(data, args);
 	}
 	waitpid(pid, &(exit_status), 0);

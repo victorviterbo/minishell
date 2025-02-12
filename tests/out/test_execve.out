@@ -40,11 +40,11 @@ int	main(void)
 }
 cat miniprint.c ok
 
-#include "minishell.h"
+#include "tests.h"
 
-static char	**ft_make_test_strarr(char *str);
 static int	check_env_to_arr(t_data *data_orig);
-grep -A3 -B1 minishell test_env.c ok
+
+grep -A3 -B1 tests test_env.c ok
 sleep 0.1 ok
 Minishell: execve: empty command
 NULL ok

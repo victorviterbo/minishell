@@ -6,47 +6,42 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:25:55 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 11:00:02 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:50:55 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "tests.h"
 
-void	print_boolarray(bool *arr, char *str);
+void		print_boolarray(bool *arr, char *str);
+static void	test_is_quoted(char *str, bool expected_NULL, char c1, char c2);
+static void	test_expand(t_data *data, char *str);
 
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
-	char	*test_str1;
-	bool	*isquoted;
+	t_data	*data;
+	char	**args;
 
-	test_str1 = ft_strdup("Lets try this \"string\"");
-	isquoted = is_quoted(test_str1, '"', '"');
-	print_boolarray(isquoted, test_str1);
-	free(test_str1);
-	free(isquoted);
-	test_str1 = ft_strdup("\"What if it starts\" with a quoted \"string\"");
-	isquoted = is_quoted(test_str1, '"', '"');
-	print_boolarray(isquoted, test_str1);
-	free(test_str1);
-	free(isquoted);
-	test_str1 = ft_strdup("and with 'other quoting chars'?");
-	isquoted = is_quoted(test_str1, '\'', '\'');
-	print_boolarray(isquoted, test_str1);
-	free(test_str1);
-	free(isquoted);
-	test_str1 = ft_strdup("and \"unfinished quotes ?");
-	if (is_quoted(test_str1, '"', '"'))
-		return (free(isquoted), EXIT_FAILURE);
-	free(test_str1);
-	test_str1 = ft_strdup("what about {braces}");
-	isquoted = is_quoted(test_str1, '{', '}');
-	print_boolarray(isquoted, test_str1);
-	free(test_str1);
-	free(isquoted);
-	test_str1 = ft_strdup("and in reverse {braces} now");
-	if (is_quoted(test_str1, '}', '{'))
-		return (free(isquoted), EXIT_FAILURE);
-	free(test_str1);
+	(void)argc;
+	(void)argv;
+	data = ft_calloc(1, sizeof(t_data));
+	init_env(data, envp);
+
+	test_is_quoted("\"What if it starts\" with a quoted \"string\"", false, '"', '"');
+	test_is_quoted("and with 'other quoting chars'?", false, '\'', '\'');
+	test_is_quoted("and \"unfinished quotes ?", true, '"', '"');
+	test_is_quoted("what about {braces}", false, '{', '}');
+	test_is_quoted("and in reverse {braces} now", true, '}', '{');
+	test_expand(data, "Just a string\n");
+	test_expand(data, "Just a string with a $VAR\n");
+	args = ft_make_test_strarr("VAR=var");
+	ft_export(data, args);
+	free(args);
+	test_expand(data, "Just a string with a $VAR\n");
+	test_expand(data, "Just a string with a \"$VAR\"\n");
+	test_expand(data, "Just a string with a '$VAR'\n");
+	test_expand(data, "Just a string with a '${VAR}'\n");
+	test_expand(data, "Just a string with a ${VAR}\n");
+	free_env(data);
 	return (EXIT_SUCCESS);
 }
 
@@ -72,4 +67,32 @@ void	print_boolarray(bool *arr, char *str)
 		i++;
 	}
 	ft_printf("\n\n");
+}
+
+static void	test_is_quoted(char *str, bool expected_NULL, char c1, char c2)
+{
+	bool	*isquoted;
+
+	isquoted = is_quoted(str, c1, c2);
+	if (expected_NULL)
+	{
+		if (isquoted != NULL)
+		{
+			free(isquoted);
+			exit(EXIT_FAILURE);
+		}
+		else
+			return ;
+	}
+	print_boolarray(isquoted, str);
+	free(isquoted);
+}
+
+static void	test_expand(t_data *data, char *str)
+{
+	char	*expanded;
+
+	expanded = parse_str(data, str);
+	ft_printf("%s", expanded);
+	free(expanded);
 }
