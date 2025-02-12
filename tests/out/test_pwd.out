@@ -2,7 +2,7 @@
 /Users/vviterbo/Desktop/42/minishell/tests/testdir
 Minishell: cd: testdir_readonly: Permission denied
 Minishell: cd: testdir_no_right: Permission denied
-Minishell: Minishell: cd: test_cd_pwd.c: No such file or directory
-cd: lalala: No such file or directory
+Minishell: cd: test_cd_pwd.c: No such file or directory
+Minishell: cd: lalala: No such file or directory
 Minishell: cd: ~/Desktop/42/not_a_folder: No such file or directory
 Minishell: cd: ~/Desktop/42/not_a_folder/: No such file or directory
