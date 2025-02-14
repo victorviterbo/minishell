@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:25:55 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 12:19:24 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:19:18 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,33 @@ int	main(int argc, char *argv[], char *envp[])
 	data = ft_calloc(1, sizeof(t_data));
 	init_env(data, envp);
 
-	test_is_quoted("\"What if it starts\" with a quoted \"string\"", false, '"', '"');
+	test_is_quoted("\"What if it starts\" with a quoted \"string\""
+		, false, '"', '"');
 	test_is_quoted("and with 'other quoting chars'?", false, '\'', '\'');
 	test_is_quoted("and \"unfinished quotes ?", true, '"', '"');
 	test_is_quoted("what about {braces}", false, '{', '}');
 	test_is_quoted("and in reverse {braces} now", true, '}', '{');
 
-	test_expand(data, "Just a string\n", false);
+	test_expand(data, "Just a string123", false);
 	args = ft_make_test_strarr("VAR");
 	ft_unset(data, args);
 	free(args);
-	test_expand(data, "Just a string with a $VAR\n", false);
+	test_expand(data, "Just a string with a $VAR 123", false);
 	args = ft_make_test_strarr("VAR=var");
 	ft_export(data, args);
 	free(args);
-	test_expand(data, "Just a string with a $VAR\n", false);
-	test_expand(data, "Just a string with a \"$VAR\"\n", false);
-	test_expand(data, "Just a string with a '$VAR'\n", false);
-	test_expand(data, "Just a string with a '${VAR}'\n", false);
-	test_expand(data, "Just a string with a ${VAR}\n", false);
-	test_expand(data, "Do you know ${VAR}$VAR binks ? \n", false);
-	test_expand(data, "You know $VAR$VAR binks ! in Star Wars \n", false);
-	test_expand(data, "Just a string with a '${VAR}'\n", false);
-	test_expand(data, "\"Just a string with a '${VAR}'\"\n", false);
-	test_expand(data, "\"Just a string with a '${VAR}\"'\n", true);
+	test_expand(data, "Just a string with a $VAR123", false);
+	test_expand(data, "Just a string with a \"$VAR\"123", false);
+	test_expand(data, "'Just a string with a \"$VAR\"'123", false);
+	test_expand(data, "Just a string with a '$VAR'123", false);
+	test_expand(data, "Just a string with a '${VAR}'123", false);
+	test_expand(data, "Just a string with a ${VAR}123", false);
+	test_expand(data, "Do you know ${VAR}$VAR binks ? ", false);
+	test_expand(data, "You know $VAR$VAR binks ! in Star Wars", false);
+	test_expand(data, "\"Just a string with a '${VAR}'\"123", false);
+	test_expand(data, "\"Just a string with a '${VAR}\"'123", true);
+	test_expand(data, "\"Just a string with a '${VAR}\"123", false);
+	test_expand(data, "$VAR", false);
 	free_env(data);
 	return (EXIT_SUCCESS);
 }
@@ -106,12 +109,18 @@ static void	test_expand(t_data *data, char *str, bool expected_fail)
 	pid = fork();
 	if (pid == 0)
 	{
+		ft_printf("echo %s\n", str);
 		expanded = parse_str(data, str);
-		ft_printf("%s", expanded);
-		free(expanded);
+		ft_printf("%s\n\n", expanded);
+		if (expanded)
+			free(expanded);
 		exit (EXIT_SUCCESS);
 	}
 	waitpid(pid, &exit_status, 0);
 	if (expected_fail == (exit_status == 0))
+	{
+		ft_printf("test failed for %s\n, expected fail : %i, got %i",
+			str, expected_fail, exit_status);
 		exit (EXIT_FAILURE);
+	}
 }

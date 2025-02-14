@@ -1,0 +1,1894 @@
+==2563687== Memcheck, a memory error detector
+==2563687== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2563687== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2563687== Command: ./bin/test_parsing
+==2563687== Parent PID: 2492914
+==2563687== 
+==2563700== 
+==2563700== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563700== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563700==    <inherited from parent>
+==2563700== 
+==2563700== Open AF_UNIX socket 44: <unknown>
+==2563700==    <inherited from parent>
+==2563700== 
+==2563700== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563700==    <inherited from parent>
+==2563700== 
+==2563700== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563700==    <inherited from parent>
+==2563700== 
+==2563700== Open file descriptor 2: /dev/pts/0
+==2563700==    <inherited from parent>
+==2563700== 
+==2563700== Open file descriptor 1: /dev/pts/0
+==2563700==    <inherited from parent>
+==2563700== 
+==2563700== Open file descriptor 0: /dev/pts/0
+==2563700==    <inherited from parent>
+==2563700== 
+==2563700== 
+==2563700== HEAP SUMMARY:
+==2563700==     in use at exit: 9,288 bytes in 418 blocks
+==2563700==   total heap usage: 7,937 allocs, 7,519 frees, 209,524 bytes allocated
+==2563700== 
+==2563700== 8 bytes in 1 blocks are still reachable in loss record 1 of 8
+==2563700==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563700==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700== 
+==2563700== 24 bytes in 1 blocks are still reachable in loss record 2 of 8
+==2563700==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563700==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700== 
+==2563700== 672 bytes in 1 blocks are still reachable in loss record 3 of 8
+==2563700==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563700==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109E5C: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700== 
+==2563700== 1,282 bytes in 83 blocks are still reachable in loss record 4 of 8
+==2563700==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563700==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700== 
+==2563700== 1,328 bytes in 83 blocks are still reachable in loss record 5 of 8
+==2563700==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563700==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700== 
+==2563700== 1,328 bytes in 83 blocks are still reachable in loss record 6 of 8
+==2563700==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563700==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700== 
+==2563700== 1,682 bytes in 83 blocks are still reachable in loss record 7 of 8
+==2563700==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563700==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700== 
+==2563700== 2,964 bytes in 83 blocks are still reachable in loss record 8 of 8
+==2563700==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563700==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x109E5C: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563700== 
+==2563700== LEAK SUMMARY:
+==2563700==    definitely lost: 0 bytes in 0 blocks
+==2563700==    indirectly lost: 0 bytes in 0 blocks
+==2563700==      possibly lost: 0 bytes in 0 blocks
+==2563700==    still reachable: 9,288 bytes in 418 blocks
+==2563700==         suppressed: 0 bytes in 0 blocks
+==2563700== 
+==2563700== For lists of detected and suppressed errors, rerun with: -s
+==2563700== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563701== 
+==2563701== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563701== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563701==    <inherited from parent>
+==2563701== 
+==2563701== Open AF_UNIX socket 44: <unknown>
+==2563701==    <inherited from parent>
+==2563701== 
+==2563701== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563701==    <inherited from parent>
+==2563701== 
+==2563701== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563701==    <inherited from parent>
+==2563701== 
+==2563701== Open file descriptor 2: /dev/pts/0
+==2563701==    <inherited from parent>
+==2563701== 
+==2563701== Open file descriptor 1: /dev/pts/0
+==2563701==    <inherited from parent>
+==2563701== 
+==2563701== Open file descriptor 0: /dev/pts/0
+==2563701==    <inherited from parent>
+==2563701== 
+==2563701== 
+==2563701== HEAP SUMMARY:
+==2563701==     in use at exit: 9,248 bytes in 414 blocks
+==2563701==   total heap usage: 7,943 allocs, 7,529 frees, 209,746 bytes allocated
+==2563701== 
+==2563701== 8 bytes in 1 blocks are still reachable in loss record 1 of 8
+==2563701==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563701==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701== 
+==2563701== 24 bytes in 1 blocks are still reachable in loss record 2 of 8
+==2563701==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563701==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701== 
+==2563701== 672 bytes in 1 blocks are still reachable in loss record 3 of 8
+==2563701==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563701==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109E5C: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701== 
+==2563701== 1,278 bytes in 82 blocks are still reachable in loss record 4 of 8
+==2563701==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563701==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701== 
+==2563701== 1,312 bytes in 82 blocks are still reachable in loss record 5 of 8
+==2563701==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563701==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701== 
+==2563701== 1,312 bytes in 82 blocks are still reachable in loss record 6 of 8
+==2563701==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563701==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701== 
+==2563701== 1,678 bytes in 82 blocks are still reachable in loss record 7 of 8
+==2563701==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563701==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701== 
+==2563701== 2,964 bytes in 83 blocks are still reachable in loss record 8 of 8
+==2563701==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563701==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x109E5C: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563701== 
+==2563701== LEAK SUMMARY:
+==2563701==    definitely lost: 0 bytes in 0 blocks
+==2563701==    indirectly lost: 0 bytes in 0 blocks
+==2563701==      possibly lost: 0 bytes in 0 blocks
+==2563701==    still reachable: 9,248 bytes in 414 blocks
+==2563701==         suppressed: 0 bytes in 0 blocks
+==2563701== 
+==2563701== For lists of detected and suppressed errors, rerun with: -s
+==2563701== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563702== 
+==2563702== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563702== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563702==    <inherited from parent>
+==2563702== 
+==2563702== Open AF_UNIX socket 44: <unknown>
+==2563702==    <inherited from parent>
+==2563702== 
+==2563702== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563702==    <inherited from parent>
+==2563702== 
+==2563702== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563702==    <inherited from parent>
+==2563702== 
+==2563702== Open file descriptor 2: /dev/pts/0
+==2563702==    <inherited from parent>
+==2563702== 
+==2563702== Open file descriptor 1: /dev/pts/0
+==2563702==    <inherited from parent>
+==2563702== 
+==2563702== Open file descriptor 0: /dev/pts/0
+==2563702==    <inherited from parent>
+==2563702== 
+==2563702== 
+==2563702== HEAP SUMMARY:
+==2563702==     in use at exit: 9,288 bytes in 418 blocks
+==2563702==   total heap usage: 8,115 allocs, 7,697 frees, 214,773 bytes allocated
+==2563702== 
+==2563702== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563702==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563702==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563702== 
+==2563702== LEAK SUMMARY:
+==2563702==    definitely lost: 0 bytes in 0 blocks
+==2563702==    indirectly lost: 0 bytes in 0 blocks
+==2563702==      possibly lost: 0 bytes in 0 blocks
+==2563702==    still reachable: 9,288 bytes in 418 blocks
+==2563702==         suppressed: 0 bytes in 0 blocks
+==2563702== 
+==2563702== For lists of detected and suppressed errors, rerun with: -s
+==2563702== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563703== 
+==2563703== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563703== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563703==    <inherited from parent>
+==2563703== 
+==2563703== Open AF_UNIX socket 44: <unknown>
+==2563703==    <inherited from parent>
+==2563703== 
+==2563703== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563703==    <inherited from parent>
+==2563703== 
+==2563703== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563703==    <inherited from parent>
+==2563703== 
+==2563703== Open file descriptor 2: /dev/pts/0
+==2563703==    <inherited from parent>
+==2563703== 
+==2563703== Open file descriptor 1: /dev/pts/0
+==2563703==    <inherited from parent>
+==2563703== 
+==2563703== Open file descriptor 0: /dev/pts/0
+==2563703==    <inherited from parent>
+==2563703== 
+==2563703== 
+==2563703== HEAP SUMMARY:
+==2563703==     in use at exit: 9,288 bytes in 418 blocks
+==2563703==   total heap usage: 8,115 allocs, 7,697 frees, 214,844 bytes allocated
+==2563703== 
+==2563703== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563703==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563703==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563703== 
+==2563703== LEAK SUMMARY:
+==2563703==    definitely lost: 0 bytes in 0 blocks
+==2563703==    indirectly lost: 0 bytes in 0 blocks
+==2563703==      possibly lost: 0 bytes in 0 blocks
+==2563703==    still reachable: 9,288 bytes in 418 blocks
+==2563703==         suppressed: 0 bytes in 0 blocks
+==2563703== 
+==2563703== For lists of detected and suppressed errors, rerun with: -s
+==2563703== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563704== 
+==2563704== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563704== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563704==    <inherited from parent>
+==2563704== 
+==2563704== Open AF_UNIX socket 44: <unknown>
+==2563704==    <inherited from parent>
+==2563704== 
+==2563704== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563704==    <inherited from parent>
+==2563704== 
+==2563704== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563704==    <inherited from parent>
+==2563704== 
+==2563704== Open file descriptor 2: /dev/pts/0
+==2563704==    <inherited from parent>
+==2563704== 
+==2563704== Open file descriptor 1: /dev/pts/0
+==2563704==    <inherited from parent>
+==2563704== 
+==2563704== Open file descriptor 0: /dev/pts/0
+==2563704==    <inherited from parent>
+==2563704== 
+==2563704== 
+==2563704== HEAP SUMMARY:
+==2563704==     in use at exit: 9,288 bytes in 418 blocks
+==2563704==   total heap usage: 8,110 allocs, 7,692 frees, 214,787 bytes allocated
+==2563704== 
+==2563704== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563704==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563704==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563704== 
+==2563704== LEAK SUMMARY:
+==2563704==    definitely lost: 0 bytes in 0 blocks
+==2563704==    indirectly lost: 0 bytes in 0 blocks
+==2563704==      possibly lost: 0 bytes in 0 blocks
+==2563704==    still reachable: 9,288 bytes in 418 blocks
+==2563704==         suppressed: 0 bytes in 0 blocks
+==2563704== 
+==2563704== For lists of detected and suppressed errors, rerun with: -s
+==2563704== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563705== 
+==2563705== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563705== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563705==    <inherited from parent>
+==2563705== 
+==2563705== Open AF_UNIX socket 44: <unknown>
+==2563705==    <inherited from parent>
+==2563705== 
+==2563705== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563705==    <inherited from parent>
+==2563705== 
+==2563705== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563705==    <inherited from parent>
+==2563705== 
+==2563705== Open file descriptor 2: /dev/pts/0
+==2563705==    <inherited from parent>
+==2563705== 
+==2563705== Open file descriptor 1: /dev/pts/0
+==2563705==    <inherited from parent>
+==2563705== 
+==2563705== Open file descriptor 0: /dev/pts/0
+==2563705==    <inherited from parent>
+==2563705== 
+==2563705== 
+==2563705== HEAP SUMMARY:
+==2563705==     in use at exit: 9,288 bytes in 418 blocks
+==2563705==   total heap usage: 8,110 allocs, 7,692 frees, 214,763 bytes allocated
+==2563705== 
+==2563705== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563705==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563705==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563705== 
+==2563705== LEAK SUMMARY:
+==2563705==    definitely lost: 0 bytes in 0 blocks
+==2563705==    indirectly lost: 0 bytes in 0 blocks
+==2563705==      possibly lost: 0 bytes in 0 blocks
+==2563705==    still reachable: 9,288 bytes in 418 blocks
+==2563705==         suppressed: 0 bytes in 0 blocks
+==2563705== 
+==2563705== For lists of detected and suppressed errors, rerun with: -s
+==2563705== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563706== 
+==2563706== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563706== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563706==    <inherited from parent>
+==2563706== 
+==2563706== Open AF_UNIX socket 44: <unknown>
+==2563706==    <inherited from parent>
+==2563706== 
+==2563706== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563706==    <inherited from parent>
+==2563706== 
+==2563706== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563706==    <inherited from parent>
+==2563706== 
+==2563706== Open file descriptor 2: /dev/pts/0
+==2563706==    <inherited from parent>
+==2563706== 
+==2563706== Open file descriptor 1: /dev/pts/0
+==2563706==    <inherited from parent>
+==2563706== 
+==2563706== Open file descriptor 0: /dev/pts/0
+==2563706==    <inherited from parent>
+==2563706== 
+==2563706== 
+==2563706== HEAP SUMMARY:
+==2563706==     in use at exit: 9,288 bytes in 418 blocks
+==2563706==   total heap usage: 8,110 allocs, 7,692 frees, 214,787 bytes allocated
+==2563706== 
+==2563706== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563706==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563706==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563706== 
+==2563706== LEAK SUMMARY:
+==2563706==    definitely lost: 0 bytes in 0 blocks
+==2563706==    indirectly lost: 0 bytes in 0 blocks
+==2563706==      possibly lost: 0 bytes in 0 blocks
+==2563706==    still reachable: 9,288 bytes in 418 blocks
+==2563706==         suppressed: 0 bytes in 0 blocks
+==2563706== 
+==2563706== For lists of detected and suppressed errors, rerun with: -s
+==2563706== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563707== 
+==2563707== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563707== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563707==    <inherited from parent>
+==2563707== 
+==2563707== Open AF_UNIX socket 44: <unknown>
+==2563707==    <inherited from parent>
+==2563707== 
+==2563707== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563707==    <inherited from parent>
+==2563707== 
+==2563707== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563707==    <inherited from parent>
+==2563707== 
+==2563707== Open file descriptor 2: /dev/pts/0
+==2563707==    <inherited from parent>
+==2563707== 
+==2563707== Open file descriptor 1: /dev/pts/0
+==2563707==    <inherited from parent>
+==2563707== 
+==2563707== Open file descriptor 0: /dev/pts/0
+==2563707==    <inherited from parent>
+==2563707== 
+==2563707== 
+==2563707== HEAP SUMMARY:
+==2563707==     in use at exit: 9,288 bytes in 418 blocks
+==2563707==   total heap usage: 8,115 allocs, 7,697 frees, 214,830 bytes allocated
+==2563707== 
+==2563707== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563707==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563707==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563707== 
+==2563707== LEAK SUMMARY:
+==2563707==    definitely lost: 0 bytes in 0 blocks
+==2563707==    indirectly lost: 0 bytes in 0 blocks
+==2563707==      possibly lost: 0 bytes in 0 blocks
+==2563707==    still reachable: 9,288 bytes in 418 blocks
+==2563707==         suppressed: 0 bytes in 0 blocks
+==2563707== 
+==2563707== For lists of detected and suppressed errors, rerun with: -s
+==2563707== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563708== 
+==2563708== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563708== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563708==    <inherited from parent>
+==2563708== 
+==2563708== Open AF_UNIX socket 44: <unknown>
+==2563708==    <inherited from parent>
+==2563708== 
+==2563708== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563708==    <inherited from parent>
+==2563708== 
+==2563708== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563708==    <inherited from parent>
+==2563708== 
+==2563708== Open file descriptor 2: /dev/pts/0
+==2563708==    <inherited from parent>
+==2563708== 
+==2563708== Open file descriptor 1: /dev/pts/0
+==2563708==    <inherited from parent>
+==2563708== 
+==2563708== Open file descriptor 0: /dev/pts/0
+==2563708==    <inherited from parent>
+==2563708== 
+==2563708== 
+==2563708== HEAP SUMMARY:
+==2563708==     in use at exit: 9,288 bytes in 418 blocks
+==2563708==   total heap usage: 8,120 allocs, 7,702 frees, 214,890 bytes allocated
+==2563708== 
+==2563708== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563708==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563708==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563708== 
+==2563708== LEAK SUMMARY:
+==2563708==    definitely lost: 0 bytes in 0 blocks
+==2563708==    indirectly lost: 0 bytes in 0 blocks
+==2563708==      possibly lost: 0 bytes in 0 blocks
+==2563708==    still reachable: 9,288 bytes in 418 blocks
+==2563708==         suppressed: 0 bytes in 0 blocks
+==2563708== 
+==2563708== For lists of detected and suppressed errors, rerun with: -s
+==2563708== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563709== 
+==2563709== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563709== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563709==    <inherited from parent>
+==2563709== 
+==2563709== Open AF_UNIX socket 44: <unknown>
+==2563709==    <inherited from parent>
+==2563709== 
+==2563709== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563709==    <inherited from parent>
+==2563709== 
+==2563709== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563709==    <inherited from parent>
+==2563709== 
+==2563709== Open file descriptor 2: /dev/pts/0
+==2563709==    <inherited from parent>
+==2563709== 
+==2563709== Open file descriptor 1: /dev/pts/0
+==2563709==    <inherited from parent>
+==2563709== 
+==2563709== Open file descriptor 0: /dev/pts/0
+==2563709==    <inherited from parent>
+==2563709== 
+==2563709== 
+==2563709== HEAP SUMMARY:
+==2563709==     in use at exit: 9,288 bytes in 418 blocks
+==2563709==   total heap usage: 8,120 allocs, 7,702 frees, 214,992 bytes allocated
+==2563709== 
+==2563709== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563709==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563709==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563709== 
+==2563709== LEAK SUMMARY:
+==2563709==    definitely lost: 0 bytes in 0 blocks
+==2563709==    indirectly lost: 0 bytes in 0 blocks
+==2563709==      possibly lost: 0 bytes in 0 blocks
+==2563709==    still reachable: 9,288 bytes in 418 blocks
+==2563709==         suppressed: 0 bytes in 0 blocks
+==2563709== 
+==2563709== For lists of detected and suppressed errors, rerun with: -s
+==2563709== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563710== 
+==2563710== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563710== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563710==    <inherited from parent>
+==2563710== 
+==2563710== Open AF_UNIX socket 44: <unknown>
+==2563710==    <inherited from parent>
+==2563710== 
+==2563710== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563710==    <inherited from parent>
+==2563710== 
+==2563710== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563710==    <inherited from parent>
+==2563710== 
+==2563710== Open file descriptor 2: /dev/pts/0
+==2563710==    <inherited from parent>
+==2563710== 
+==2563710== Open file descriptor 1: /dev/pts/0
+==2563710==    <inherited from parent>
+==2563710== 
+==2563710== Open file descriptor 0: /dev/pts/0
+==2563710==    <inherited from parent>
+==2563710== 
+==2563710== 
+==2563710== HEAP SUMMARY:
+==2563710==     in use at exit: 9,288 bytes in 418 blocks
+==2563710==   total heap usage: 8,115 allocs, 7,697 frees, 214,884 bytes allocated
+==2563710== 
+==2563710== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563710==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563710==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563710== 
+==2563710== LEAK SUMMARY:
+==2563710==    definitely lost: 0 bytes in 0 blocks
+==2563710==    indirectly lost: 0 bytes in 0 blocks
+==2563710==      possibly lost: 0 bytes in 0 blocks
+==2563710==    still reachable: 9,288 bytes in 418 blocks
+==2563710==         suppressed: 0 bytes in 0 blocks
+==2563710== 
+==2563710== For lists of detected and suppressed errors, rerun with: -s
+==2563710== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563711== 
+==2563711== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563711== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563711==    <inherited from parent>
+==2563711== 
+==2563711== Open AF_UNIX socket 44: <unknown>
+==2563711==    <inherited from parent>
+==2563711== 
+==2563711== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563711==    <inherited from parent>
+==2563711== 
+==2563711== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563711==    <inherited from parent>
+==2563711== 
+==2563711== Open file descriptor 2: /dev/pts/0
+==2563711==    <inherited from parent>
+==2563711== 
+==2563711== Open file descriptor 1: /dev/pts/0
+==2563711==    <inherited from parent>
+==2563711== 
+==2563711== Open file descriptor 0: /dev/pts/0
+==2563711==    <inherited from parent>
+==2563711== 
+==2563711== 
+==2563711== HEAP SUMMARY:
+==2563711==     in use at exit: 9,288 bytes in 418 blocks
+==2563711==   total heap usage: 8,105 allocs, 7,687 frees, 214,565 bytes allocated
+==2563711== 
+==2563711== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563711==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563711==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563711== 
+==2563711== LEAK SUMMARY:
+==2563711==    definitely lost: 0 bytes in 0 blocks
+==2563711==    indirectly lost: 0 bytes in 0 blocks
+==2563711==      possibly lost: 0 bytes in 0 blocks
+==2563711==    still reachable: 9,288 bytes in 418 blocks
+==2563711==         suppressed: 0 bytes in 0 blocks
+==2563711== 
+==2563711== For lists of detected and suppressed errors, rerun with: -s
+==2563711== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563712== 
+==2563712== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563712== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563712==    <inherited from parent>
+==2563712== 
+==2563712== Open AF_UNIX socket 44: <unknown>
+==2563712==    <inherited from parent>
+==2563712== 
+==2563712== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563712==    <inherited from parent>
+==2563712== 
+==2563712== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563712==    <inherited from parent>
+==2563712== 
+==2563712== Open file descriptor 2: /dev/pts/0
+==2563712==    <inherited from parent>
+==2563712== 
+==2563712== Open file descriptor 1: /dev/pts/0
+==2563712==    <inherited from parent>
+==2563712== 
+==2563712== Open file descriptor 0: /dev/pts/0
+==2563712==    <inherited from parent>
+==2563712== 
+==2563712== 
+==2563712== HEAP SUMMARY:
+==2563712==     in use at exit: 9,288 bytes in 418 blocks
+==2563712==   total heap usage: 8,115 allocs, 7,697 frees, 214,871 bytes allocated
+==2563712== 
+==2563712== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563712==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563712==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563712== 
+==2563712== LEAK SUMMARY:
+==2563712==    definitely lost: 0 bytes in 0 blocks
+==2563712==    indirectly lost: 0 bytes in 0 blocks
+==2563712==      possibly lost: 0 bytes in 0 blocks
+==2563712==    still reachable: 9,288 bytes in 418 blocks
+==2563712==         suppressed: 0 bytes in 0 blocks
+==2563712== 
+==2563712== For lists of detected and suppressed errors, rerun with: -s
+==2563712== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563713== 
+==2563713== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563713== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563713==    <inherited from parent>
+==2563713== 
+==2563713== Open AF_UNIX socket 44: <unknown>
+==2563713==    <inherited from parent>
+==2563713== 
+==2563713== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563713==    <inherited from parent>
+==2563713== 
+==2563713== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563713==    <inherited from parent>
+==2563713== 
+==2563713== Open file descriptor 2: /dev/pts/0
+==2563713==    <inherited from parent>
+==2563713== 
+==2563713== Open file descriptor 1: /dev/pts/0
+==2563713==    <inherited from parent>
+==2563713== 
+==2563713== Open file descriptor 0: /dev/pts/0
+==2563713==    <inherited from parent>
+==2563713== 
+==2563713== 
+==2563713== HEAP SUMMARY:
+==2563713==     in use at exit: 9,288 bytes in 418 blocks
+==2563713==   total heap usage: 8,115 allocs, 7,697 frees, 214,464 bytes allocated
+==2563713== 
+==2563713== 4 bytes in 1 blocks are still reachable in loss record 1 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 4 bytes in 1 blocks are still reachable in loss record 2 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 8 bytes in 1 blocks are still reachable in loss record 3 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109DE3: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 16 bytes in 1 blocks are still reachable in loss record 4 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 16 bytes in 1 blocks are still reachable in loss record 5 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 24 bytes in 1 blocks are still reachable in loss record 6 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10AC71: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 672 bytes in 1 blocks are still reachable in loss record 7 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A1E4: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 1,278 bytes in 82 blocks are still reachable in loss record 8 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10C481: ft_substr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109FD2: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 1,312 bytes in 82 blocks are still reachable in loss record 9 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109FA3: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 1,312 bytes in 82 blocks are still reachable in loss record 10 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B6E1: ft_lstnew_void (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A034: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 1,678 bytes in 82 blocks are still reachable in loss record 11 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10BF53: ft_strdup (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A004: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109E2D: init_env (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10AC88: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== 2,964 bytes in 83 blocks are still reachable in loss record 12 of 12
+==2563713==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2563713==    by 0x10B859: ft_calloc (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10C0C2: ft_strjoin_ip (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A2F5: var_to_str (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A236: env_to_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A362: update_env_arr (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10A052: add_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x109F61: new_var (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10980E: ft_export (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713==    by 0x10ADAC: main (in /home/vviterbo/Desktop/C03/minishell/tests/bin/test_parsing)
+==2563713== 
+==2563713== LEAK SUMMARY:
+==2563713==    definitely lost: 0 bytes in 0 blocks
+==2563713==    indirectly lost: 0 bytes in 0 blocks
+==2563713==      possibly lost: 0 bytes in 0 blocks
+==2563713==    still reachable: 9,288 bytes in 418 blocks
+==2563713==         suppressed: 0 bytes in 0 blocks
+==2563713== 
+==2563713== For lists of detected and suppressed errors, rerun with: -s
+==2563713== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==2563687== 
+==2563687== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==2563687== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==2563687==    <inherited from parent>
+==2563687== 
+==2563687== Open AF_UNIX socket 44: <unknown>
+==2563687==    <inherited from parent>
+==2563687== 
+==2563687== Open file descriptor 43: /home/vviterbo/.config/Code/logs/20250214T132956/ptyhost.log
+==2563687==    <inherited from parent>
+==2563687== 
+==2563687== Open file descriptor 3: /home/vviterbo/Desktop/C03/minishell/tests/valgrind.log
+==2563687==    <inherited from parent>
+==2563687== 
+==2563687== Open file descriptor 2: /dev/pts/0
+==2563687==    <inherited from parent>
+==2563687== 
+==2563687== Open file descriptor 1: /dev/pts/0
+==2563687==    <inherited from parent>
+==2563687== 
+==2563687== Open file descriptor 0: /dev/pts/0
+==2563687==    <inherited from parent>
+==2563687== 
+==2563687== 
+==2563687== HEAP SUMMARY:
+==2563687==     in use at exit: 0 bytes in 0 blocks
+==2563687==   total heap usage: 8,102 allocs, 8,102 frees, 214,387 bytes allocated
+==2563687== 
+==2563687== All heap blocks were freed -- no leaks are possible
+==2563687== 
+==2563687== For lists of detected and suppressed errors, rerun with: -s
+==2563687== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

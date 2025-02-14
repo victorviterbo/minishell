@@ -7,10 +7,44 @@ a, n, d,  , w, i, t, h,  , ', o, t, h, e, r,  , q, u, o, t, i, n, g,  , c, h, a,
 w, h, a, t,  , a, b, o, u, t,  , {, b, r, a, c, e, s, }
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0
 
-Just a string
+echo Just a string123
+Just a string123
+
+echo Just a string with a $VAR 123
+Just a string with a 123
+
+echo Just a string with a $VAR123
 Just a string with a 
-Just a string with a var
-Just a string with a var
-Just a string with a $VAR
-Just a string with a ${VAR}
-Just a string with a var
+
+echo Just a string with a "$VAR"123
+Just a string with a var123
+
+echo 'Just a string with a "$VAR"'123
+Just a string with a "$VAR"123
+
+echo Just a string with a '$VAR'123
+Just a string with a $VAR123
+
+echo Just a string with a '${VAR}'123
+Just a string with a ${VAR}123
+
+echo Just a string with a ${VAR}123
+Just a string with a var123
+
+echo Do you know ${VAR}$VAR binks ? 
+Do you know varvar binks ? 
+
+echo You know $VAR$VAR binks ! in Star Wars
+You know varvar binks ! in Star Wars
+
+echo "Just a string with a '${VAR}'"123
+Just a string with a 'var'123
+
+echo "Just a string with a '${VAR}"'123
+Minishell: parsing: unfinished quotation
+echo "Just a string with a '${VAR}"123
+Just a string with a 'var123
+
+echo $VAR
+var
+
