@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:11:37 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/12 17:59:04 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:43:46 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,4 @@ int	main(int argc, char *argv[], char *envp[])
 	free(data);
 	return (EXIT_SUCCESS);
 }
+  

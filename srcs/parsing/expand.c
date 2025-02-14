@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/12 18:04:33 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:32:59 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 char	*expand_var(t_data *data, char *str);
 char	*replace_var(t_data *data, char *str, size_t *i);
 
-char	*expand_var(t_data *data, char *expanded)
+char	*expand_var(t_data *data, char *str)
 {
 	size_t	i;
 	bool	*isquoted;
+	char	*expanded;
 
 	i = 0;
-	isquoted = is_quoted(expanded, '\'', '\'');
+	expanded = ft_strdup(str);
+	if (!expanded)
+		ft_print_error("var expansion: memory allocation failed");
+	isquoted = is_quote_escaped(expanded);
 	if (!isquoted)
 		ft_print_error("var expansion: unfinished quoting sequence");
 	while (expanded[i])

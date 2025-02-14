@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/12 17:15:57 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:21:23 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	change_shlvl(t_data *data, int change);
 void	ft_print_error(const char *message);
 //utils/parsing_utils.c
 bool	*is_quoted(char *str, char open_char, char close_char);
+bool	*is_quote_escaped(char *str);
 size_t	go_to_next(char *str, char *chars, size_t i);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);
