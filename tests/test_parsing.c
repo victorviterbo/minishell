@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:25:55 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 11:37:44 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:58:12 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		print_boolarray(bool *arr, char *str);
 static void	test_is_quoted(char *str, bool expected_NULL, char c1, char c2);
-static void	test_expand(t_data *data, char *str);
+static void	test_expand(t_data *data, char *str, bool expected_fail);
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -31,6 +31,7 @@ int	main(int argc, char *argv[], char *envp[])
 	test_is_quoted("and \"unfinished quotes ?", true, '"', '"');
 	test_is_quoted("what about {braces}", false, '{', '}');
 	test_is_quoted("and in reverse {braces} now", true, '}', '{');
+
 	test_expand(data, "Just a string\n", false);
 	test_expand(data, "Just a string with a $VAR\n", false);
 	args = ft_make_test_strarr("VAR=var");
@@ -102,9 +103,11 @@ static void	test_expand(t_data *data, char *str, bool expected_fail)
 	if (pid == 0)
 	{
 		expanded = parse_str(data, str);
+		ft_printf("%s", expanded);
+		free(expanded);
+		return (EXIT_SUCCESS);
 	}
 	waitpid(pid, &exit_status, 0);
-	if (expected_fail == (exit_status != 0))
-	ft_printf("%s", expanded);
-	free(expanded);
+	if (expected_fail == (exit_status == 0))
+		exit (EXIT_FAILURE);
 }
