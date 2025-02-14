@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:45:49 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/12 17:14:26 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:58:04 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*parse_str(t_data *data, char *str)
 	parsed = ft_str_replace(str, "\"", "");
 	if (!parsed)
 		ft_print_error("parsing: memory allocation failed");
-	parsed = expand_var(data, parsed);
+	parsed = expand_var(data, str);
 	if (!parsed)
 		ft_print_error("parsing: variable expansion failed");
 	tmp = ft_str_replace(parsed, "'", "");
