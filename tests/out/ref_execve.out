@@ -18,7 +18,7 @@ int	main(void)
 	return (0);
 }
 /bin/cat miniprint.c ok
-Minishell: execve: could not find executable: No such file or directory
+/usr/bin/cd: line 4: cd: not_a_dir: No such file or directory
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -46,14 +46,11 @@ static int	check_env_to_arr(t_data *data_orig);
 
 grep -A3 -B1 tests test_env.c ok
 sleep 0.1 ok
-Minishell: execve: empty command
+Minishell: execve: empty command: Invalid argument
 NULL ok
 Minishell: execve: could not find executable: No such file or directory
 unkown command ok
 segfault_test ok
-1
-./miniprint
-1
 test execve
 miniprint ok
 cat: lalalala: No such file or directory
