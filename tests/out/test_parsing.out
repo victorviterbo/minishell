@@ -10,7 +10,12 @@ w, h, a, t,  , a, b, o, u, t,  , {, b, r, a, c, e, s, }
 Just a string
 Just a string with a 
 Just a string with a var
-Just a string with a var
+Just a string with a "var"
 Just a string with a $VAR
 Just a string with a ${VAR}
 Just a string with a var
+Do you know varvar binks ? 
+You know varvar binks ! in Star Wars 
+Just a string with a ${VAR}
+"Just a string with a var"
+Minishell: var expansion: unfinished quoting sequence

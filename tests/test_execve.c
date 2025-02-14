@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 17:11:37 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 11:54:52 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/14 12:11:07 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char *argv[], char *envp[])
 	test_execve(data, "cat miniprint.c", false);
 	test_execve(data, "grep -A3 -B1 tests test_env.c", false);
 	test_execve(data, "sleep 0.1", false);
-	test_execve(data, "NULL", true);
+	test_execve(data, NULL, true);
 	test_execve(data, "unkown command", true);
 	test_execve(data, "./segfault_test", true);
 	test_execve(data, "./miniprint", false);
@@ -45,8 +45,13 @@ static void	test_execve(t_data *data, char *str, bool expected_fail)
 	pid = fork();
 	if (pid == 0)
 	{
-		args = ft_split(str, ' ');
-		ft_execve(data, args);
+		if (!str)
+			ft_execve(data, NULL);
+		else
+		{
+			args = ft_split(str, ' ');
+			ft_execve(data, args);
+		}
 	}
 	waitpid(pid, &(exit_status), 0);
 	if ((exit_status == 0) == expected_fail)
