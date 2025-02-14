@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/12 17:15:57 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:41:26 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@
 # define SHELL_NAME "Minishell: "
 # define SHELL_PROMPT "Minishell$ "
 # define DEFAULT_ERROR "an unknown error has occured"
+
+enum e_QUOTES {
+	IS_NOT_QUOTED,
+	IS_SINGLE_QUOTED,
+	IS_DOUBLE_QUOTED
+};
 
 typedef struct s_data
 {
@@ -65,8 +71,8 @@ char	*find_exec(char *path_list, char *exec);
 //parsing/parse.c
 char	*parse_str(t_data *data, char *str);
 //parsing/expand.c
-char	*expand_var(t_data *data, char *str);
-char	*replace_var(t_data *data, char *str, size_t *i);
+char	*expand_var(t_data *data, char *str, int *isescaped);
+char	*replace_var(t_data *data, char *str, size_t *i, size_t *j);
 //utils/env_to_arr.c
 char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
@@ -76,6 +82,8 @@ void	change_shlvl(t_data *data, int change);
 void	ft_print_error(const char *message);
 //utils/parsing_utils.c
 bool	*is_quoted(char *str, char open_char, char close_char);
+int		*is_quote_escaped(char *str);
+char	*remove_quotes_ws(char *str, int *isescaped, bool inplace);
 size_t	go_to_next(char *str, char *chars, size_t i);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);

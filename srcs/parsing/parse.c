@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:45:49 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 11:58:04 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:22:20 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,21 @@ char	*parse_str(t_data *data, char *str);
 char	*parse_str(t_data *data, char *str)
 {
 	char	*parsed;
-	char	*tmp;
-	bool	*isquoted;
+	int		*isescaped;
 
-	isquoted = is_quoted(str, '\'', '\'');
-	if (!isquoted)
-		ft_print_error("parsing: unfinished quoting sequence");
-	free(isquoted);
-	isquoted = is_quoted(str, '{', '}');
-	if (!isquoted)
-		ft_print_error("parsing: unfinished quoting sequence");
-	free(isquoted);
-	isquoted = is_quoted(str, '"', '"');
-	if (!isquoted)
-		ft_print_error("parsing: unfinished quoting sequence");
-	free(isquoted);
-	parsed = ft_str_replace(str, "\"", "");
-	if (!parsed)
-		ft_print_error("parsing: memory allocation failed");
-	parsed = expand_var(data, str);
+	isescaped = is_quote_escaped(str);
+	if (!isescaped)
+		ft_print_error("parsing: unfinished quotation");
+	parsed = expand_var(data, str, isescaped);
 	if (!parsed)
 		ft_print_error("parsing: variable expansion failed");
-	tmp = ft_str_replace(parsed, "'", "");
-	free(parsed);
-	parsed = tmp;
+	free(isescaped);
+	isescaped = is_quote_escaped(parsed);
+	if (!isescaped)
+		ft_print_error("parsing: unfinished quotation");
+	parsed = remove_quotes_ws(parsed, isescaped, true);
 	if (!parsed)
-		ft_print_error("parsing: memory allocation failed");
+		ft_print_error("parsing: removing of quotations failed");
+	free(isescaped);
 	return (parsed);
 }

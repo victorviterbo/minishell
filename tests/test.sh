@@ -34,7 +34,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full --error-exitcode=1 ./bin/test_echo > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 --track-fds=all --log-file=valgrind.log ./bin/test_echo > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
         leaks --atExit -- ./bin/test_echo > /dev/null 2>&1
 fi
@@ -64,7 +64,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full --error-exitcode=1 ./bin/test_cd_leaks > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 --track-fds=all --log-file=valgrind.log ./bin/test_cd_leaks > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
         leaks --atExit -- ./bin/test_cd_leaks > /dev/null 2>&1
 fi
@@ -87,7 +87,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full --error-exitcode=1 ./bin/test_pwd_leaks > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 --track-fds=all --log-file=valgrind.log ./bin/test_pwd_leaks > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
         leaks --atExit -- ./bin/test_pwd_leaks > /dev/null 2>&1
 fi
@@ -109,7 +109,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full --error-exitcode=1 ./bin/test_env > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 --track-fds=all --log-file=valgrind.log ./bin/test_env > /dev/null 2>&1
 elif [[ "$OS" == "Darwin" ]]; then
         leaks --atExit -- ./bin/test_env > /dev/null 2>&1
 fi
@@ -141,7 +141,7 @@ fi
 make test_execve
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full --error-exitcode=1 ./bin/test_execve_leaks > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 --track-fds=all --log-file=valgrind.log ./bin/test_execve_leaks > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
         leaks --atExit -- ./bin/test_execve_leaks > /dev/null 2>&1
 fi
@@ -171,7 +171,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 if [[ "$OS" = "Linux" ]]; then
-        valgrind --leak-check=full --error-exitcode=1 ./bin/test_parsing > /dev/null 2>&1
+        valgrind --leak-check=full --error-exitcode=1 --track-fds=all --log-file=valgrind.log ./bin/test_parsing > /dev/null 2>&1
 elif [[ "$OS" = "Darwin" ]]; then
         leaks --atExit -- ./bin/test_parsing > /dev/null 2>&1
 fi
