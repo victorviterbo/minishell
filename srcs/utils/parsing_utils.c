@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 17:20:29 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/16 11:51:37 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int	*is_quote_escaped(char *str)
 			single_quoted = !single_quoted;
 		if (str[i] == '"' && !single_quoted)
 			double_quoted = !double_quoted;
-		if (single_quoted && double_quoted)
-			ft_print_error("Quote parsing failed !");
 		escaped[i] = single_quoted * IS_SINGLE_QUOTED
 			+ double_quoted * IS_DOUBLE_QUOTED;
 		i++;
