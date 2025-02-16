@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 11:47:44 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/16 17:19:30 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:21:14 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	create_node(t_tree *tree, char *str, size_t i)
 	else if (str[i] == '|')
 		tree->content = ft_strdup ("|");
 	build_tree(ft_substr(str, 0, i), tree->left);
-	build_tree(ft_substr(str, i + 2, ft_strlen(str + i + 2 - (str[i + 1] != '|'))), tree->right);
+	build_tree(ft_substr(str, i + 2,
+			ft_strlen(str + i + 2 - (str[i + 1] != '|'))), tree->right);
 	return ;
 }
