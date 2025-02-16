@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 16:50:53 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:53:30 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*replace_var(t_data *data, char *str, size_t *i, size_t *j)
 	}
 	else
 	{
-		k = go_to_next(str, "\"\\\a\b\t\n\f\r $'", *i + 1);
+		k = go_to_next(str, "\"\\\n\f\r $'", *i + 1);
 		varname = ft_substr(str, *i + 1, k - (*i + 1));
 	}
 	varvalue = get_var(data, varname);

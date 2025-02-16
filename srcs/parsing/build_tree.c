@@ -6,17 +6,17 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 11:47:44 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/16 15:35:42 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:13:00 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	build_tree(char *str, t_tree *tree);
+bool	is_cmd_separator(char c1, char c2);
 
 void	build_tree(char *str, t_tree *tree)
 {
-	t_tree	*tree;
 	int		*isescaped;
 	size_t	i;
 
@@ -39,9 +39,17 @@ void	build_tree(char *str, t_tree *tree)
 		else if (str[i] == '|' && isescaped[i] == IS_NOT_QUOTED)
 			tree->content = ft_strdup ("|");
 		build_tree(ft_substr(str, 0, i), tree->left);
-		build_tree(ft_substr(str, i + 2,
-				ft_strlen(i + 2 - (str[i + 1] != '|'))), tree->right);
+		build_tree(ft_substr(str, i + 2, ft_strlen(str + i + 2 - (str[i + 1] != '|'))), tree->right);
 		free(str);
 		return ;
 	}
+}
+
+bool	is_cmd_separator(char c1, char c2)
+{
+	if (c1 == '|')
+		return (true);
+	else if (c1 == '&' && c2 == '&')
+		return (true);
+	return (false);
 }

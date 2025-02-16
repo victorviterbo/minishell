@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/16 13:04:07 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/02/16 16:01:03 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,8 @@ $(OBJS): $(SRCS)
 $(LIBFT): $(LIBFT_SRCS)
 	@$(MAKE) -C $(LIBFT_DIR) all
 
-$(NAME): $(SRCS) $(LIBFT)
+$(NAME): $(SRCS)
+	@$(MAKE) -C $(LIBFT_DIR) all
 	@$(CC) $(CFLAGS) $(SRCS) ./srcs/minishell.c $(INCLUDE) -o $(BIN)$(NAME)
 	@echo "Minishell compiled successfully"
 
