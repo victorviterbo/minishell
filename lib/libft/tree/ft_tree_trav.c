@@ -6,17 +6,17 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:05:07 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 20:19:30 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:36:21 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_tree_trav(t_tree *node, void(*f)(void *),
-		t_Tree_Travel_Type trav_type);
+void	ft_tree_trav(t_tree *node, void (*f)(void *),
+			t_Tree_Travel_Type trav_type);
 
-void	ft_tree_trav(t_tree *node, void(*f)(void *),
-		t_Tree_Travel_Type trav_type)
+void	ft_tree_trav(t_tree *node, void (*f)(void *),
+			t_Tree_Travel_Type trav_type)
 {
 	if (trav_type == PRE_ORDER)
 		f(node->content);

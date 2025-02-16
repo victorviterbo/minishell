@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 12:33:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 20:40:05 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:36:27 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 // TREE
 void		ft_tree_clear(t_tree *tree, void (*del)(void *));
 t_tree		*ft_tree_new(void *content);
-void		ft_tree_trav(t_tree *node, void(*f)(void *),
+void		ft_tree_trav(t_tree *node, void (*f)(void *),
 				t_Tree_Travel_Type trav_type);
 // WRITE_READ
 char		*ft_get_next_line(int fd);
