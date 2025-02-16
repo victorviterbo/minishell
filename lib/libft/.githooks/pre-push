@@ -1,0 +1,62 @@
+#!/bin/sh
+
+if ! [ -d "tests/" ]; then
+	echo "tests directory not found, git push aborted !"
+	exit 1
+fi
+
+files=$(ls *.h characters/*.c conversions/*.c lists/*.c math/*.c memory/*.c miscs/*.c printf/*.c strings/*.c write_read/*.c 2>/dev/null)
+
+if [ -z "$files" ]; then
+    echo "No .c or .h files found, git push aborted!"
+    exit 1
+fi
+
+norm_out=$(norminette $files)
+
+norm_ok=$(echo "$norm_out" | grep -c 'Error')
+
+if [ "$norm_ok" -ne 0 ]; then
+	echo "Source files do not pass the norm, git push aborted !"
+	exit 1
+fi
+
+make re
+
+if [ $? -ne 0 ]; then
+	echo "Could not compile with make re, git push aborted !"
+	exit 1
+fi
+
+cd tests/
+
+make
+
+if [ "$?" -ne 0 ]; then
+	echo "Tests cannot compile, git push aborted !"
+	exit 1
+fi
+
+./tests
+
+if [ "$?" -ne 0 ]; then
+	echo "Tests failed, git push aborted !"
+	exit 1
+fi
+
+OS=$(uname -s)
+
+if [ "$OS" = "Linux" ]; then
+        valgrind --leak-check=full --error-exitcode=1 ./tests
+elif [ "$OS" = "Darwin" ]; then
+	leaks --atExit -- ./tests
+fi
+
+if [ "$?" -ne 0 ]; then
+	echo "Tests failed : leaks found, git push aborted !"
+	exit 1
+fi
+
+echo "All tests passed !"
+cd ../
+exit 0

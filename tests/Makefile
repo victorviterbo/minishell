@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/12 19:55:35 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/02/16 11:41:07 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ all: tests
 	@$(MAKE) -C ../ all
 
 tests:	folders test_echo test_cd test_cd_leaks test_pwd test_env test_execve \
-		test_execve_leaks test_parsing test_pwd_leaks
+		test_execve_leaks test_parsing test_pwd_leaks test_parsing_leaks
 
 test_echo: $(SRCS) $(LIBFT) test_echo.c
 	@$(CC) $(CFLAGS) $(MINI_SRCS) test_echo.c $(INCLUDE) -o $(BIN)test_echo
@@ -66,6 +66,9 @@ test_execve_leaks: $(SRCS) $(LIBFT) test_execve_leaks.c
 
 test_parsing: $(SRCS) $(LIBFT) test_parsing.c
 	@$(CC) $(CFLAGS) $(MINI_SRCS) test_parsing.c test_utils.c $(INCLUDE) -o $(BIN)test_parsing
+
+test_parsing_leaks: $(SRCS) $(LIBFT) test_parsing_leaks.c
+	@$(CC) $(CFLAGS) $(MINI_SRCS) test_parsing_leaks.c test_utils.c $(INCLUDE) -o $(BIN)test_parsing_leaks
 
 clean:
 	$(MAKE) -C ../ clean

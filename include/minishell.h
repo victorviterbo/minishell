@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 17:55:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/16 17:17:32 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int		ft_env(t_data *data);
 //exec/execve.c
 int		ft_execve(t_data *data, char **args);
 char	*find_exec(char *path_list, char *exec);
+//parsing/build_tree.c
+void	build_tree(char *str, t_tree *tree);
 //parsing/parse.c
 char	*parse_str(t_data *data, char *str);
 //parsing/expand.c
