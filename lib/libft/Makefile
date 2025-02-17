@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
+#    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/14 20:39:54 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/02/17 00:13:31 by vbronov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,9 +63,9 @@ TREE				=	ft_tree_clear.c ft_tree_new.c ft_tree_trav.c
 SRCS_TREE			=	$(addprefix tree/, $(TREE))
 OBJS_TREE		 	=	$(patsubst tree/%.c, objs/%.o, $(SRCS_TREE))
 
-WRITE_READ			=	ft_get_next_line.c ft_putchar_fd.c \
-						ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c \
-						ft_readfile.c ft_printf.c
+WRITE_READ			=	ft_get_next_line.c ft_printchar.c ft_printhex.c \
+						ft_printnum.c ft_printptr.c ft_printstr.c \
+						ft_printunum.c ft_readfile.c ft_printf.c utils.c
 SRCS_WRITE_READ		=	$(addprefix write_read/, $(WRITE_READ))
 OBJS_WRITE_READ 	=	$(patsubst write_read/%.c, objs/%.o, $(SRCS_WRITE_READ))
 
