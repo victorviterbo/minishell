@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 12:33:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/16 17:33:12 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:13:20 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ double		ft_lstmin(t_list **lst, int dtype);
 int			ft_lstmini(t_list **lst);
 t_list		*ft_lstnew_int(int i);
 t_list		*ft_lstnew_void(void *content);
+void		ft_lstpop(t_list **lst, t_list *node, void (*del)(void *));
 int			ft_lstsize(t_list *lst);
 // MATH
 double		ft_abs(double n);
@@ -120,6 +121,7 @@ double		ft_max(double a, double b);
 double		ft_min(double a, double b);
 double		ft_norm(t_coor vector);
 double		ft_prev_power(double n, int base_size);
+int			*ft_range(int min, int max);
 t_coor		ft_vecadd(t_coor v1, t_coor v2);
 t_coor		ft_vecscale(t_coor base, t_coor tip, float scale);
 t_coor		vec_substr(t_coor v1, t_coor v2);
@@ -169,7 +171,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 // TREE
 void		ft_tree_clear(t_tree *tree, void (*del)(void *));
 t_tree		*ft_tree_new(void *content);
-void		ft_tree_trav(t_tree *node, void (*f)(void *),
+void		ft_tree_trav(t_tree *tree, void (*f)(void *),
 				t_Tree_Travel_Type trav_type);
 // WRITE_READ
 char		*ft_get_next_line(int fd);
