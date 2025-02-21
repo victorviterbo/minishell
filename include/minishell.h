@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/21 14:55:41 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:56:38 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,33 @@
 # include <errno.h>
 # include <limits.h>
 # include <stdio.h>
+# include <signal.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <termios.h>
 
 # include "libft.h"
 
 # define SHELL_NAME "Minishell: "
 # define SHELL_PROMPT "Minishell$ "
 # define DEFAULT_ERROR "an unknown error has occured"
+# define FALSE		0
+# define TRUE		1
+# define EXIT_NUMARG 2
 
-enum e_QUOTES {
+enum e_quotes
+{
 	IS_NOT_QUOTED,
 	IS_SINGLE_QUOTED,
 	IS_DOUBLE_QUOTED
+};
+
+enum e_signal
+{
+	READLINE_MODE,
+	EXECUTION_MODE,
+	INSIGINT,
+	INSIGQUIT,
 };
 
 typedef struct s_data
@@ -68,6 +84,8 @@ int		ft_env(t_data *data);
 //exec/execve.c
 int		ft_execve(t_data *data, char **args);
 char	*find_exec(char *path_list, char *exec);
+//exec/exit.c
+int		ft_exit(t_data *data, char **args, int argc);
 //parsing/build_tree.c
 void	build_tree(char *str, t_tree *tree);
 //parsing/parse.c

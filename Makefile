@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
+#    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/16 16:01:03 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/02/17 02:26:18 by vbronov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 HEADER = minishell.h
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 LIBFT_DIR = ./lib/libft/
 
@@ -22,7 +22,7 @@ LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_src
 
 LIBFT = $(LIBFT_DIR)libft.a
 
-EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c execve.c
+EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c execve.c exit.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
 PARSING_F		= 	expand.c parse.c build_tree.c
@@ -37,7 +37,7 @@ BIN = ./bin/
 
 CC = cc
 
-INCLUDE = -I./include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft
+INCLUDE = -I./include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft -lreadline
 
 all: folders $(NAME)
 

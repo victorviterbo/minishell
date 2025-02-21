@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 12:33:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/16 16:36:27 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/17 02:07:20 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,18 +174,10 @@ void		ft_tree_trav(t_tree *node, void (*f)(void *),
 // WRITE_READ
 char		*ft_get_next_line(int fd);
 int			ft_printf(const char *str, ...);
-size_t		print_format(const char **str, va_list argl);
-char		*get_radix(char type, va_list argl);
+int			ft_fprintf(int fd, const char *str, ...);
 char		*ft_utoa_base(unsigned long number, char *base);
 char		*ft_itoa_base(long long n, char *base);
-char		*ft_strdup_pf(const char *s1, int null);
-size_t		print_format(const char **str, va_list argl);
-char		*get_radix(char type, va_list argl);
 char		*ft_strjoin_gnl(char const *s1, char const *s2, int in_place);
-void		ft_putchar_fd(char c, int fd);
-void		ft_putendl_fd(char *s, int fd);
-void		ft_putnbr_fd(int n, int fd);
-void		ft_putstr_fd(char *s, int fd);
 char		*ft_readfile(int fd);
 
 #endif
