@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/20 14:30:53 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/02/23 18:44:14 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,6 @@ LIBFT_DIR = ../lib/libft/
 MINI_DIR = ../
 
 MINI_SRCS =  $(addprefix $(MINI_DIR), $(shell make -C $(MINI_DIR) -s print_srcs))
-
-LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_srcs))
 
 LIBFT = $(LIBFT_DIR)libft.a
 
