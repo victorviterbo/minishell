@@ -6,13 +6,13 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:22:24 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/20 15:52:34 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:05:46 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
 
-void	print_node(void *content);
+void	print_node(t_tree *tree);
 void	test_tree_building(char *str);
 
 int	main(void)
@@ -22,12 +22,12 @@ int	main(void)
 	test_tree_building("plain test command");
 	test_tree_building("plain test && another command");
 	test_tree_building("A (B) || C && D");
-	test_tree_building("A ( B && C | D) E");
+	test_tree_building("A <( B && C | D) | E");
 }
 
-void	print_node(void *content)
+void	print_node(t_tree *tree)
 {
-	ft_printf("node content = %s\n", content);
+	ft_printf("node content = %s\n", tree->content);
 }
 
 void	test_tree_building(char *str)
