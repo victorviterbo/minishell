@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim_char.c                                  :+:      :+:    :+:   */
+/*   ft_range.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 23:22:58 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/16 17:45:25 by vviterbo         ###   ########.fr       */
+/*   Created: 2025/02/20 18:55:55 by vviterbo          #+#    #+#             */
+/*   Updated: 2025/02/20 19:11:03 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim_char(char *str, char c, bool inplace);
+int	*ft_range(int min, int max);
 
-char	*ft_strtrim_char(char *str, char c, bool inplace)
+int	*ft_range(int min, int max)
 {
-	char	*cstr;
-	char	*trimmed;
+	int	*range;
+	int	i;
 
-	cstr = ft_ctoa(c);
-	trimmed = ft_strtrim(str, cstr);
-	free(cstr);
-	if (inplace)
-		free(str);
-	return (trimmed);
+	if (max < min || max - min > INT_MAX)
+		return (NULL);
+	range = ft_calloc(max - min, sizeof(int));
+	if (!range)
+		return (NULL);
+	i = 0;
+	while (min != max)
+	{
+		range[i] = min;
+		min++;
+		i++;
+	}
+	return (range);
 }

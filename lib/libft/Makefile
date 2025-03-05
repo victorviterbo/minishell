@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/17 00:13:31 by vbronov          ###   ########.fr        #
+#    Updated: 2025/02/21 19:56:01 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,13 @@ LISTS				=	ft_lst_getn.c ft_lst_isin_int.c ft_lst_isin_void.c \
 						ft_lstcut.c ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
 						ft_lstmap_void.c ft_lstmax.c ft_lstmaxi.c ft_lstmin.c \
 						ft_lstmini.c ft_lstnew_int.c ft_lstnew_void.c \
-						ft_lstsize.c
+						ft_lstsize.c ft_lstpop.c
 SRCS_LISTS			=	$(addprefix lists/, $(LISTS))
 OBJS_LISTS		 	=	$(patsubst lists/%.c, objs/%.o, $(SRCS_LISTS))
 
 MATH				=	ft_abs.c ft_dotprod.c ft_initvec.c \
 						ft_max.c ft_min.c ft_norm.c ft_prev_power.c \
-						ft_vecadd.c ft_vecscale.c ft_vecsubstr.c
+						ft_vecadd.c ft_vecscale.c ft_vecsubstr.c ft_range.c
 SRCS_MATH			=	$(addprefix math/, $(MATH))
 OBJS_MATH		 	=	$(patsubst math/%.c, objs/%.o, $(SRCS_MATH))
 

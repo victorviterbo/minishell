@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 21:49:19 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 11:26:15 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:26:27 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
 void	update_env_arr(t_data *data);
 void	change_shlvl(t_data *data, int change);
+void	*copy_var(void	*var);
 
 char	**env_to_arr(t_data *data)
 {
@@ -84,4 +85,20 @@ void	change_shlvl(t_data *data, int change)
 	new_var(data, shlvl);
 	free(shlvl);
 	return ;
+}
+
+void	*copy_var(void	*var)
+{
+	t_var	*copy;
+
+	copy = ft_calloc(1, sizeof(t_var));
+	if (!copy)
+		return (NULL);
+	copy->name = ft_strdup(((t_var *)var)->name);
+	if (!copy->name)
+		return (free(copy), NULL);
+	copy->value = ft_strdup(((t_var *)var)->value);
+	if (!copy->value)
+		return (free(copy->name), free(copy->value), NULL);
+	return (copy);
 }

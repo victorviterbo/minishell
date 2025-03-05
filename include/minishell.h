@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/21 15:56:38 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/21 19:55:42 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ char	*get_absolute_path(char *path);
 //exec/env.c
 int		ft_env(t_data *data);
 //exec/export.c
-int		ft_export(t_data *env, char *args[]);
+int		ft_export(t_data *data, char *args[]);
+int		export_no_args(t_data *data);
 //exec/pwd.c
 int		ft_pwd(void);
 char	*ft_get_current_path(void);
@@ -88,6 +89,8 @@ char	*find_exec(char *path_list, char *exec);
 int		ft_exit(t_data *data, char **args, int argc);
 //parsing/build_tree.c
 void	build_tree(char *str, t_tree *tree);
+char	*is_cmd_separator(char c1, char c2, bool openpar);
+void	explore_subtree(t_tree *tree, char *str, size_t i, size_t seplen);
 //parsing/parse.c
 char	*parse_str(t_data *data, char *str);
 //parsing/expand.c
@@ -98,6 +101,7 @@ char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
 void	update_env_arr(t_data *data);
 void	change_shlvl(t_data *data, int change);
+void	*copy_var(void	*var);
 //utils/error_handlings.c
 void	ft_print_error(const char *message);
 //utils/parsing_utils.c
