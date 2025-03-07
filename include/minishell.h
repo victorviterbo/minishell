@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/21 19:55:42 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:32:46 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 
 # include "libft.h"
 
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
 # define SHELL_NAME "Minishell: "
 # define SHELL_PROMPT "Minishell$ "
 # define DEFAULT_ERROR "an unknown error has occured"
@@ -50,10 +53,32 @@ enum e_signal
 	INSIGQUIT,
 };
 
+enum e_token_type
+{
+	WORD,
+	PIPE,
+	OPENPAR,
+	CLOSEPAR,
+	AND,
+	OR,
+	STDOUT,
+	STDOUT_APPEND,
+	STDIN,
+	STDIN_HEREDOC
+};
+
+typedef struct s_token
+{
+	char			*str;
+	char			type;
+	struct s_token	*next;
+}	t_token;
+
 typedef struct s_data
 {
 	t_list	**envp;
 	char	**env_arr;
+	t_token	*tokens;
 	int		exit_status;
 }	t_data;
 
@@ -96,6 +121,8 @@ char	*parse_str(t_data *data, char *str);
 //parsing/expand.c
 char	*expand_var(t_data *data, char *str, int *isescaped);
 char	*replace_var(t_data *data, char *str, size_t *i, size_t *j);
+//parsing/lexer.c
+t_token	*lexer(t_data *data, char *str);
 //utils/env_to_arr.c
 char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
@@ -116,5 +143,7 @@ int		add_var(t_data *data, t_list **env, char *str, size_t name_len);
 int		change_var(t_data *data, t_list *current, char *first_equal,
 			bool append);
 char	*get_var(t_data *data, char *varname);
+
+int		disable_echoctl(int disable);
 
 #endif

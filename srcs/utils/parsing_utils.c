@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/16 11:51:37 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:51:43 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ size_t	go_to_next(char *str, char *chars, size_t i)
 
 	ws = (ft_strchr(chars, ' ') != NULL);
 	while (str[i] && ((ft_strchr(chars, str[i]) == NULL)
-			&& !(ft_iswhitespace_eq(str[i]) && ws)))
+			&& !(ft_isspace(str[i]) && ws)))
 		i++;
 	return (i);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_iswhitespace_eq.c                               :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-int	ft_iswhitespace_eq(int c);
+int	ft_isspace(int c);
 
-int	ft_iswhitespace_eq(int c)
+int	ft_isspace(int c)
 {
 	return ((9 <= c && c <= 13) || c == 32);
 }
