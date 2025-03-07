@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/17 02:26:18 by vbronov          ###   ########.fr        #
+#    Updated: 2025/02/24 12:04:44 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,6 @@ HEADER = minishell.h
 CFLAGS = -Wall -Wextra -Werror -g
 
 LIBFT_DIR = ./lib/libft/
-
-LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_srcs))
 
 LIBFT = $(LIBFT_DIR)libft.a
 
@@ -57,9 +55,6 @@ folders :
 
 $(OBJS): $(SRCS)
 	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(LIBFT): $(LIBFT_SRCS)
-	@$(MAKE) -C $(LIBFT_DIR) all
 
 $(NAME): $(SRCS)
 	@$(MAKE) -C $(LIBFT_DIR) all

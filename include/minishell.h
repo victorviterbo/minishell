@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/21 19:55:42 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/23 19:05:56 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ typedef struct s_var
 	char	*name;
 	char	*value;
 }	t_var;
+
+typedef struct s_leaf
+{
+	char	*cmd;
+	char	*args;
+	int		fd_in;
+	int		fd_out;
+}	t_leaf;
 
 //exec/echo.c
 int		ft_echo(char *str, bool nl);

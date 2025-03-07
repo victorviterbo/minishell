@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/21 19:56:01 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/02/23 10:11:47 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,9 +96,6 @@ fclean : clean
 re : fclean all
 
 bonus : all
-
-print_srcs:
-	@echo $(SRCS)
 
 objs_folder :
 	@mkdir -p objs/
