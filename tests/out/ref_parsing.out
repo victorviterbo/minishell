@@ -41,7 +41,7 @@ echo "Just a string with a '${VAR}'"123
 Just a string with a 'var'123
 
 echo "Just a string with a '${VAR}"'123
-Minishell: parsing: unfinished quotation
+Minishell: parsing: unfinished quotation: Invalid argument
 echo "Just a string with a '${VAR}"123
 Just a string with a 'var123
 

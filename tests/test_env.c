@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:02:46 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/12 17:49:44 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/02/22 13:52:54 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	data = ft_calloc(1, sizeof(t_data));
 	init_env(data, envp);
+	if (ft_export(data, NULL) != 0)
+		return (EXIT_FAILURE);
 	tmp_arr = ft_make_test_strarr("VAR1");
 	ft_unset(data, tmp_arr);
 	free(tmp_arr);
