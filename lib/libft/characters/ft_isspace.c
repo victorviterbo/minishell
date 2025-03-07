@@ -6,15 +6,15 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:44:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 17:59:06 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/07 13:27:17 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isspace(int c);
+int	ft_isspace(char c);
 
-int	ft_isspace(int c)
+int	ft_isspace(char c)
 {
-	return ((9 <= c && c <= 13) || c == 32);
+	return (c == '\t' || c ==  ' ' || c == '\n');
 }
