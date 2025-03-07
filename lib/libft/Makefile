@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
+#    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/21 19:56:01 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/03/06 22:51:43 by vbronov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libft.a
 
 CHARACTERS			= 	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
 						ft_isprint.c ft_tolower.c ft_toupper.c \
-						ft_iswhitespace_eq.c
+						ft_isspace.c
 SRCS_CHARACTERS		=	$(addprefix characters/, $(CHARACTERS))
 OBJS_CHARACTERS 	=	$(patsubst characters/%.c, objs/%.o, $(SRCS_CHARACTERS))
 

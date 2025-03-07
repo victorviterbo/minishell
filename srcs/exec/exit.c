@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 02:26:46 by vbronov           #+#    #+#             */
-/*   Updated: 2025/02/21 15:57:06 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/06 22:21:25 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int ft_exit(t_data *data, char **args, int argc)
 		data->exit_status = EXIT_FAILURE;
 		return (EXIT_FAILURE);
 	}
+	disable_echoctl(FALSE);
 	if (argc == 2)
 	{
 		i = 0;

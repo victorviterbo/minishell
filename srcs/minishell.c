@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/17 03:34:42 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/03/06 22:37:37 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	init_data(t_data *data, char **envp)
 {
 	data->env_arr = NULL;
 	data->envp = NULL;
+	data->tokens = NULL;
 	data->exit_status = EXIT_SUCCESS;
 	return (init_env(data, envp));
 }
@@ -62,18 +63,41 @@ int	init_data(t_data *data, char **envp)
  * in the terminal. This function modifies the terminal attributes to
  * prevent control characters from being displayed when entered.
  * 
+ * @param disable If TRUE, disable echoing; if FALSE, restore original settings
  * @return int Returns 0 on success, -1 on failure
  */
-int	disable_echoctl(void)
+int	disable_echoctl(int disable)
 {
-	struct termios	term;
+	struct termios			term;
+	static struct termios	term_old;
 
-	if (tcgetattr(STDIN_FILENO, &term) == -1)
-		return (EXIT_FAILURE);
-	term.c_lflag &= ~ECHOCTL;
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
-		return (EXIT_FAILURE);
+	if (disable)
+	{
+		if (tcgetattr(STDIN_FILENO, &term) == -1)
+			return (EXIT_FAILURE);
+		term_old = term;
+		term.c_lflag &= ~ECHOCTL;
+		if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
+			return (EXIT_FAILURE);
+	}
+	else
+	{
+		if (tcsetattr(STDIN_FILENO, TCSANOW, &term_old) == -1)
+			return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
+}
+
+void	print_tokens(t_token *tokens)
+{
+	t_token	*current;
+
+	current = tokens;
+	while (current)
+	{
+		ft_printf("Token: %s, Type: %d\n", current->str, current->type);
+		current = current->next;
+	}
 }
 
 void	main_loop(t_data *data)
@@ -94,9 +118,14 @@ void	main_loop(t_data *data)
 			data->exit_status = EXIT_SUCCESS;
 			ft_exit(data, NULL, 0);
 		}
-		// TODO: add here tokenization logic
-		if (line[0] != '\0')
+		data->tokens = lexer(data, line);
+		if (data->tokens)
+		{
 			add_history(line);
+			if (DEBUG)
+				print_tokens(data->tokens);
+			//TODO: implement parser and executor
+		}
 		free(line);
 	}
 }
@@ -115,7 +144,7 @@ int	main(int argc, char **argv, char **envp)
 	sigaction(SIGQUIT, &sa, NULL);
 	if (init_data(&data, envp) != EXIT_SUCCESS)
 		return (data.exit_status);
-	disable_echoctl();
+	disable_echoctl(TRUE);
 	main_loop(&data);
 	return (EXIT_SUCCESS);
 }

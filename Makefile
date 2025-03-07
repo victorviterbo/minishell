@@ -6,7 +6,7 @@
 #    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/17 02:26:18 by vbronov          ###   ########.fr        #
+#    Updated: 2025/03/06 22:27:33 by vbronov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,11 @@ NAME = minishell
 
 HEADER = minishell.h
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
+
+ifdef DEBUG
+    CFLAGS += -DDEBUG=1 -g
+endif
 
 LIBFT_DIR = ./lib/libft/
 
@@ -25,7 +29,7 @@ LIBFT = $(LIBFT_DIR)libft.a
 EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c execve.c exit.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
-PARSING_F		= 	expand.c parse.c build_tree.c
+PARSING_F		= 	expand.c parse.c build_tree.c lexer.c
 SRCS_PARSING	=	$(addprefix parsing/, $(PARSING_F))
 
 UTILS_F		= 	error_handling.c variables.c env_to_arr.c parsing_utils.c
