@@ -6,38 +6,21 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:27:53 by vbronov           #+#    #+#             */
-/*   Updated: 2025/03/09 10:16:00 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/09 13:21:54 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			free_token(void *content);
 static t_token	*lexer_error(t_data *data, t_token *head, t_token *current);
 static char		get_token_type(char *str);
 static void		find_token_end(char *str, size_t *j, char type);
 static void		add_back_token(t_token **head, t_token *current);
 
-static void	free_token(void *content)
-{
-	t_token	*token;
-
-	if (!content)
-		return ;
-	token = (t_token *)content;
-	if (token->str)
-	{
-		free(token->str);
-		token->str = NULL;
-	}
-	token->next = NULL;
-	free(token);
-}
-
 static t_token	*lexer_error(t_data *data, t_token *head, t_token *current)
 {
 	data->exit_status = errno;
-	ft_fprintf(STDERR_FILENO, "lexer: %s\n", strerror(data->exit_status));
+	//ft_fprintf(STDERR_FILENO, "lexer: %s\n", strerror(data->exit_status));
 	free_tokens(head);
 	free_token(current);
 	return (NULL);
@@ -93,6 +76,7 @@ static void	find_token_end(char *str, size_t *j, char type)
 		if (str[*j])
 			(*j)++;
 	}
+	return ;
 }
 
 static void	add_back_token(t_token **head, t_token *current)

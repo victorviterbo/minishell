@@ -6,15 +6,15 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:45:49 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/14 17:22:20 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/09 11:33:09 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*parse_str(t_data *data, char *str);
+char	*parse_str(t_data *data, char *str, bool inplace);
 
-char	*parse_str(t_data *data, char *str)
+char	*parse_str(t_data *data, char *str, bool inplace)
 {
 	char	*parsed;
 	int		*isescaped;
@@ -33,5 +33,7 @@ char	*parse_str(t_data *data, char *str)
 	if (!parsed)
 		ft_print_error("parsing: removing of quotations failed");
 	free(isescaped);
+	if (inplace)
+		free(str);
 	return (parsed);
 }

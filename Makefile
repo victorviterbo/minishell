@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/03/06 22:27:33 by vbronov          ###   ########.fr        #
+#    Updated: 2025/03/09 13:17:49 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,11 @@ LIBFT = $(LIBFT_DIR)libft.a
 EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c execve.c exit.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
-PARSING_F		= 	expand.c parse.c build_tree.c lexer.c
+PARSING_F		= 	expand.c parse.c build_ast.c lexer.c
 SRCS_PARSING	=	$(addprefix parsing/, $(PARSING_F))
 
-UTILS_F		= 	error_handling.c variables.c env_to_arr.c parsing_utils.c
+UTILS_F		= 	error_handling.c variables.c env_to_arr.c parsing_utils.c \
+				ast_utils.c token_utils.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING))

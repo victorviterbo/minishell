@@ -3,44 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/06 22:51:43 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/03/09 11:27:50 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	*is_quoted(char *str, char open_char, char close_char);
 int		*is_quote_escaped(char *str);
 char	*remove_quotes_ws(char *str, int *isescaped, bool inplace);
 size_t	go_to_next(char *str, char *chars, size_t i);
-
-bool	*is_quoted(char *str, char open_char, char close_char)
-{
-	bool	*isquoted;
-	size_t	i;
-	bool	between_quotes;
-
-	i = 0;
-	isquoted = ft_calloc(ft_strlen(str) + 1, sizeof(bool));
-	if (!isquoted)
-		ft_print_error("parsing: memory allocation failed");
-	between_quotes = false;
-	while (str[i])
-	{
-		if (str[i] == open_char && !between_quotes)
-			between_quotes = !between_quotes;
-		else if (str[i] == close_char && between_quotes)
-			between_quotes = !between_quotes;
-		isquoted[i] = between_quotes;
-		i++;
-	}
-	if (between_quotes)
-		return (free(isquoted), NULL);
-	return (isquoted);
-}
 
 int	*is_quote_escaped(char *str)
 {
@@ -87,7 +61,7 @@ char	*remove_quotes_ws(char *str, int *isescaped, bool inplace)
 		if ((str[i] == '\'' && isescaped[i] != IS_DOUBLE_QUOTED)
 			|| (str[i] == '"' && isescaped[i] != IS_SINGLE_QUOTED)
 			|| (str[i] == ' ' && str[i + 1] == ' '
-				&& isescaped[i] != IS_DOUBLE_QUOTED))
+				&& isescaped[i] == IS_NOT_QUOTED))
 			continue ;
 		j++;
 		newstr[j] = str[i];

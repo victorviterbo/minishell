@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/07 14:20:13 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/09 13:32:52 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+# include <fcntl.h>
 
 # include "libft.h"
 
@@ -76,10 +77,8 @@ typedef struct s_token
 
 typedef struct s_leaf
 {
-	char	operator;
 	int		fdin;
 	int		fdout;
-	bool	heredoc;
 	char	*cmd;
 	char	**args;
 }	t_leaf;
@@ -123,16 +122,22 @@ char	*find_exec(char *path_list, char *exec);
 //exec/exit.c
 int		ft_exit(t_data *data, char **args, int argc);
 //parsing/build_tree.c
-void	build_tree(char *str, t_tree *tree);
-char	*is_cmd_separator(char c1, char c2, bool openpar);
-void	explore_subtree(t_tree *tree, char *str, size_t i, size_t seplen);
+void	make_ast(t_data *data, t_token *token);
+void	build_tree(t_token *token, t_tree *tree, bool openpar);
+void	explore_tree(t_token *token, t_token *current, t_token *last,
+			t_tree *tree);
+void	make_leaf(t_data *data, t_tree *tree);
 //parsing/parse.c
-char	*parse_str(t_data *data, char *str);
+char	*parse_str(t_data *data, char *str, bool inplace);
 //parsing/expand.c
 char	*expand_var(t_data *data, char *str, int *isescaped);
 char	*replace_var(t_data *data, char *str, size_t *i, size_t *j);
 //parsing/lexer.c
 t_token	*lexer(t_data *data, char *str);
+//utils/ast_utils.c
+void	ast_trav(t_data *data, t_tree *tree);
+void	tree_error(t_token *token, t_tree *tree);
+void	free_leaf(t_leaf *leaf);
 //utils/env_to_arr.c
 char	**env_to_arr(t_data *data);
 char	*var_to_str(t_list *current);
@@ -142,10 +147,12 @@ void	*copy_var(void	*var);
 //utils/error_handlings.c
 void	ft_print_error(const char *message);
 //utils/parsing_utils.c
-bool	*is_quoted(char *str, char open_char, char close_char);
 int		*is_quote_escaped(char *str);
 char	*remove_quotes_ws(char *str, int *isescaped, bool inplace);
 size_t	go_to_next(char *str, char *chars, size_t i);
+//utils/token_utils.c
+void	free_token(void *content);
+void	free_tokens(t_token *head);
 //utils/variables.c
 int		init_env(t_data *data, char **envp);
 int		new_var(t_data *data, char *str);
