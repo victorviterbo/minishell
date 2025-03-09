@@ -6,11 +6,17 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:27:53 by vbronov           #+#    #+#             */
-/*   Updated: 2025/03/07 13:28:35 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/09 10:16:00 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void			free_token(void *content);
+static t_token	*lexer_error(t_data *data, t_token *head, t_token *current);
+static char		get_token_type(char *str);
+static void		find_token_end(char *str, size_t *j, char type);
+static void		add_back_token(t_token **head, t_token *current);
 
 static void	free_token(void *content)
 {
@@ -26,22 +32,6 @@ static void	free_token(void *content)
 	}
 	token->next = NULL;
 	free(token);
-}
-
-static void	free_tokens(t_token *head)
-{
-	t_token	*current;
-	t_token	*next;
-
-	if (!head)
-		return ;
-	current = head;
-	while (current)
-	{
-		next = current->next;
-		free_token(current);
-		current = next;
-	}
 }
 
 static t_token	*lexer_error(t_data *data, t_token *head, t_token *current)
@@ -77,11 +67,20 @@ static char	get_token_type(char *str)
 		return (WORD);
 }
 
-static void	find_word_end(char *str, size_t *j)
+static void	find_token_end(char *str, size_t *j, char type)
 {
-	char    quote;
+	char	quote;
 
-	while (str[*j] && !ft_isspace(str[*j]) && ft_strchr("|&()<>", str[*j]) == NULL)
+	if (type != WORD)
+	{
+		(*j)++;
+		if (type == STDIN_HEREDOC || type == STDOUT_APPEND
+			|| type == AND || type == OR)
+			(*j)++;
+		return ;
+	}
+	while (str[*j] && !ft_isspace(str[*j])
+		&& ft_strchr("|&()<>", str[*j]) == NULL)
 	{
 		//TODO: validate quotes edge cases, e.g. quotes escaping
 		if (str[*j] == '\'' || str[*j] == '"')
@@ -94,13 +93,6 @@ static void	find_word_end(char *str, size_t *j)
 		if (str[*j])
 			(*j)++;
 	}
-}
-
-static void	find_sep_end(char type, size_t *j)
-{
-	(*j)++;
-	if (type == STDIN_HEREDOC || type == STDOUT_APPEND || type == AND || type == OR)
-		(*j)++;
 }
 
 static void	add_back_token(t_token **head, t_token *current)
@@ -141,10 +133,7 @@ t_token	*lexer(t_data *data, char *str)
 		if (!current)
 			return (lexer_error(data, head, current));
 		current->type = get_token_type(&str[j]);
-		if (current->type == WORD)
-			find_word_end(str, &j);
-		else
-			find_sep_end(current->type, &j);
+		find_token_end(str, &j, current->type);
 		current->str = ft_substr(str, i, j - i);
 		if (!current->str)
 			return (lexer_error(data, head, current));

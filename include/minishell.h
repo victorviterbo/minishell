@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/06 22:32:46 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/03/07 14:20:13 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ enum e_signal
 
 enum e_token_type
 {
-	WORD,
 	PIPE,
 	OPENPAR,
 	CLOSEPAR,
 	AND,
 	OR,
+	WORD,
 	STDOUT,
 	STDOUT_APPEND,
 	STDIN,
@@ -70,9 +70,19 @@ enum e_token_type
 typedef struct s_token
 {
 	char			*str;
-	char			type;
+	int				type;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_leaf
+{
+	char	operator;
+	int		fdin;
+	int		fdout;
+	bool	heredoc;
+	char	*cmd;
+	char	**args;
+}	t_leaf;
 
 typedef struct s_data
 {

@@ -6,45 +6,92 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 11:47:44 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/20 15:59:17 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/09 10:19:37 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	build_tree(char *str, t_tree *tree);
 char	*is_cmd_separator(char c1, char c2, bool openpar);
 void	explore_subtree(t_tree *tree, char *str, size_t i, size_t seplen);
 
-void	build_tree(char *str, t_tree *tree)
-{
-	int		*isescaped;
-	char	*sep;
-	size_t	i;
+void	build_tree(t_token **token, t_tree *tree, bool openpar);
 
-	str = ft_strtrim(str, "\011\012\013\014\015\040");
-	isescaped = is_quote_escaped(str);
-	i = -1;
-	while (str[i + 1])
+void	build_tree(t_token **token, t_tree *tree, bool openpar)
+{
+	t_token	*current;
+	t_token	*last;
+
+	current = *token;
+	last = current;
+	while (current && (current->type > 4 || openpar)
+		&& current->type != CLOSEPAR)
 	{
-		i++;
-		if (isescaped[i])
-			continue ;
-		if (tree->parent)
-			sep = is_cmd_separator(str[i], str[i + 1],
-					ft_strcmp(tree->parent->content, "(") == 0);
-		else
-			sep = is_cmd_separator(str[i], str[i + 1], false);
-		if (sep == NULL)
-			continue ;
-		else
-		{
-			tree->content = sep;
-			explore_subtree(tree, str, i, ft_strlen(sep));
-			return ;
-		}
+		last = current;
+		current = current->next;
 	}
-	tree->content = ft_strdup(str);
+	if (current)
+		explore_tree(token, current, last, tree);
+	else
+		make_leaf(token, tree);
+	return ;
+}
+
+void	explore_tree(t_token **token, t_token *current, t_token *last,
+	t_tree *tree)
+{
+	((t_leaf *)tree->content)->operator = current->type;
+	free_token(current);
+	if (last != current)
+	{
+		tree->left = ft_calloc(1, sizeof(t_tree));
+		if (!tree->left)
+			return ;
+		last->next = NULL;
+		build_tree(token, tree->left, false);
+	}
+	if (current->next)
+	{
+		tree->right = ft_calloc(1, sizeof(t_tree));
+		if (!tree->right && last != current)
+			return (free(tree->left));
+		else if (!tree->right)
+			return ;
+		build_tree(&current->next, tree->right, current->type == OPENPAR);
+	}
+}
+
+void	parse_parenthesis(t_token **token, t_token *current, t_token *last,
+	t_tree *tree)
+{
+	t_token	*end_par;
+
+	end_par = current;
+	while (end_par && end_par->type != CLOSEPAR)
+		end_par = end_par->next;
+	if (!end_par)
+		return (ft_tree_clear(tree, free_node));
+	if (last != current)
+	{
+		tree->left = ft_calloc(1, sizeof(t_tree));
+		if (!tree->left)
+			return ;
+		last->next = NULL;
+		build_tree(token, tree->left, false);
+	}
+	if (current->next)
+	{
+		tree->right = ft_calloc(1, sizeof(t_tree));
+		if (!tree->right && last != current)
+			return (free(tree->left));
+		else if (!tree->right)
+			return ;
+		build_tree(&current->next, tree->right, false);
+	}
+}
+
+void	make_leaf(t_token **token, t_tree *tree)
+{
 	return ;
 }
 
