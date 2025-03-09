@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/09 13:32:52 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/09 19:52:20 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_leaf
 {
 	int		fdin;
 	int		fdout;
+	char	*limiter;
 	char	*cmd;
 	char	**args;
 }	t_leaf;
@@ -126,7 +127,7 @@ void	make_ast(t_data *data, t_token *token);
 void	build_tree(t_token *token, t_tree *tree, bool openpar);
 void	explore_tree(t_token *token, t_token *current, t_token *last,
 			t_tree *tree);
-void	make_leaf(t_data *data, t_tree *tree);
+t_leaf	*make_leaf(t_data *data, t_token *current);
 //parsing/parse.c
 char	*parse_str(t_data *data, char *str, bool inplace);
 //parsing/expand.c
@@ -134,9 +135,12 @@ char	*expand_var(t_data *data, char *str, int *isescaped);
 char	*replace_var(t_data *data, char *str, size_t *i, size_t *j);
 //parsing/lexer.c
 t_token	*lexer(t_data *data, char *str);
+//stream/set_stream.c
+int		open_stream(t_leaf *leaf, t_token *token);
 //utils/ast_utils.c
 void	ast_trav(t_data *data, t_tree *tree);
-void	tree_error(t_token *token, t_tree *tree);
+void	tree_error_leaf(t_tree *tree);
+void	tree_error_token(t_token *token, t_tree *tree);
 void	free_leaf(t_leaf *leaf);
 //utils/env_to_arr.c
 char	**env_to_arr(t_data *data);

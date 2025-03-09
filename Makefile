@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/03/09 13:17:49 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/03/09 19:51:23 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,14 @@ SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 PARSING_F		= 	expand.c parse.c build_ast.c lexer.c
 SRCS_PARSING	=	$(addprefix parsing/, $(PARSING_F))
 
+STREAM_F		= 	set_stream.c
+SRCS_STREAM		=	$(addprefix stream/, $(STREAM_F))
+
 UTILS_F		= 	error_handling.c variables.c env_to_arr.c parsing_utils.c \
 				ast_utils.c token_utils.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
-SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING))
+SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING) $(SRCS_STREAM))
 
 BIN = ./bin/
 
