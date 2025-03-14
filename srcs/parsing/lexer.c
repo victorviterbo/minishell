@@ -6,25 +6,16 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:27:53 by vbronov           #+#    #+#             */
-/*   Updated: 2025/03/09 13:21:54 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:30:18 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_token	*lexer_error(t_data *data, t_token *head, t_token *current);
 static char		get_token_type(char *str);
 static void		find_token_end(char *str, size_t *j, char type);
 static void		add_back_token(t_token **head, t_token *current);
-
-static t_token	*lexer_error(t_data *data, t_token *head, t_token *current)
-{
-	data->exit_status = errno;
-	//ft_fprintf(STDERR_FILENO, "lexer: %s\n", strerror(data->exit_status));
-	free_tokens(head);
-	free_token(current);
-	return (NULL);
-}
+t_token			*lexer(t_data *data, char *str);
 
 static char	get_token_type(char *str)
 {

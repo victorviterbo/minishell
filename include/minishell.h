@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/09 19:52:20 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:31:14 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ typedef struct s_leaf
 	int		fdin;
 	int		fdout;
 	char	*limiter;
-	char	*cmd;
 	char	**args;
 }	t_leaf;
 
@@ -90,6 +89,7 @@ typedef struct s_data
 	char	**env_arr;
 	t_token	*tokens;
 	int		exit_status;
+	t_tree	*tree;
 }	t_data;
 
 typedef struct s_var
@@ -124,10 +124,11 @@ char	*find_exec(char *path_list, char *exec);
 int		ft_exit(t_data *data, char **args, int argc);
 //parsing/build_tree.c
 void	make_ast(t_data *data, t_token *token);
+void	ast_trav(t_data *data, t_tree *tree);
 void	build_tree(t_token *token, t_tree *tree, bool openpar);
 void	explore_tree(t_token *token, t_token *current, t_token *last,
 			t_tree *tree);
-t_leaf	*make_leaf(t_data *data, t_token *current);
+int		make_leaf(t_data *data, t_token *current, t_leaf *leaf);
 //parsing/parse.c
 char	*parse_str(t_data *data, char *str, bool inplace);
 //parsing/expand.c
@@ -138,8 +139,7 @@ t_token	*lexer(t_data *data, char *str);
 //stream/set_stream.c
 int		open_stream(t_leaf *leaf, t_token *token);
 //utils/ast_utils.c
-void	ast_trav(t_data *data, t_tree *tree);
-void	tree_error_leaf(t_tree *tree);
+void	tree_error_leaf(t_leaf *leaf, t_tree *tree);
 void	tree_error_token(t_token *token, t_tree *tree);
 void	free_leaf(t_leaf *leaf);
 //utils/env_to_arr.c
@@ -155,6 +155,7 @@ int		*is_quote_escaped(char *str);
 char	*remove_quotes_ws(char *str, int *isescaped, bool inplace);
 size_t	go_to_next(char *str, char *chars, size_t i);
 //utils/token_utils.c
+t_token	*lexer_error(t_data *data, t_token *head, t_token *current);
 void	free_token(void *content);
 void	free_tokens(t_token *head);
 //utils/variables.c
@@ -166,5 +167,6 @@ int		change_var(t_data *data, t_list *current, char *first_equal,
 char	*get_var(t_data *data, char *varname);
 
 int		disable_echoctl(int disable);
+void	print_tokens(t_token *tokens);
 
 #endif

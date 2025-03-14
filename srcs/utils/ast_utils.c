@@ -6,33 +6,15 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:14:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/09 19:48:47 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/13 21:03:21 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ast_trav(t_data *data, t_tree *tree);
-void	tree_error_leaf(t_tree *tree);
+void	tree_error_leaf(t_leaf *leaf, t_tree *tree);
 void	tree_error_token(t_token *token, t_tree *tree);
 void	free_leaf(t_leaf *leaf);
-
-void	ast_trav(t_data *data, t_tree *tree)
-{
-	t_leaf	*leaf;
-
-	if (tree->left)
-		ast_trav(data, tree->left);
-	if (tree->right)
-		ast_trav(data, tree->right);
-	if (!tree->left && !tree->right)
-	{
-		leaf = make_leaf(data, tree->content);
-		if (!leaf)
-			tree_error_leaf(tree);
-	}
-	return ;
-}
 
 void	tree_error_token(t_token *token, t_tree *tree)
 {
@@ -47,12 +29,14 @@ void	tree_error_token(t_token *token, t_tree *tree)
 	return ;
 }
 
-void	tree_error_leaf(t_tree *tree)
+void	tree_error_leaf(t_leaf *leaf, t_tree *tree)
 {
+	if (leaf)
+		free_leaf(leaf);
 	if (tree->left)
-		tree_error_leaf(tree->left);
+		tree_error_leaf(NULL, tree->left);
 	if (tree->right)
-		tree_error_leaf(tree->right);
+		tree_error_leaf(NULL, tree->right);
 	if (!tree->left && !tree->right)
 		free_leaf(tree->content);
 	else
@@ -65,8 +49,6 @@ void	free_leaf(t_leaf *leaf)
 {
 	if (leaf->args)
 		ft_free_array((void **)leaf->args, ft_arrlen(leaf->args));
-	if (leaf->cmd)
-		free(leaf->cmd);
 	if (leaf->limiter)
 		free(leaf->limiter);
 	return ;

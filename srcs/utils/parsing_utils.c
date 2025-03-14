@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/09 11:27:50 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/12 20:14:06 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	*is_quote_escaped(char *str)
 	bool	single_quoted;
 	bool	double_quoted;
 
+	if (!str)
+		return (NULL);
 	escaped = ft_calloc(ft_strlen(str) + 1, sizeof(int));
 	if (!escaped)
 		return (NULL);

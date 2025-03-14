@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/12 15:13:29 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/09 20:24:37 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	init_env(t_data *data, char **envp)
 		success += new_var(data, envp[i]);
 		i++;
 	}
+	change_shlvl(data, 1);
 	update_env_arr(data);
 	return (success);
 }

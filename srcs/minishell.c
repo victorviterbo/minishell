@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/09 13:22:05 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:32:20 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void	main_loop(t_data *data)
 		free(line);
 	}
 }
-
+/*
 int	main(int argc, char **argv, char **envp)
 {
 	t_data				data;
@@ -148,3 +148,4 @@ int	main(int argc, char **argv, char **envp)
 	main_loop(&data);
 	return (EXIT_SUCCESS);
 }
+*/
