@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 14:22:24 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/14 19:36:43 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:13:25 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ void	test_tree_building(t_data *data, t_token *token)
 		return ;
 	build_tree(token, tree, false);
 	ft_tree_trav_test(tree, print_node);
+	//tree_error_token(NULL, tree);
 	ast_trav(data, tree);
 	ft_tree_trav_test_leaf(tree, print_node_leaf);
 	tree_error_leaf(NULL, tree);
-	free_env(data);
-	/*
+	//free_env(data);
 	token = lexer(data, "(AAAA+ 1 2 || B) && (C || D)");
 	make_ast(data, token);
-	ft_tree_trav_test_leaf(tree, print_node_leaf);
-	tree_error_leaf(NULL, tree);
-	*/
+	ft_tree_trav_test_leaf(data->tree, print_node_leaf);
+	tree_error_leaf(NULL, data->tree);
+	free_env(data);
 }
 
 void	print_node(void *param)

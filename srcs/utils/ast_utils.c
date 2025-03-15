@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:14:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/13 21:03:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:03:05 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ void	free_leaf(t_leaf *leaf)
 		ft_free_array((void **)leaf->args, ft_arrlen(leaf->args));
 	if (leaf->limiter)
 		free(leaf->limiter);
+	free(leaf);
 	return ;
 }
