@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/03/14 19:22:39 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/03/15 17:53:28 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ SRCS_PARSING	=	$(addprefix parsing/, $(PARSING_F))
 STREAM_F		= 	set_stream.c
 SRCS_STREAM		=	$(addprefix stream/, $(STREAM_F))
 
-UTILS_F		= 	error_handling.c variables.c env_to_arr.c parsing_utils.c \
-				ast_utils.c token_utils.c
+UTILS_F		= 	error_utils.c variables.c env_to_arr.c parsing_utils.c \
+				ast_utils.c token_utils.c env_utils.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING) $(SRCS_STREAM))

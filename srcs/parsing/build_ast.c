@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 11:47:44 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/14 19:28:55 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:50:17 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ast_trav(t_data *data, t_tree *tree);
 void	build_tree(t_token *token, t_tree *tree, bool openpar);
 void	explore_tree(t_token *token, t_token *current, t_token *last,
 			t_tree *tree);
-int		make_leaf(t_data *data, t_token *current, t_leaf *leaf);
+void	make_leaf(t_data *data, t_token *current, t_leaf *leaf);
 
 void	make_ast(t_data *data, t_token *token)
 {
@@ -35,7 +35,6 @@ void	make_ast(t_data *data, t_token *token)
 void	ast_trav(t_data *data, t_tree *tree)
 {
 	t_leaf	*leaf;
-	int		leaf_ok;
 
 	if (tree->left)
 		ast_trav(data, tree->left);
@@ -45,9 +44,10 @@ void	ast_trav(t_data *data, t_tree *tree)
 	{
 		leaf = ft_calloc(1, sizeof(t_leaf));
 		if (!leaf)
-			return (tree_error_leaf(NULL, tree));
-		leaf_ok = make_leaf(data, tree->content, leaf);
-		if (leaf_ok != 0)
+			return (tree_error_leaf(NULL, tree), ft_error(data, "parsing: \
+memory allocation failed"));
+		make_leaf(data, tree->content, leaf);
+		if (data->exit_status)
 			return (tree_error_leaf(leaf, tree));
 		free_tokens(tree->content);
 		tree->content = leaf;
@@ -99,7 +99,7 @@ void	explore_tree(t_token *token, t_token *current, t_token *last,
 	current->next = NULL;
 }
 
-int	make_leaf(t_data *data, t_token *current, t_leaf *leaf)
+void	make_leaf(t_data *data, t_token *current, t_leaf *leaf)
 {
 	while (current)
 	{
@@ -107,21 +107,21 @@ int	make_leaf(t_data *data, t_token *current, t_leaf *leaf)
 		if (current->type == WORD)
 		{
 			leaf->args = ft_array_append(leaf->args, ft_strdup(current->str),
-				false);
+					false);
 			if (!leaf->args)
-				return (-1);
+				return (ft_error(data, "parsing: memory allocation failed"));
 		}
 		else if (current->type > 5 && current->next)
 		{
-			if (open_stream(leaf, current) < 0)
+			if (open_stream(data, leaf, current) < 0)
 			{
-				data->exit_status = errno;
-				ft_fprintf(STDERR_FILENO, "open: %s\n", data->exit_status);
-				return (data->exit_status);
+				if (data->exit_status)
+					return ;
+				return (ft_error(data, "open: file opening failed"));
 			}
 			current = current->next;
 		}
 		current = current->next;
 	}
-	return (0);
+	return ;
 }

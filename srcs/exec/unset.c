@@ -6,39 +6,39 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 20:21:35 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/04 15:48:47 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:15:59 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_unset(t_data *data, char **varnames);
-int		pop_var(t_data *data, char *varname);
+void	ft_unset(t_data *data, char **varnames);
+void	pop_var(t_data *data, char *varname);
 void	free_var(void *data);
 
-int	ft_unset(t_data *data, char **varnames)
+void	ft_unset(t_data *data, char **varnames)
 {
 	int	i;
-	int	success;
 
 	i = 0;
-	success = 0;
 	while (varnames[i])
 	{
-		success += pop_var(data, varnames[i]);
+		pop_var(data, varnames[i]);
+		if (data->exit_status)
+			return ;
 		i++;
 	}
-	return (success);
+	return ;
 }
 
-int	pop_var(t_data *data, char *varname)
+void	pop_var(t_data *data, char *varname)
 {
 	t_list	*current;
 	t_list	*last;
 	t_var	*var;
 
 	if (!data || !data->envp || !varname)
-		ft_print_error("unset: no env found or not a valid argument");
+		return (ft_error(data, "unset: no env found or not a valid argument"));
 	current = *(data->envp);
 	last = NULL;
 	while (current)
@@ -56,7 +56,8 @@ int	pop_var(t_data *data, char *varname)
 		last = current;
 		current = current->next;
 	}
-	return ((current == NULL));
+	data->exit_status = (current == NULL);
+	return ;
 }
 
 void	free_var(void *data)

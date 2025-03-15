@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/14 19:32:20 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:52:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	init_data(t_data *data, char **envp)
 	data->envp = NULL;
 	data->tokens = NULL;
 	data->exit_status = EXIT_SUCCESS;
-	return (init_env(data, envp));
+	init_env(data, envp);
+	return (data->exit_status);
 }
 
 /**
@@ -129,7 +130,7 @@ void	main_loop(t_data *data)
 		free(line);
 	}
 }
-/*
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_data				data;
@@ -148,4 +149,3 @@ int	main(int argc, char **argv, char **envp)
 	main_loop(&data);
 	return (EXIT_SUCCESS);
 }
-*/

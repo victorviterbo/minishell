@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 02:26:46 by vbronov           #+#    #+#             */
-/*   Updated: 2025/03/09 19:54:52 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:19:07 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,13 @@
 //  * argv[0] is the command name, argv[1] is the exit status
 //  * if no arguments are passed, the exit status is the last command status
 //  * this fuction supposed to have monogamic signature in order to simplify builtins handling
-int ft_exit(t_data *data, char **args, int argc)
+void	ft_exit(t_data *data, char **args, int argc)
 {
 	int i;
 
 	ft_printf("exit\n");
 	if (argc > 2)
-	{
-		ft_fprintf(2, "exit: too many arguments\n");
-		data->exit_status = EXIT_FAILURE;
-		return (EXIT_FAILURE);
-	}
+		return (ft_error(data, "exit: too many arguments\n"));
 	disable_echoctl(FALSE);
 	if (argc == 2)
 	{
@@ -47,5 +43,4 @@ int ft_exit(t_data *data, char **args, int argc)
 	}
 	// TODO: free all malloced memory
 	exit(data->exit_status);
-	return (EXIT_SUCCESS);
 }
