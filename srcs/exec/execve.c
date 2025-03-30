@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by madelmen          #+#    #+#             */
-/*   Updated: 2025/03/15 17:17:40 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:09:06 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_execve(t_data *data, char **args);
 char	*find_exec(t_data *data, char *path_list, char *exec);
+char	*search_exec(t_data *data, char *path_list, char *exec);
 
 void	ft_execve(t_data *data, char **args)
 {
@@ -36,9 +37,7 @@ void	ft_execve(t_data *data, char **args)
 
 char	*find_exec(t_data *data, char *path_list, char *exec)
 {
-	char	**paths;
 	char	*full_path;
-	int		i;
 
 	if (!exec)
 		return (ft_error(data, "execve: no executable given"), NULL);
@@ -49,6 +48,15 @@ char	*find_exec(t_data *data, char *path_list, char *exec)
 			return (ft_error(data, "execve: memory allocation failed"), NULL);
 		return (full_path);
 	}
+	search_exec(data, path_list, exec);
+}
+
+char	*search_exec(t_data *data, char *path_list, char *exec)
+{
+	char	**paths;
+	char	*full_path;
+	int		i;
+
 	paths = ft_split(path_list, ':');
 	if (!paths)
 		return (ft_error(data, "execve: memory allocation failed"), NULL);

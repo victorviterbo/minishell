@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 15:48:48 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:06:54 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:01:15 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_echo(t_data *data, char *str, bool nl)
 		return ;
 	else if (!str && nl)
 	{
-		if (ft_printf("\n") != 2)
+		if (ft_printf("\n") != 1)
 			return (ft_error(data, "echo: print to stdout has failed"));
 		return ;
 	}

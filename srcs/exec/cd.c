@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:20:25 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:58:33 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	ft_cd(t_data *data, char *path)
 		return (ft_error(data, ft_strjoin("cd: ", path)));
 	pwd = ft_strjoin_ip("OLDPWD=", get_var(data, "PWD"), FREE_S2);
 	if (!pwd)
-		return (ft_error(data, "cd: error in setting OLDPWD"));
+		return (ft_error(data, "cd: memory allocation failed"));
 	new_var(data, pwd);
 	free(pwd);
 	if (data->exit_status)
 		return ;
 	pwd = ft_strjoin_ip("PWD=", ft_get_current_path(data), FREE_S2);
 	if (!pwd)
-		return (ft_error(data, "cd: error in setting PWD"));
+		return (ft_error(data, "cd: memory allocation failed"));
 	new_var(data, pwd);
 	return (free(pwd), free(abspath));
 }
