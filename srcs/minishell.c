@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/06 22:37:37 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/03/15 17:52:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	signal_handler(int signum)
 {
 	if (signum == SIGINT && g_signal == READLINE_MODE)
 	{
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		ft_printf("\n");
 		rl_on_new_line();
 		rl_redisplay();
@@ -55,7 +55,8 @@ int	init_data(t_data *data, char **envp)
 	data->envp = NULL;
 	data->tokens = NULL;
 	data->exit_status = EXIT_SUCCESS;
-	return (init_env(data, envp));
+	init_env(data, envp);
+	return (data->exit_status);
 }
 
 /**

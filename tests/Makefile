@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/02/23 18:44:14 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/03/10 21:59:13 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +22,17 @@ MINI_DIR = ../
 
 MINI_SRCS =  $(addprefix $(MINI_DIR), $(shell make -C $(MINI_DIR) -s print_srcs))
 
+MINI_SRCS += ../srcs/minishell.c
+
 LIBFT = $(LIBFT_DIR)libft.a
 
 BIN = ./bin/
 
 CC = cc
 
-INCLUDE = -I../include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft
+INCLUDE = -I../include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft -lreadline
 
-SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS))
+SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING) $(SRCS_STREAM))
 
 all: tests
 	@$(MAKE) -C ../ all

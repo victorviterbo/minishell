@@ -6,62 +6,63 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/07 11:02:04 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:58:33 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_cd(t_data *data, char *path);
-char	*get_absolute_path(char *path);
+void	ft_cd(t_data *data, char *path);
+char	*get_absolute_path(t_data *data, char *path);
 
-int	ft_cd(t_data *data, char *path)
+void	ft_cd(t_data *data, char *path)
 {
 	char	*abspath;
 	char	*pwd;
-	int		success;
 
 	if (!data)
-		ft_print_error("cd: no env found");
+		return (ft_error(data, "cd: no env found"));
 	if (!path)
-		ft_print_error("cd: no path given");
-	abspath = get_absolute_path(path);
-	if (access(abspath, R_OK) == -1)
-		ft_print_error(ft_strjoin("cd: ", path));
-	if (chdir(abspath) == -1)
-		ft_print_error(ft_strjoin("cd: ", path));
+		return (ft_error(data, "cd: no path given"));
+	abspath = get_absolute_path(data, path);
+	if (data->exit_status)
+		return ;
+	if (access(abspath, R_OK) == -1 || chdir(abspath) == -1)
+		return (ft_error(data, ft_strjoin("cd: ", path)));
 	pwd = ft_strjoin_ip("OLDPWD=", get_var(data, "PWD"), FREE_S2);
 	if (!pwd)
-		ft_print_error("cd: error in setting OLDPWD");
-	success = new_var(data, pwd);
+		return (ft_error(data, "cd: memory allocation failed"));
+	new_var(data, pwd);
 	free(pwd);
-	pwd = ft_strjoin_ip("PWD=", ft_get_current_path(), FREE_S2);
+	if (data->exit_status)
+		return ;
+	pwd = ft_strjoin_ip("PWD=", ft_get_current_path(data), FREE_S2);
 	if (!pwd)
-		ft_print_error("cd: error in setting PWD");
-	success += new_var(data, pwd);
-	return (free(pwd), free(abspath), success);
+		return (ft_error(data, "cd: memory allocation failed"));
+	new_var(data, pwd);
+	return (free(pwd), free(abspath));
 }
 
-char	*get_absolute_path(char *path)
+char	*get_absolute_path(t_data *data, char *path)
 {
 	char	*current_path;
 	char	*absolute_path;
 
 	if (!path)
-		ft_print_error("cd: no env found");
+		return (ft_error(data, "cd: no env found"), NULL);
 	if (path[0] == '/')
 	{
 		absolute_path = ft_strdup(path);
 		if (!absolute_path)
-			ft_print_error("cd: memory allocation failed");
+			return (ft_error(data, "cd: memory allocation failed"), NULL);
 		return (absolute_path);
 	}
-	current_path = ft_strjoin_ip(ft_get_current_path(), "/", FREE_S1);
+	current_path = ft_strjoin_ip(ft_get_current_path(data), "/", FREE_S1);
 	if (!current_path)
-		ft_print_error("cd: memory allocation failed");
+		return (ft_error(data, "cd: memory allocation failed"), NULL);
 	absolute_path = ft_strjoin_ip(current_path, path, FREE_S1);
 	if (!absolute_path)
-		ft_print_error("cd: memory allocation failed");
+		return (ft_error(data, "cd: memory allocation failed"), NULL);
 	return (absolute_path);
 }
 

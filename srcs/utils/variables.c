@@ -6,43 +6,20 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/12 15:13:29 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:08:57 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		init_env(t_data *data, char **envp);
-int		new_var(t_data *data, char *str);
-int		add_var(t_data *data, t_list **env, char *str, size_t name_len);
-int		change_var(t_data *data, t_list *current, char *first_equal,
+void	new_var(t_data *data, char *str);
+void	add_var(t_data *data, t_list **env, char *str, size_t name_len);
+void	change_var(t_data *data, t_list *current, char *first_equal,
 			bool append);
 char	*get_var(t_data *data, char *varname);
+char	*get_last_exit_status(t_data *data);
 
-int	init_env(t_data *data, char **envp)
-{
-	int		i;
-	int		success;
-
-	i = 0;
-	success = 0;
-	if (!data)
-		ft_print_error("env init: invalid call to function");
-	if (!envp)
-		ft_print_error("env init: invalid argument");
-	data->envp = ft_calloc(1, sizeof(t_list *));
-	if (!data->envp)
-		ft_print_error("env init: memory allocation failed");
-	while (envp[i])
-	{
-		success += new_var(data, envp[i]);
-		i++;
-	}
-	update_env_arr(data);
-	return (success);
-}
-
-int	new_var(t_data *data, char *str)
+void	new_var(t_data *data, char *str)
 {
 	char	*first_equal;
 	bool	append;
@@ -52,7 +29,7 @@ int	new_var(t_data *data, char *str)
 
 	first_equal = ft_strchr(str, '=');
 	if (!first_equal || first_equal == str)
-		return (EXIT_FAILURE);
+		return (ft_error(data, "variable: invalid input string"));
 	append = (*(first_equal - 1) == '+');
 	name_len = first_equal - str - append;
 	current = *(data->envp);
@@ -67,27 +44,30 @@ int	new_var(t_data *data, char *str)
 	return (add_var(data, data->envp, str, name_len));
 }
 
-int	add_var(t_data *data, t_list **env, char *str, size_t name_len)
+void	add_var(t_data *data, t_list **env, char *str, size_t name_len)
 {
 	char	*first_equal;
 	t_var	*new_var;
+	t_list	*new_node;
 
 	first_equal = ft_strchr(str, '=');
 	new_var = ft_calloc(1, sizeof(t_var));
 	if (!new_var)
-		ft_print_error("env: memory allocation failed");
+		return (ft_error(data, "env: memory allocation failed"));
 	new_var->name = ft_substr(str, 0, name_len);
 	if (!new_var->name)
-		ft_print_error("env: memory allocation failed");
+		return (ft_error(data, "env: memory allocation failed"));
 	new_var->value = ft_strdup(first_equal + 1);
 	if (!new_var->value)
-		ft_print_error("env: memory allocation failed");
-	ft_lstadd_back(env, ft_lstnew_void(new_var));
-	update_env_arr(data);
-	return (EXIT_SUCCESS);
+		return (ft_error(data, "env: memory allocation failed"));
+	new_node = ft_lstnew_void(new_var);
+	if (!new_node)
+		return (ft_error(data, "env: creation of new variable failed"));
+	ft_lstadd_back(env, new_node);
+	return (update_env_arr(data));
 }
 
-int	change_var(t_data *data, t_list *current, char *first_equal, bool append)
+void	change_var(t_data *data, t_list *current, char *first_equal, bool append)
 {
 	t_var	*var;
 
@@ -100,23 +80,43 @@ int	change_var(t_data *data, t_list *current, char *first_equal, bool append)
 		var->value = ft_strdup(first_equal + 1);
 	}
 	if (!var->value)
-		ft_print_error("env: memory allocation failed");
+		return (ft_error(data, "env: memory allocation failed"));
 	update_env_arr(data);
-	return (EXIT_SUCCESS);
+	return ;
 }
 
 char	*get_var(t_data *data, char *varname)
 {
 	t_list	*current;
-	t_var	*curr_var;
+	char	*var_str;
 
+	if (*varname == '?')
+		return (get_last_exit_status(data));
 	current = *(data->envp);
 	while (current)
 	{
-		curr_var = current->content;
-		if (ft_strncmp(curr_var->name, varname, ft_strlen(varname) + 1) == 0)
-			return (ft_strdup(curr_var->value));
+		if (ft_strncmp(((t_var *)current->content)->name, varname,
+				ft_strlen(varname) + 1) == 0)
+		{
+			var_str = ft_strdup(((t_var *)current->content)->value);
+			if (!var_str)
+				return (ft_error(data, "variable access: memory allocation \
+failed"), NULL);
+			return (var_str);
+		}
 		current = current->next;
 	}
 	return (NULL);
+}
+
+char	*get_last_exit_status(t_data *data)
+{
+	char	*var_str;
+
+	var_str = ft_itoa(data->last_exit);
+	if (!var_str)
+		return (ft_error(data, "env: could not retrieve last exit status"),
+			NULL);
+	else
+		return (var_str);
 }

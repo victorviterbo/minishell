@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_tutils.c                                      :+:      :+:    :+:   */
+/*   test_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:35:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/02/12 17:47:56 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:00:36 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	free_env(t_data *data)
 	ft_lstclear(data->envp, free_var);
 	free(data->envp);
 	ft_free_array((void **)data->env_arr, ft_arrlen(data->env_arr));
+	free_tokens(data->tokens);
 	free(data);
 }

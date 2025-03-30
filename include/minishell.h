@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/06 22:32:46 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/03/15 17:53:38 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
+# include <fcntl.h>
 
 # include "libft.h"
 
@@ -55,12 +56,12 @@ enum e_signal
 
 enum e_token_type
 {
-	WORD,
 	PIPE,
 	OPENPAR,
 	CLOSEPAR,
 	AND,
 	OR,
+	WORD,
 	STDOUT,
 	STDOUT_APPEND,
 	STDIN,
@@ -70,9 +71,17 @@ enum e_token_type
 typedef struct s_token
 {
 	char			*str;
-	char			type;
+	int				type;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_leaf
+{
+	int		fdin;
+	int		fdout;
+	char	*limiter;
+	char	**args;
+}	t_leaf;
 
 typedef struct s_data
 {
@@ -80,6 +89,8 @@ typedef struct s_data
 	char	**env_arr;
 	t_token	*tokens;
 	int		exit_status;
+	int		last_exit;
+	t_tree	*tree;
 }	t_data;
 
 typedef struct s_var
@@ -88,62 +99,85 @@ typedef struct s_var
 	char	*value;
 }	t_var;
 
+// EXEC
 //exec/echo.c
-int		ft_echo(char *str, bool nl);
+void	ft_echo(t_data *data, char *str, bool nl);
 //exec/cd.c
-int		ft_cd(t_data *data, char *path);
-char	*get_absolute_path(char *path);
+void	ft_cd(t_data *data, char *path);
+char	*get_absolute_path(t_data *data, char *path);
 //exec/env.c
-int		ft_env(t_data *data);
+void	ft_env(t_data *data);
 //exec/export.c
-int		ft_export(t_data *data, char *args[]);
-int		export_no_args(t_data *data);
+void	ft_export(t_data *data, char *args[]);
+void	export_no_args(t_data *data);
 //exec/pwd.c
-int		ft_pwd(void);
-char	*ft_get_current_path(void);
+void	ft_pwd(t_data *data);
+char	*ft_get_current_path(t_data *data);
 //exec/unset.c
-int		ft_unset(t_data *data, char **varnames);
-int		pop_var(t_data *data, char *varname);
+void	ft_unset(t_data *data, char **varnames);
+void	pop_var(t_data *data, char *varname);
 void	free_var(void *data);
-//exec/env.c
-int		ft_env(t_data *data);
 //exec/execve.c
-int		ft_execve(t_data *data, char **args);
-char	*find_exec(char *path_list, char *exec);
+void	ft_execve(t_data *data, char **args);
+char	*find_exec(t_data *data, char *path_list, char *exec);
 //exec/exit.c
-int		ft_exit(t_data *data, char **args, int argc);
+void	ft_exit(t_data *data, char **args, int argc);
+
+// PARSING
 //parsing/build_tree.c
-void	build_tree(char *str, t_tree *tree);
-char	*is_cmd_separator(char c1, char c2, bool openpar);
-void	explore_subtree(t_tree *tree, char *str, size_t i, size_t seplen);
+void	make_ast(t_data *data, t_token *token);
+void	ast_trav(t_data *data, t_tree *tree);
+void	build_tree(t_token *token, t_tree *tree, bool openpar);
+void	explore_tree(t_token *token, t_token *current, t_token *last,
+			t_tree *tree);
+void	make_leaf(t_data *data, t_token *current, t_leaf *leaf);
 //parsing/parse.c
-char	*parse_str(t_data *data, char *str);
+char	*parse_str(t_data *data, char *str, bool inplace);
 //parsing/expand.c
 char	*expand_var(t_data *data, char *str, int *isescaped);
 char	*replace_var(t_data *data, char *str, size_t *i, size_t *j);
+char	*get_varname(t_data *data, char *str, size_t *i, size_t *j);
 //parsing/lexer.c
 t_token	*lexer(t_data *data, char *str);
+
+// STREAM
+//stream/set_stream.c
+int		open_stream(t_data *data, t_leaf *leaf, t_token *token);
+
+// UTILS
+//utils/ast_utils.c
+void	tree_error_leaf(t_leaf *leaf, t_tree *tree);
+void	tree_error_token(t_token *token, t_tree *tree);
+void	free_leaf(t_leaf *leaf);
 //utils/env_to_arr.c
 char	**env_to_arr(t_data *data);
-char	*var_to_str(t_list *current);
+char	*var_to_str(t_data *data, t_list *current);
 void	update_env_arr(t_data *data);
 void	change_shlvl(t_data *data, int change);
 void	*copy_var(void	*var);
+//utils/env_utils.c
+void	init_env(t_data *data, char **envp);
 //utils/error_handlings.c
-void	ft_print_error(const char *message);
+void	ft_error(t_data *data, const char *message);
 //utils/parsing_utils.c
-bool	*is_quoted(char *str, char open_char, char close_char);
-int		*is_quote_escaped(char *str);
-char	*remove_quotes_ws(char *str, int *isescaped, bool inplace);
+int		*is_quote_escaped(t_data *data, char *str);
+char	*remove_quotes_ws(t_data *data, char *str, int *isescaped,
+			bool inplace);
 size_t	go_to_next(char *str, char *chars, size_t i);
+//utils/token_utils.c
+t_token	*lexer_error(t_data *data, t_token *head, t_token *current);
+void	free_token(void *content);
+void	free_tokens(t_token *head);
 //utils/variables.c
-int		init_env(t_data *data, char **envp);
-int		new_var(t_data *data, char *str);
-int		add_var(t_data *data, t_list **env, char *str, size_t name_len);
-int		change_var(t_data *data, t_list *current, char *first_equal,
+void	new_var(t_data *data, char *str);
+void	add_var(t_data *data, t_list **env, char *str, size_t name_len);
+void	change_var(t_data *data, t_list *current, char *first_equal,
 			bool append);
 char	*get_var(t_data *data, char *varname);
+char	*get_last_exit_status(t_data *data);
 
+// MAIN
 int		disable_echoctl(int disable);
+void	print_tokens(t_token *tokens);
 
 #endif

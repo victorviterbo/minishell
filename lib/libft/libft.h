@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 12:33:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/06 22:51:43 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/03/09 20:28:00 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			ft_isalpha(int c);
 int			ft_isascii(int c);
 int			ft_isdigit(int c);
 int			ft_isprint(int c);
-int			ft_isspace(int c);
+int			ft_isspace(char c);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
 // CONVERSIONS
@@ -141,6 +141,7 @@ void		ft_dummy(void *ptr);
 void		ft_free_array(void **array, int size);
 double		ft_parse_as(void *ptr, t_Datatype dtype);
 void		ft_print_array(char **arr, bool nl);
+char		**ft_str_to_arr(char *str);
 char		**ft_strarray_mapi(char **strarray, char *(*f)(const char *));
 void		ft_swap_void(void **ptr1, void **ptr2);
 // STRINGS
