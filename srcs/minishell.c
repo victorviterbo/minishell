@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:52:49 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/01 00:34:25 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	signal_handler(int signum)
 {
 	if (signum == SIGINT && g_signal == READLINE_MODE)
 	{
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		ft_printf("\n");
 		rl_on_new_line();
 		rl_redisplay();
@@ -51,11 +51,14 @@ void	signal_handler(int signum)
 
 int	init_data(t_data *data, char **envp)
 {
+	// TODO: initialize env_arr right before execve
 	data->env_arr = NULL;
 	data->envp = NULL;
 	data->tokens = NULL;
 	data->exit_status = EXIT_SUCCESS;
+	data->tree = NULL;
 	init_env(data, envp);
+	init_builtin(data);
 	return (data->exit_status);
 }
 
@@ -89,28 +92,18 @@ int	disable_echoctl(int disable)
 	return (EXIT_SUCCESS);
 }
 
-void	print_tokens(t_token *tokens)
-{
-	t_token	*current;
-
-	current = tokens;
-	while (current)
-	{
-		ft_printf("Token: %s, Type: %d\n", current->str, current->type);
-		current = current->next;
-	}
-}
-
 void	main_loop(t_data *data)
 {
 	char	*line;
+	t_leaf	*leaf;
+	t_tree	tree;
 
 	while (TRUE)
 	{
 		if (g_signal == INSIGINT)
-			ft_fprintf(2, "^C\n");
+			ft_fprintf(STDERR_FILENO, "^C\n");
 		else if (g_signal == INSIGQUIT)
-			ft_fprintf(2, "^\\Quit (core dumped)\n");
+			ft_fprintf(STDERR_FILENO, "^\\Quit (core dumped)\n");
 		g_signal = READLINE_MODE;
 		line = readline(SHELL_PROMPT);
 		g_signal = EXECUTION_MODE;
@@ -125,9 +118,28 @@ void	main_loop(t_data *data)
 			add_history(line);
 			if (DEBUG)
 				print_tokens(data->tokens);
-			//TODO: implement parser and executor
+			// TODO: fix memory leak and double free inside make_ast
+			// make_ast(data, data->tokens);
+			// if (data->exit_status == EXIT_SUCCESS)
+			// 	ft_run_ast(data, data->tree);
+			// if (DEBUG)
+			// 	display_tree(data->tree);
+
+			// TODO: delete this later
+			leaf = ft_calloc(1, sizeof(t_leaf));
+			make_leaf(data, data->tokens, leaf);
+			tree.left = NULL;
+			tree.right = NULL;
+			tree.content = leaf;
+			ft_run_ast(data, &tree);
+			free_leaf(leaf);
 		}
 		free(line);
+		// TODO: fix double free
+		// tree_error_token(data->tokens, data->tree);
+		free_tokens(data->tokens);
+		data->tree = NULL;
+		data->tokens = NULL;
 	}
 }
 

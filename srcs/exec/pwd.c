@@ -3,34 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:22:20 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:21:35 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/30 23:44:37 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(t_data *data);
-char	*ft_get_current_path(t_data *data);
-
-void	ft_pwd(t_data *data)
+int	ft_pwd(t_data *data, char **args, int argc)
 {
 	char	*current_path;
 	size_t	printed;
 
+	if (argc > 1)
+	{
+		ft_error(data, "pwd: too many arguments");
+		return (EXIT_FAILURE);
+	}
+	(void)args;
 	current_path = ft_get_current_path(data);
 	if (data->exit_status)
-		return ;
+		return (EXIT_FAILURE);
 	printed = ft_printf("%s\n", current_path);
 	if (printed != ft_strlen(current_path) + 1)
 	{
 		free(current_path);
-		return (ft_error(data, "pwd: could not display path"));
+		ft_error(data, "pwd: could not display path");
+		return (EXIT_FAILURE);
 	}
 	free(current_path);
-	return ;
+	return (EXIT_SUCCESS);
 }
 
 char	*ft_get_current_path(t_data *data)
@@ -54,8 +58,7 @@ char	*ft_get_current_path(t_data *data)
 		retvalue = getcwd(current_path, PATH_MAX * attempts);
 	}
 	if (retvalue == NULL)
-		return (ft_error(data, "pwd: could not load path"), NULL);
-	else if (retvalue != current_path)
-		return (ft_error(data, "pwd: an unknown error has occured"), NULL);
+		return (free(current_path),
+			ft_error(data, "pwd: could not load path"), NULL);
 	return (current_path);
 }

@@ -3,44 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/24 15:58:33 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/31 00:51:46 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_cd(t_data *data, char *path);
-char	*get_absolute_path(t_data *data, char *path);
-
-void	ft_cd(t_data *data, char *path)
+static char	*handle_special_paths(t_data *data, char *path)
 {
-	char	*abspath;
-	char	*pwd;
+	char	*special_path;
 
-	if (!data)
-		return (ft_error(data, "cd: no env found"));
-	if (!path)
-		return (ft_error(data, "cd: no path given"));
-	abspath = get_absolute_path(data, path);
-	if (data->exit_status)
-		return ;
-	if (access(abspath, R_OK) == -1 || chdir(abspath) == -1)
-		return (ft_error(data, ft_strjoin("cd: ", path)));
-	pwd = ft_strjoin_ip("OLDPWD=", get_var(data, "PWD"), FREE_S2);
-	if (!pwd)
-		return (ft_error(data, "cd: memory allocation failed"));
-	new_var(data, pwd);
-	free(pwd);
-	if (data->exit_status)
-		return ;
-	pwd = ft_strjoin_ip("PWD=", ft_get_current_path(data), FREE_S2);
-	if (!pwd)
-		return (ft_error(data, "cd: memory allocation failed"));
-	new_var(data, pwd);
-	return (free(pwd), free(abspath));
+	if (!path || !ft_strcmp(path, "~"))
+	{
+		special_path = get_var(data, "HOME");
+		if (!special_path)
+			return (ft_error(data, "cd: HOME not set"), NULL);
+		return (special_path);
+	}
+	if (!ft_strcmp(path, "-"))
+	{
+		special_path = get_var(data, "OLDPWD");
+		if (!special_path)
+			return (ft_error(data, "cd: OLDPWD not set"), NULL);
+		return (special_path);
+	}
+	special_path = ft_strdup(path);
+	if (!special_path)
+		return (ft_error(data, "cd: memory allocation failed"), NULL);
+	return (special_path);
 }
 
 char	*get_absolute_path(t_data *data, char *path)
@@ -49,7 +42,7 @@ char	*get_absolute_path(t_data *data, char *path)
 	char	*absolute_path;
 
 	if (!path)
-		return (ft_error(data, "cd: no env found"), NULL);
+		return (ft_error(data, "cd: empty path"), NULL);
 	if (path[0] == '/')
 	{
 		absolute_path = ft_strdup(path);
@@ -66,16 +59,61 @@ char	*get_absolute_path(t_data *data, char *path)
 	return (absolute_path);
 }
 
-/*
-if we want to handle the checking of whether or not the file we are trying to cd
-to is a directory or not we should include this code in ft_cd. Otherwise,
-chdir do it by itself...
+static int	ft_update_oldpwd(t_data *data)
+{
+	char	*pwd;
 
-	struct stat	path_stat;
+	pwd = get_var(data, "PWD");
+	if (!pwd)
+		return (ft_error(data, "cd: PWD not set"), EXIT_FAILURE);
+	pwd = ft_strjoin_ip("OLDPWD=", pwd, FREE_S2);
+	if (!pwd)
+		return (ft_error(data, "cd: memory allocation failed"), EXIT_FAILURE);
+	new_var(data, pwd);
+	free(pwd);
+	return (EXIT_SUCCESS);
+}
 
-	if (stat(abspath, &path_stat))
-		ft_perror_exit(ft_strjoin("cd", path));
-	if (S_ISDIR(path_stat.st_mode) == 0)
-		ft_custom_error_exit(ft_strjoin(ft_strjoin("cd: ", path),
-				": Not a directory"));
-*/
+static int	ft_update_pwd(t_data *data)
+{
+	char	*pwd;
+
+	pwd = ft_strjoin_ip("PWD=", ft_get_current_path(data), FREE_S2);
+	if (!pwd)
+	{
+		ft_error(data, "cd: memory allocation failed");
+		return (EXIT_FAILURE);
+	}
+	new_var(data, pwd);
+	free(pwd);
+	return (EXIT_SUCCESS);
+}
+
+int	ft_cd(t_data *data, char **args, int argc)
+{
+	char	*abspath;
+	char	*path;
+
+	if (argc > 2)
+	{
+		ft_error(data, "cd: too many arguments");
+		return (EXIT_FAILURE);
+	}
+	path = handle_special_paths(data, args[1]);
+	if (!path)
+		return (EXIT_FAILURE);
+	abspath = get_absolute_path(data, path);
+	free(path);
+	if (data->exit_status)
+		return (EXIT_FAILURE);
+	if (access(abspath, R_OK) == -1 || chdir(abspath) == -1)
+	{
+		ft_error(data, "cd");
+		free(abspath);
+		return (EXIT_FAILURE);
+	}
+	free(abspath);
+	if (ft_update_oldpwd(data) || ft_update_pwd(data))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}

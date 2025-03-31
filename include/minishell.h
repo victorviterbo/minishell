@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:53:38 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/01 00:43:55 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,24 @@ typedef struct s_leaf
 	char	**args;
 }	t_leaf;
 
+struct s_data;
+typedef int	(*t_pfunc)(struct s_data *data, char *args[], int argc);
+
+typedef struct s_builtin
+{
+	char	*name;
+	t_pfunc	func;
+}	t_builtin;
+
 typedef struct s_data
 {
-	t_list	**envp;
-	char	**env_arr;
-	t_token	*tokens;
-	int		exit_status;
-	int		last_exit;
-	t_tree	*tree;
+	t_list		**envp;
+	char		**env_arr;
+	t_token		*tokens;
+	int			exit_status;
+	int			last_exit;
+	t_tree		*tree;
+	t_builtin	builtins[8];
 }	t_data;
 
 typedef struct s_var
@@ -101,27 +111,33 @@ typedef struct s_var
 
 // EXEC
 //exec/echo.c
-void	ft_echo(t_data *data, char *str, bool nl);
+int		ft_echo(t_data *data, char **args, int argc);
 //exec/cd.c
-void	ft_cd(t_data *data, char *path);
+int		ft_cd(t_data *data, char **args, int argc);
 char	*get_absolute_path(t_data *data, char *path);
 //exec/env.c
-void	ft_env(t_data *data);
+int		ft_env(t_data *data, char **args, int argc);
 //exec/export.c
-void	ft_export(t_data *data, char *args[]);
-void	export_no_args(t_data *data);
+int		ft_export(t_data *data, char **args, int argc);
+int		export_no_args(t_data *data);
 //exec/pwd.c
-void	ft_pwd(t_data *data);
+int		ft_pwd(t_data *data, char **args, int argc);
 char	*ft_get_current_path(t_data *data);
 //exec/unset.c
-void	ft_unset(t_data *data, char **varnames);
+int		ft_unset(t_data *data, char **args, int argc);
 void	pop_var(t_data *data, char *varname);
 void	free_var(void *data);
 //exec/execve.c
 void	ft_execve(t_data *data, char **args);
 char	*find_exec(t_data *data, char *path_list, char *exec);
+void	init_builtin(t_data *data);
 //exec/exit.c
-void	ft_exit(t_data *data, char **args, int argc);
+int		ft_exit(t_data *data, char **args, int argc);
+void	free_all(t_data *data);
+void	free_env(t_data *data);
+//exec/run_ast.c
+int		ft_run_ast(t_data *data, t_tree *node);
+int		handle_command(t_data *data, t_leaf *leaf);
 
 // PARSING
 //parsing/build_tree.c
@@ -149,6 +165,7 @@ int		open_stream(t_data *data, t_leaf *leaf, t_token *token);
 void	tree_error_leaf(t_leaf *leaf, t_tree *tree);
 void	tree_error_token(t_token *token, t_tree *tree);
 void	free_leaf(t_leaf *leaf);
+t_pfunc	is_builtin(char *str, t_builtin *builtin);
 //utils/env_to_arr.c
 char	**env_to_arr(t_data *data);
 char	*var_to_str(t_data *data, t_list *current);
@@ -175,9 +192,11 @@ void	change_var(t_data *data, t_list *current, char *first_equal,
 			bool append);
 char	*get_var(t_data *data, char *varname);
 char	*get_last_exit_status(t_data *data);
+//utils/print_utils.c
+void	display_tree(t_tree *node);
+void	print_tokens(t_token *tokens);
 
 // MAIN
 int		disable_echoctl(int disable);
-void	print_tokens(t_token *tokens);
 
 #endif

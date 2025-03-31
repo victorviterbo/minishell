@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 16:36:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:07:57 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/31 00:44:04 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_data *data);
-
-void	ft_env(t_data *data)
+int	ft_env(t_data *data, char **args, int argc)
 {
 	t_list	*current;
 	t_var	*curr_var;
 	size_t	printed;
 
-	if (!data)
-		return (ft_error(data, "env: invalid function call"));
+	if (argc > 1)
+		return (ft_error(data, "env: too many arguments"), EXIT_FAILURE);
+	(void)args;
 	if (!data->envp)
-		return (ft_error(data, "env: no environment found"));
+		return (ft_error(data, "env: no environment variables set"),
+			EXIT_FAILURE);
 	current = *(data->envp);
 	while (current)
 	{
@@ -31,8 +31,8 @@ void	ft_env(t_data *data)
 		printed = ft_printf("%s=%s\n", curr_var->name, curr_var->value);
 		if (printed != (ft_strlen(curr_var->name)
 				+ ft_strlen(curr_var->value) + 2))
-			return (ft_error(data, "env: could not display environment"));
+			return (ft_error(data, "env: printing error"), EXIT_FAILURE);
 		current = current->next;
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }

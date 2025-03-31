@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:45:49 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:45:11 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/01 00:16:31 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,16 @@ char	*parse_str(t_data *data, char *str, bool inplace)
 	parsed = expand_var(data, str, isescaped);
 	if (data->exit_status)
 		return (NULL);
-	free(isescaped);
+	if (isescaped)
+		free(isescaped);
 	isescaped = is_quote_escaped(data, parsed);
 	if (data->exit_status)
 		return (NULL);
 	parsed = remove_quotes_ws(data, parsed, isescaped, true);
 	if (data->exit_status)
 		return (NULL);
-	free(isescaped);
+	if (isescaped)
+		free(isescaped);
 	if (inplace)
 		free(str);
 	return (parsed);
