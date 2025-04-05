@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:08:58 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:18:12 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/31 02:33:34 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_export(t_data *data, char *args[]);
-void	export_no_args(t_data *data);
-
-void	ft_export(t_data *data, char *args[])
+int	ft_export(t_data *data, char **args, int argc)
 {
-	int		i;
+	int	i;
 
-	if (!data || !data->envp)
-		return (ft_error(data, "export: no environment found"));
-	if (!args || !args[0])
+	if (!data->envp)
+	{
+		ft_error(data, "export: no environment variables set");
+		return (EXIT_FAILURE);
+	}
+	if (argc == 1)
 		return (export_no_args(data));
-	i = 0;
-	while (args[i])
+	i = 1;
+	while (i < argc)
 	{
 		new_var(data, args[i]);
 		if (data->exit_status)
-			return ;
+			return (EXIT_FAILURE);
 		i++;
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }
 
-void	export_no_args(t_data *data)
+int	export_no_args(t_data *data)
 {
 	t_list	*copy;
 	t_list	*current;
@@ -43,7 +43,8 @@ void	export_no_args(t_data *data)
 
 	copy = ft_lstmap_void(*data->envp, copy_var, free_var);
 	if (!copy)
-		return (ft_error(data, "export: could not display environment"));
+		return (ft_error(data, "export: could not display environment"),
+			EXIT_FAILURE);
 	while (copy)
 	{
 		current = copy;
@@ -59,5 +60,5 @@ void	export_no_args(t_data *data)
 			((t_var *)(best->content))->value);
 		ft_lstpop(&copy, best, free_var);
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }

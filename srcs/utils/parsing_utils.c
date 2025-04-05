@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 16:57:43 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/01 00:20:58 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	*is_quote_escaped(t_data *data, char *str)
 			quotation = IS_NOT_QUOTED;
 		*escaped = quotation;
 		str++;
-		escaped++;
+		escaped++; // TODO: we cannot use escaped++ here, because we need to free the pointer
 	}
 	if (quotation != IS_NOT_QUOTED)
 		return (free(escaped), ft_error(data,

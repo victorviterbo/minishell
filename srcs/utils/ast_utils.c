@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:14:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 16:22:15 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/01 00:36:22 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	tree_error_token(t_token *token, t_tree *tree)
 {
 	if (token)
 		free_tokens(token);
+	if (!tree)
+		return ;
 	if (tree->left)
 		tree_error_token(NULL, tree->left);
 	if (tree->right)
@@ -33,6 +35,8 @@ void	tree_error_leaf(t_leaf *leaf, t_tree *tree)
 {
 	if (leaf)
 		free_leaf(leaf);
+	if (!tree)
+		return ;
 	if (tree->left)
 		tree_error_leaf(NULL, tree->left);
 	if (tree->right)
@@ -53,4 +57,23 @@ void	free_leaf(t_leaf *leaf)
 		free(leaf->limiter);
 	free(leaf);
 	return ;
+}
+
+t_pfunc	is_builtin(char *str, t_builtin *builtin)
+{
+	unsigned int	i;
+	unsigned int	name_len;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (builtin[i].name)
+	{
+		name_len = ft_strlen(builtin[i].name);
+		if (ft_strncmp(str, builtin[i].name, name_len) == 0 && \
+			str[name_len] == '\0')
+			return (builtin[i].func);
+		i++;
+	}
+	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 11:47:44 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/30 19:54:22 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/01 00:22:21 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	make_ast(t_data *data, t_token *token)
 
 	tree = ft_calloc(1, sizeof(t_tree));
 	if (!tree)
-		return ;
+		return (ft_error(data, "parsing: memory allocation failed"));
 	build_tree(token, tree, false);
 	ast_trav(data, tree);
 	data->tree = tree;
@@ -103,7 +103,8 @@ void	make_leaf(t_data *data, t_token *current, t_leaf *leaf)
 {
 	while (current)
 	{
-		current->str = parse_str(data, current->str, true);
+		// TODO: fix parse_str
+		// current->str = parse_str(data, current->str, true);
 		if (current->type == WORD)
 		{
 			leaf->args = ft_array_append(leaf->args, ft_strdup(current->str),

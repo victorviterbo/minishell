@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by madelmen          #+#    #+#             */
-/*   Updated: 2025/03/24 16:09:06 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/01 00:34:00 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*find_exec(t_data *data, char *path_list, char *exec)
 			return (ft_error(data, "execve: memory allocation failed"), NULL);
 		return (full_path);
 	}
-	search_exec(data, path_list, exec);
+	return (search_exec(data, path_list, exec));
 }
 
 char	*search_exec(t_data *data, char *path_list, char *exec)
@@ -75,4 +75,16 @@ char	*search_exec(t_data *data, char *path_list, char *exec)
 	}
 	return (free(exec), ft_error(data, "execve: could not find executable"),
 		NULL);
+}
+
+void	init_builtin(t_data *data)
+{
+	data->builtins[0] = (t_builtin){"cd", ft_cd};
+	data->builtins[1] = (t_builtin){"echo", ft_echo};
+	data->builtins[2] = (t_builtin){"env", ft_env};
+	data->builtins[3] = (t_builtin){"exit", ft_exit};
+	data->builtins[4] = (t_builtin){"export", ft_export};
+	data->builtins[5] = (t_builtin){"pwd", ft_pwd};
+	data->builtins[6] = (t_builtin){"unset", ft_unset};
+	data->builtins[7] = (t_builtin){NULL, NULL};
 }

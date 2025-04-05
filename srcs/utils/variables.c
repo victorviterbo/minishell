@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:08:57 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/03/31 02:15:10 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	add_var(t_data *data, t_list **env, char *str, size_t name_len)
 	if (!new_node)
 		return (ft_error(data, "env: creation of new variable failed"));
 	ft_lstadd_back(env, new_node);
-	return (update_env_arr(data));
 }
 
-void	change_var(t_data *data, t_list *current, char *first_equal, bool append)
+void	change_var(t_data *data, t_list *current,
+	char *first_equal, bool append)
 {
 	t_var	*var;
 
@@ -81,8 +81,6 @@ void	change_var(t_data *data, t_list *current, char *first_equal, bool append)
 	}
 	if (!var->value)
 		return (ft_error(data, "env: memory allocation failed"));
-	update_env_arr(data);
-	return ;
 }
 
 char	*get_var(t_data *data, char *varname)
@@ -100,8 +98,8 @@ char	*get_var(t_data *data, char *varname)
 		{
 			var_str = ft_strdup(((t_var *)current->content)->value);
 			if (!var_str)
-				return (ft_error(data, "variable access: memory allocation \
-failed"), NULL);
+				return (ft_error(data,
+						"variable access: memory allocation failed"), NULL);
 			return (var_str);
 		}
 		current = current->next;
