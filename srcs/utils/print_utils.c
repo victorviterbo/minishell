@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:57:29 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/01 00:01:43 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/06 22:18:29 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ const char	*node_type_to_string_expand(enum e_token_type type)
 		return ("OPENPAR");
 	else if (type == CLOSEPAR)
 		return ("CLOSEPAR");
-	// TODO: maybe we need also define CMD?
-	// else if (type == CMD)
-	// 	return ("CMD");
+	else if (type == CMD)
+		return ("CMD");
 	else
 		return ("UNKNOWN");
 }
@@ -74,7 +73,7 @@ void	display_token_list(t_token *token)
 	ft_printf("\n");
 }
 
-void	display_leaf(t_tree *node, int depth, int *siblings)
+void	display_leaf(t_node *node, int depth, int *siblings)
 {
 	int	i;
 
@@ -89,7 +88,7 @@ void	display_leaf(t_tree *node, int depth, int *siblings)
 		i++;
 	}
 	ft_printf("  args: ");
-	display_token_list(node->content);
+	display_token_list(node->args);
 	i = 0;
 	while (i < depth)
 	{
@@ -99,6 +98,8 @@ void	display_leaf(t_tree *node, int depth, int *siblings)
 			ft_printf("    ");
 		i++;
 	}
+	ft_printf("  redi: ");
+	display_token_list(node->redi);
 }
 
 void	display_indentation(int depth, int *siblings)
@@ -116,7 +117,7 @@ void	display_indentation(int depth, int *siblings)
 	}
 }
 
-void	display_tree_recursive(t_tree *node, int depth, int isLast,
+void	display_tree_recursive(t_node *node, int depth, int isLast,
 	int *siblings)
 {
 	if (!node)
@@ -132,7 +133,7 @@ void	display_tree_recursive(t_tree *node, int depth, int isLast,
 	if (!node->left && !node->right)
 		display_leaf(node, depth, siblings);
 	else
-		ft_printf("%s\n", node_type_to_string(((t_token *)node->content)->type));
+		ft_printf("%s\n", node_type_to_string(node->type));
 	if (depth > 0)
 		siblings[depth - 1] = !isLast;
 	display_tree_recursive(node->left, depth + 1, 0, siblings);
@@ -141,7 +142,7 @@ void	display_tree_recursive(t_tree *node, int depth, int isLast,
 		siblings[depth - 1] = 0;
 }
 
-void	display_tree(t_tree *node)
+void	display_tree(t_node *node)
 {
 	int	siblings[128];
 	int	i;

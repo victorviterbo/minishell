@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 02:26:46 by vbronov           #+#    #+#             */
-/*   Updated: 2025/03/31 03:47:17 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/07 00:54:35 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ft_exit(t_data *data, char **args, int argc)
 		data->exit_status = ft_atoi(args[1]);
 	}
 	free_all(data);
+	ft_free_array((void **)args, argc);
 	exit(data->exit_status);
 }
 
@@ -47,13 +48,13 @@ void	free_all(t_data *data)
 {
 	if (!data)
 		return ;
-	free_env(data);
+	if (data->tree)
+		free_tree(data->tree);
+	data->tree = NULL;
 	if (data->tokens)
 		free_tokens(data->tokens);
 	data->tokens = NULL;
-	if (data->tree)
-		tree_error_leaf(NULL, data->tree);
-	data->tree = NULL;
+	free_env(data);
 }
 
 void	free_env(t_data *data)

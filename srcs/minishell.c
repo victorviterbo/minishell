@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/01 00:34:25 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/06 23:07:46 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ int	disable_echoctl(int disable)
 void	main_loop(t_data *data)
 {
 	char	*line;
-	t_leaf	*leaf;
-	t_tree	tree;
 
 	while (TRUE)
 	{
@@ -118,27 +116,16 @@ void	main_loop(t_data *data)
 			add_history(line);
 			if (DEBUG)
 				print_tokens(data->tokens);
-			// TODO: fix memory leak and double free inside make_ast
-			// make_ast(data, data->tokens);
-			// if (data->exit_status == EXIT_SUCCESS)
-			// 	ft_run_ast(data, data->tree);
-			// if (DEBUG)
-			// 	display_tree(data->tree);
-
-			// TODO: delete this later
-			leaf = ft_calloc(1, sizeof(t_leaf));
-			make_leaf(data, data->tokens, leaf);
-			tree.left = NULL;
-			tree.right = NULL;
-			tree.content = leaf;
-			ft_run_ast(data, &tree);
-			free_leaf(leaf);
+			data->tree = build_tree(data, data->tokens, NULL);
+			if (DEBUG)
+				display_tree(data->tree);
+			if (data->tree)
+				ft_run_ast(data, data->tree);
 		}
 		free(line);
-		// TODO: fix double free
-		// tree_error_token(data->tokens, data->tree);
-		free_tokens(data->tokens);
+		free_tree(data->tree);
 		data->tree = NULL;
+		free_tokens(data->tokens);
 		data->tokens = NULL;
 	}
 }
