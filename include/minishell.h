@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/07 13:11:12 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:49:53 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <readline/history.h>
 # include <termios.h>
 # include <fcntl.h>
+# include <string.h>
 
 # include "libft.h"
 

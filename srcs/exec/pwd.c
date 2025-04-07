@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:22:20 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/07 13:16:59 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:47:57 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_pwd(t_data *data, char **args, int argc)
 		return (EXIT_FAILURE);
 	}
 	free(current_path);
-	return ;
+	return (EXIT_SUCCESS);
 }
 
 char	*ft_get_current_path(t_data *data)

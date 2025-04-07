@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:08:58 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/07 13:16:33 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:48:28 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_export(t_data *data, char **args, int argc)
 	return (EXIT_SUCCESS);
 }
 
-void	export_no_args(t_data *data)
+int	export_no_args(t_data *data)
 {
 	t_list	*copy;
 	t_list	*current;
@@ -60,5 +60,5 @@ void	export_no_args(t_data *data)
 			((t_var *)(best->content))->value);
 		ft_lstpop(&copy, best, free_var);
 	}
-	return ;
+	return (EXIT_SUCCESS);
 }
