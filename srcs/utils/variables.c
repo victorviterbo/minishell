@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/31 02:15:10 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/06 01:00:26 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,12 @@ char	*get_last_exit_status(t_data *data)
 {
 	char	*var_str;
 
-	var_str = ft_itoa(data->last_exit);
+	var_str = ft_itoa(data->exit_status);
 	if (!var_str)
-		return (ft_error(data, "env: could not retrieve last exit status"),
-			NULL);
+	{
+		ft_error(data, "env: could not retrieve last exit status");
+		return (NULL);
+	}
 	else
 		return (var_str);
 }

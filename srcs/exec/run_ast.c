@@ -6,29 +6,13 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:00:21 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/01 00:51:38 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/07 00:51:39 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_node_type(t_tree *node)
-{
-	t_token	*token;
-
-	if (!node || !node->content)
-	{
-		return (-1);
-	}
-	if (!node->left && !node->right)
-	{
-		return (-1);
-	}
-	token = (t_token *)node->content;
-	return (token->type);
-}
-
-static int	handle_and(t_data *data, t_tree *node)
+static int	handle_and(t_data *data, t_node *node)
 {
 	int	ret;
 
@@ -43,7 +27,7 @@ static int	handle_and(t_data *data, t_tree *node)
 	return (ret);
 }
 
-static int	handle_or(t_data *data, t_tree *node)
+static int	handle_or(t_data *data, t_node *node)
 {
 	int	ret;
 
@@ -57,36 +41,36 @@ static int	handle_or(t_data *data, t_tree *node)
 		return (ft_run_ast(data, node->right));
 	return (ret);
 }
-int	handle_command(t_data *data, t_leaf *leaf)
+int	handle_command(t_data *data, t_node *node)
 {
 	char		**args;
 	t_pfunc		func;
 
-	args = leaf->args;
+	args = token_list_to_args(data, node->args);
+	if (!args)
+		return (data->exit_status);
 	func = is_builtin(args[0], data->builtins);
 	if (func)
 	{
 		data->exit_status = func(data, args, ft_arrlen(args));
 	}
+	ft_free_array((void **)args, ft_arrlen(args));
 	// TODO: add non builtin func handling
 	return (data->exit_status);
 }
 
-int	ft_run_ast(t_data *data, t_tree *node)
+int	ft_run_ast(t_data *data, t_node *node)
 {
-	int	type;
-
 	if (!node)
 		return (EXIT_SUCCESS);
-	type = get_node_type(node);
-	if (type == AND)
+	if (node->type == AND)
 		return (handle_and(data, node));
-	if (type == OR)
+	if (node->type == OR)
 		return (handle_or(data, node));
-	// if (type == PIPE)
+	// if (node->type == PIPE)
 	//     return (handle_pipex(data, node));
 	//TODO: handle openpar?
-	// if (type == OPENPAR)
+	// if (node->type == OPENPAR)
 	//     return (handle_openpar(data, node));
-	return (handle_command(data, node->content));
+	return (handle_command(data, node));
 }

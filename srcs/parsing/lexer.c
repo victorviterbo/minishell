@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:27:53 by vbronov           #+#    #+#             */
-/*   Updated: 2025/03/14 19:30:18 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/06 18:43:37 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void	find_token_end(char *str, size_t *j, char type)
 	while (str[*j] && !ft_isspace(str[*j])
 		&& ft_strchr("|&()<>", str[*j]) == NULL)
 	{
-		//TODO: validate quotes edge cases, e.g. quotes escaping
 		if (str[*j] == '\'' || str[*j] == '"')
 		{
 			quote = str[*j];
