@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 16:57:43 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:35:48 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	*is_quote_escaped(t_data *data, char *str)
 {
 	int		*escaped;
 	int		quotation;
+	size_t	i;
 
 	if (!str)
 		return (ft_error(data, "parsing: invalid input string"), NULL);
@@ -28,15 +29,16 @@ int	*is_quote_escaped(t_data *data, char *str)
 	if (!escaped)
 		return (ft_error(data, "parsing: memory allocation failed"), NULL);
 	quotation = IS_NOT_QUOTED;
+	i = 0;
 	while (*str)
 	{
 		if (*str == '\'' && quotation != IS_DOUBLE_QUOTED)
 			quotation = IS_NOT_QUOTED;
 		if (*str == '"' && quotation != IS_SINGLE_QUOTED)
 			quotation = IS_NOT_QUOTED;
-		*escaped = quotation;
+		escaped[i] = quotation;
 		str++;
-		escaped++;
+		i++;
 	}
 	if (quotation != IS_NOT_QUOTED)
 		return (free(escaped), ft_error(data,

@@ -6,122 +6,186 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 11:47:44 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/30 19:54:22 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:19:16 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	make_ast(t_data *data, t_token *token);
-void	ast_trav(t_data *data, t_tree *tree);
-void	build_tree(t_token *token, t_tree *tree, bool openpar);
-void	explore_tree(t_token *token, t_token *current, t_token *last,
-			t_tree *tree);
-void	make_leaf(t_data *data, t_token *current, t_leaf *leaf);
-
-void	make_ast(t_data *data, t_token *token)
+t_token	*skip_parenthesis(t_data *data, t_token *token)
 {
-	t_tree	*tree;
+	int	scope;
 
-	tree = ft_calloc(1, sizeof(t_tree));
-	if (!tree)
-		return ;
-	build_tree(token, tree, false);
-	ast_trav(data, tree);
-	data->tree = tree;
-	return ;
+	scope = 0;
+	while (token)
+	{
+		if (token->type == OPENPAR)
+			scope++;
+		else if (token->type == CLOSEPAR && --scope == 0)
+			return (token);
+		token = token->next;
+	}
+	if (scope > 0)
+		return (ft_error(data, "syntax error near unexpected token ')'"), \
+				data->exit_status = EXIT_NUMARG, NULL);
+	if (scope < 0)
+		return (ft_error(data, "syntax error near unexpected token '('"), \
+				data->exit_status = EXIT_NUMARG, NULL);
+	return (NULL);
 }
 
-void	ast_trav(t_data *data, t_tree *tree)
+t_token	*search_operator(t_data *data, t_token *start, t_token *end)
 {
-	t_leaf	*leaf;
+	t_token	*token;
+	t_token	*saved_token;
 
-	if (tree->left)
-		ast_trav(data, tree->left);
-	if (tree->right)
-		ast_trav(data, tree->right);
-	if (!tree->left && !tree->right)
+	saved_token = NULL;
+	token = start;
+	while (token != end)
 	{
-		leaf = ft_calloc(1, sizeof(t_leaf));
-		if (!leaf)
-			return (tree_error_leaf(NULL, tree), ft_error(data, "parsing: \
-memory allocation failed"));
-		make_leaf(data, tree->content, leaf);
-		if (data->exit_status)
-			return (tree_error_leaf(leaf, tree));
-		free_tokens(tree->content);
-		tree->content = leaf;
+		if (token->type == OPENPAR)
+			token = skip_parenthesis(data, token);
+		else if (token->type == OR || token->type == AND)
+			saved_token = token;
+		if (token == NULL)
+			break ;
+		token = token->next;
 	}
-	return ;
+	return (saved_token);
 }
 
-void	build_tree(t_token *token, t_tree *tree, bool openpar)
+t_node	*handle_operator(t_data *data, t_token *start, t_token *end, \
+	t_token *op_token)
 {
-	t_token	*current;
-	t_token	*last;
+	t_node			*new_node;
 
-	current = token;
-	last = current;
-	while (current && (current->type > 4 || openpar)
-		&& current->type != CLOSEPAR)
-	{
-		last = current;
-		current = current->next;
-	}
-	if (current)
-		explore_tree(token, current, last, tree);
-	else
-		tree->content = token;
-	return ;
+	new_node = new_tree_node(data, op_token->type);
+	if (!new_node)
+		return (NULL);
+	new_node->left = build_tree(data, start, op_token);
+	if (!new_node->left)
+		return (free_tree(new_node), NULL);
+	new_node->right = build_tree(data, op_token->next, end);
+	if (!new_node->right)
+		return (free_tree(new_node), NULL);
+	return (new_node);
 }
 
-void	explore_tree(t_token *token, t_token *current, t_token *last,
-	t_tree *tree)
+t_token	*search_pipe(t_data *data, t_token *start, t_token *end)
 {
-	tree->content = current;
-	if (last != current)
-	{
-		tree->left = ft_calloc(1, sizeof(t_tree));
-		if (!tree->left)
-			return (tree_error_token(token, tree));
-		last->next = NULL;
-		build_tree(token, tree->left, false);
-	}
-	if (current->next)
-	{
-		tree->right = ft_calloc(1, sizeof(t_tree));
-		if (!tree->right && last != current)
-			return (tree_error_token(current->next, tree));
-		else if (!tree->right)
-			return ;
-		build_tree(current->next, tree->right, current->type == OPENPAR);
-	}
-	current->next = NULL;
-}
+	t_token	*token;
+	t_token	*saved_token;
 
-void	make_leaf(t_data *data, t_token *current, t_leaf *leaf)
-{
-	while (current)
+	saved_token = NULL;
+	token = start;
+	while (token != end)
 	{
-		current->str = parse_str(data, current->str, true);
-		if (current->type == WORD)
+		if (token->type == OPENPAR)
+			token = skip_parenthesis(data, token);
+		else if (token->type == PIPE)
 		{
-			leaf->args = ft_array_append(leaf->args, ft_strdup(current->str),
-					false);
-			if (!leaf->args)
-				return (ft_error(data, "parsing: memory allocation failed"));
+			saved_token = token;
+			break ;
 		}
-		else if (current->type > 5 && current->next)
+		if (token == NULL)
+			break ;
+		token = token->next;
+	}
+	return (saved_token);
+}
+
+t_node	*handle_parenthesis(t_data *data, t_token *start)
+{
+	t_node	*new_node;
+	t_token	*end;
+
+	new_node = new_tree_node(data, OPENPAR);
+	if (!new_node)
+		return (NULL);
+	end = skip_parenthesis(data, start);
+	if (end == NULL)
+		return (free_tree(new_node), NULL);
+	new_node->left = build_tree(data, start->next, end);
+	if (!new_node->left)
+		return (free_tree(new_node), NULL);
+	return (new_node);
+}
+
+int	init_node_redirs(t_data *data, t_token *start, t_node *cmd_node, \
+	t_token *op_token)
+{
+	t_token	*file_token;
+
+	if (start->next->type != WORD)
+	{
+		ft_fprintf(STDERR_FILENO, "syntax error near unexpected token '%s'\n", \
+			start->next->str);
+		data->exit_status = EXIT_NUMARG;
+		return (FALSE);
+	}
+	file_token = copy_token(data, start->next);
+	if (!file_token)
+		return (FALSE);
+	push_back_token(&cmd_node->redi, op_token);
+	push_back_token(&cmd_node->redi, file_token);
+	return (TRUE);
+}
+
+int	init_cmd_node(t_data *data, t_token *start, t_token *end, t_node *cmd_node)
+{
+	t_token	*token;
+
+	while (start != end)
+	{
+		token = copy_token(data, start);
+		if (!token)
+			return (FALSE);
+		if (start->type >= STDOUT && start->type <= STDIN_HEREDOC)
 		{
-			if (open_stream(data, leaf, current) < 0)
+			if (start->next == NULL || start->next == end)
 			{
-				if (data->exit_status)
-					return ;
-				return (ft_error(data, "open: file opening failed"));
+				ft_error(data, "syntax error near unexpected token 'newline'");
+				data->exit_status = EXIT_NUMARG;
+				return (free(token->str), free(token), FALSE);
 			}
-			current = current->next;
+			if (!init_node_redirs(data, start, cmd_node, token))
+				return (free(token->str), free(token), FALSE);
+			start = start->next;
 		}
-		current = current->next;
+		else if (start->type == WORD)
+			push_back_token(&cmd_node->args, token);
+		start = start->next;
 	}
-	return ;
+	return (TRUE);
+}
+
+t_node	*handle_cmd(t_data *data, t_token *start, t_token *end)
+{
+	t_node	*new_node;
+
+	new_node = new_tree_node(data, CMD);
+	if (!new_node)
+		return (NULL);
+	if (!init_cmd_node(data, start, end, new_node))
+		return (free_tree(new_node), NULL);
+	return (new_node);
+}
+
+t_node	*build_tree(t_data *data, t_token *start, t_token *end)
+{
+	t_token			*op_token;
+
+	op_token = search_operator(data, start, end);
+	if (data->exit_status)
+		return (NULL);
+	if (op_token)
+		return (handle_operator(data, start, end, op_token));
+	op_token = search_pipe(data, start, end);
+	if (data->exit_status)
+		return (NULL);
+	if (op_token)
+		return (handle_operator(data, start, end, op_token));
+	if (start->type == OPENPAR)
+		return (handle_parenthesis(data, start));
+	return (handle_cmd(data, start, end));
 }

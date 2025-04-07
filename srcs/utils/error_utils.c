@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:41:42 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:54:04 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:33:44 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,15 @@ void	ft_error(t_data *data, const char *message)
 {
 	if (data && errno)
 		data->exit_status = errno;
-	else if (data)
-		data->exit_status = EXIT_FAILURE;
 	if (!message)
 		message = DEFAULT_ERROR;
-	write (STDERR_FILENO, SHELL_NAME, ft_strlen(SHELL_NAME));
-	if (errno)
-		perror(message);
-	else
+	ft_printf("%s: ", SHELL_NAME);
+	if (data->exit_status)
 	{
-		write(STDERR_FILENO, message, ft_strlen(message));
-		write(STDERR_FILENO, "\n", 1);
+		ft_printf("%s: %s\n", message, strerror(data->exit_status));
 	}
+	else
+		ft_printf("%s\n", message);
+	if (data->exit_status == EXIT_SUCCESS)
+		data->exit_status = EXIT_FAILURE;
 }

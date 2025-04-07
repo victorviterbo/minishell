@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:26:45 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/14 19:31:55 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:36:42 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_tokens(t_token *head);
 t_token	*lexer_error(t_data *data, t_token *head, t_token *current)
 {
 	data->exit_status = errno;
-	//ft_fprintf(STDERR_FILENO, "lexer: %s\n", strerror(data->exit_status));
+	ft_fprintf(STDERR_FILENO, "lexer: %s\n", strerror(data->exit_status));
 	free_tokens(head);
 	free_token(current);
 	return (NULL);
@@ -54,5 +54,38 @@ void	free_tokens(t_token *head)
 		next = current->next;
 		free_token(current);
 		current = next;
+	}
+}
+
+t_token	*copy_token(t_data *data, t_token *token)
+{
+	t_token	*new_tok;
+
+	new_tok = ft_calloc(1, sizeof(t_token));
+	if (!new_tok)
+		return (ft_error(data, "malloc: memory allocation failed"), NULL);
+	new_tok->str = ft_strdup(token->str);
+	if (!new_tok->str)
+	{
+		ft_error(data, "malloc: memory allocation failed");
+		free(new_tok);
+		return (NULL);
+	}
+	new_tok->type = token->type;
+	return (new_tok);
+}
+
+void	push_back_token(t_token **list, t_token *token)
+{
+	t_token	*index;
+
+	if (!*list)
+		*list = token;
+	else
+	{
+		index = *list;
+		while (index->next)
+			index = index->next;
+		index->next = token;
 	}
 }

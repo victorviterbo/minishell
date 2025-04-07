@@ -1,0 +1,157 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/31 03:57:29 by vbronov           #+#    #+#             */
+/*   Updated: 2025/04/06 22:18:29 by vbronov          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+void	print_tokens(t_token *tokens)
+{
+	t_token	*current;
+
+	current = tokens;
+	while (current)
+	{
+		ft_printf("Token: %s, Type: %d\n", current->str, current->type);
+		current = current->next;
+	}
+}
+
+const char	*node_type_to_string_expand(enum e_token_type type)
+{
+	if (type == AND)
+		return ("AND");
+	else if (type == PIPE)
+		return ("PIPE");
+	else if (type == OPENPAR)
+		return ("OPENPAR");
+	else if (type == CLOSEPAR)
+		return ("CLOSEPAR");
+	else if (type == CMD)
+		return ("CMD");
+	else
+		return ("UNKNOWN");
+}
+
+const char	*node_type_to_string(enum e_token_type type)
+{
+	if (type == WORD)
+		return ("WORD");
+	else if (type == STDIN)
+		return ("STDIN");
+	else if (type == STDIN_HEREDOC)
+		return ("STDIN_HEREDOC");
+	else if (type == STDOUT)
+		return ("STDOUT");
+	else if (type == STDOUT_APPEND)
+		return ("STDOUT_APPEND");
+	else if (type == OR)
+		return ("OR");
+	else
+		return (node_type_to_string_expand(type));
+}
+
+void	display_token_list(t_token *token)
+{
+	if (!token)
+	{
+		ft_printf("empty token list\n");
+		return ;
+	}
+	while (token)
+	{
+		ft_printf("\"%s\" TYPE: %i ", token->str, token->type);
+		token = token->next;
+	}
+	ft_printf("\n");
+}
+
+void	display_leaf(t_node *node, int depth, int *siblings)
+{
+	int	i;
+
+	ft_printf("CMD\n");
+	i = 0;
+	while (i < depth)
+	{
+		if (siblings[i])
+			ft_printf("│   ");
+		else
+			ft_printf("    ");
+		i++;
+	}
+	ft_printf("  args: ");
+	display_token_list(node->args);
+	i = 0;
+	while (i < depth)
+	{
+		if (siblings[i])
+			ft_printf("│   ");
+		else
+			ft_printf("    ");
+		i++;
+	}
+	ft_printf("  redi: ");
+	display_token_list(node->redi);
+}
+
+void	display_indentation(int depth, int *siblings)
+{
+	int	i;
+
+	i = 0;
+	while (i < depth - 1)
+	{
+		if (siblings[i])
+			ft_printf("│   ");
+		else
+			ft_printf("    ");
+		i++;
+	}
+}
+
+void	display_tree_recursive(t_node *node, int depth, int isLast,
+	int *siblings)
+{
+	if (!node)
+		return ;
+	display_indentation(depth, siblings);
+	if (depth > 0)
+	{
+		if (isLast)
+			ft_printf("└── ");
+		else
+			ft_printf("├── ");
+	}
+	if (!node->left && !node->right)
+		display_leaf(node, depth, siblings);
+	else
+		ft_printf("%s\n", node_type_to_string(node->type));
+	if (depth > 0)
+		siblings[depth - 1] = !isLast;
+	display_tree_recursive(node->left, depth + 1, 0, siblings);
+	display_tree_recursive(node->right, depth + 1, 1, siblings);
+	if (depth > 0)
+		siblings[depth - 1] = 0;
+}
+
+void	display_tree(t_node *node)
+{
+	int	siblings[128];
+	int	i;
+
+	i = 0;
+	while (i < 128)
+	{
+		siblings[i] = 0;
+		i++;
+	}
+	display_tree_recursive(node, 0, 1, siblings);
+}

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:52:49 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/07 13:41:05 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,14 @@ void	signal_handler(int signum)
 
 int	init_data(t_data *data, char **envp)
 {
+	// TODO: initialize env_arr right before execve
 	data->env_arr = NULL;
 	data->envp = NULL;
 	data->tokens = NULL;
 	data->exit_status = EXIT_SUCCESS;
+	data->tree = NULL;
 	init_env(data, envp);
+	init_builtin(data);
 	return (data->exit_status);
 }
 
@@ -89,18 +92,6 @@ int	disable_echoctl(int disable)
 	return (EXIT_SUCCESS);
 }
 
-void	print_tokens(t_token *tokens)
-{
-	t_token	*current;
-
-	current = tokens;
-	while (current)
-	{
-		ft_printf("Token: %s, Type: %d\n", current->str, current->type);
-		current = current->next;
-	}
-}
-
 void	main_loop(t_data *data)
 {
 	char	*line;
@@ -108,9 +99,9 @@ void	main_loop(t_data *data)
 	while (TRUE)
 	{
 		if (g_signal == INSIGINT)
-			ft_fprintf(2, "^C\n");
+			ft_fprintf(STDERR_FILENO, "^C\n");
 		else if (g_signal == INSIGQUIT)
-			ft_fprintf(2, "^\\Quit (core dumped)\n");
+			ft_fprintf(STDERR_FILENO, "^\\Quit (core dumped)\n");
 		g_signal = READLINE_MODE;
 		line = readline(SHELL_PROMPT);
 		g_signal = EXECUTION_MODE;
@@ -125,9 +116,17 @@ void	main_loop(t_data *data)
 			add_history(line);
 			if (DEBUG)
 				print_tokens(data->tokens);
-			//TODO: implement parser and executor
+			data->tree = build_tree(data, data->tokens, NULL);
+			if (DEBUG)
+				display_tree(data->tree);
+			if (data->tree)
+				ft_run_ast(data, data->tree);
 		}
 		free(line);
+		free_tree(data->tree);
+		data->tree = NULL;
+		free_tokens(data->tokens);
+		data->tokens = NULL;
 	}
 }
 
