@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/10 17:12:45 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:18:37 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,6 @@ int	ft_cd(t_data *data, char **args, int argc)
 	char	*abspath;
 	char	*path;
 
-	if (argc > 2)
-	{
-		ft_error(data, "cd: too many arguments");
-		return (EXIT_FAILURE);
-	}
 	path = handle_special_paths(data, args[1]);
 	if (!path)
 		return (EXIT_FAILURE);

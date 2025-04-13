@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/07 13:35:48 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:44:28 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	*is_quote_escaped(t_data *data, char *str)
 	while (*str)
 	{
 		if (*str == '\'' && quotation != IS_DOUBLE_QUOTED)
-			quotation = IS_NOT_QUOTED;
+			quotation = IS_SINGLE_QUOTED * (!quotation);
 		if (*str == '"' && quotation != IS_SINGLE_QUOTED)
-			quotation = IS_NOT_QUOTED;
+			quotation = IS_DOUBLE_QUOTED * (!quotation);
 		escaped[i] = quotation;
 		str++;
 		i++;

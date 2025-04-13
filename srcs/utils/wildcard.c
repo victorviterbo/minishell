@@ -6,27 +6,28 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/10 17:10:02 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/13 10:59:20 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*substitute_wildcard(t_data *data, char *str)
+char	**substitute_wildcard(t_data *data, char *str)
 {
 	char	**candidates;
 	t_list	**matches;
-	char	*joined_matches;
+	char	**sorted_matches;
 
 	candidates = ls_curr_dir(data);
 	if (!candidates)
 		return (NULL);
-	// TODO: check behaviour for hidden files
+	// TODO: check behaviour for hidden files -> only if first character is . -> to investigate
 	matches = filter_matches(data, candidates, str);
+	ft_free_array((void **)candidates, ft_arrlen(candidates));
 	if (!matches)
 		return (NULL);
-	joined_matches = sort_join_matches(data, matches);
-	return (joined_matches);
+	sorted_matches = sort_join_matches(data, matches);
+	return (sorted_matches);
 }
 
 char	**ls_curr_dir(t_data *data)
@@ -122,15 +123,12 @@ bool	is_wildcard_match(char *pattern, char *candidate)
 	return (!candidate[j]);
 }
 
-char	*sort_join_matches(t_data *data, t_list **matches)
+char	**sort_join_matches(t_data *data, t_list **matches)
 {
 	t_list	*current;
 	t_list	*best;
-	char	*joined_str;
+	char	**sorted_args;
 
-	joined_str = ft_calloc(1, sizeof(char));
-	if (!joined_str)
-		return (ft_error(data, "wildcard: memory allocation failed"), NULL);
 	while (matches)
 	{
 		current = *matches;
@@ -141,13 +139,11 @@ char	*sort_join_matches(t_data *data, t_list **matches)
 				best = current;
 			current = current->next;
 		}
-		joined_str = ft_strjoin_ip(joined_str, best->content, FREE_S1);
+		sorted_args = ft_array_append(sorted_args, best->content, false);
 		ft_lstpop(matches, best, free);
-		if (matches && joined_str)
-			joined_str = ft_strjoin_ip(joined_str, " ", FREE_S1);
-		if (!joined_str)
+		if (!sorted_args)
 			return (ft_error(data, "wildcard: memory allocation failed"),
 				ft_lstclear(matches, free), NULL);
 	}
-	return (joined_str);
+	return (sorted_args);
 }

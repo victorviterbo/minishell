@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:44:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/10 21:58:29 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	*replace_var(t_data *data, char *str, size_t *i, size_t *j);
 char	*get_varname(t_data *data, char *str, size_t *i, size_t *j);
 
 char	*expand_var(t_data *data, char *str, int *isescaped)
-{
+{ // TODO: change way it works to not write the remaining of the string for nothing
+	// either dry run or double memory
 	size_t	i;
 	size_t	j;
 	char	*expanded;
