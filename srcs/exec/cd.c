@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/10 21:18:37 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/13 13:35:36 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	ft_cd(t_data *data, char **args, int argc)
 	char	*abspath;
 	char	*path;
 
+	(void)argc;
 	path = handle_special_paths(data, args[1]);
 	if (!path)
 		return (EXIT_FAILURE);
