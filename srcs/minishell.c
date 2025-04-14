@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/10 15:18:35 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:06:33 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,11 @@ void	main_loop(t_data *data)
 		else if (g_signal == INSIGQUIT)
 			ft_fprintf(STDERR_FILENO, "^\\Quit (core dumped)\n");
 		g_signal = READLINE_MODE;
-		line = readline(SHELL_PROMPT);
+		ft_printf("errno before readline %i\n", errno);
+		line = readline(SHELL_PROMPT); 
+		ft_printf("errno after readline %i\n", errno);
+		errno = EXIT_SUCCESS;
+		//TODO: why does readline sets errno = 2 ? (see above)
 		g_signal = EXECUTION_MODE;
 		if (!line)
 		{

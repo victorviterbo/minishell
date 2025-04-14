@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 12:54:55 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:25:27 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ enum e_signal
 	INSIGQUIT,
 };
 
-enum e_token_type
+typedef enum e_token_type
 {
 	WORD,
 	STDOUT,
@@ -69,7 +69,7 @@ enum e_token_type
 	AND,
 	OR,
 	CMD,
-};
+}	t_token_type;
 
 typedef struct s_token
 {
@@ -156,7 +156,7 @@ int		handle_command(t_data *data, t_node *node);
 //parsing/build_tree.c
 t_node	*build_tree(t_data *data, t_token *start, t_token *end);
 //parsing/parse.c
-char	*parse_str(t_data *data, char *str, bool inplace);
+char	**parse_str(t_data *data, char *str, t_token_type type);
 //parsing/expand.c
 char	*expand_var(t_data *data, char *str, int *isescaped);
 int		replace_var(t_data *data, char *str, char *expanded, size_t *j);
@@ -166,6 +166,13 @@ void	dry_run_skip_var(t_data *data, char *str, size_t *new_size, size_t *i);
 char	*parse_varname(t_data *data, char *str, size_t *j);
 //parsing/lexer.c
 t_token	*lexer(t_data *data, char *str);
+//parsing/wildcard.c
+char	**substitute_wildcard(t_data *data, char *str, int *isescaped);
+char	**ls_curr_dir(t_data *data);
+char	**add_fname_to_arr(t_data *data, const char *fname, char **files);
+t_list	**filter_matches(t_data *data, char **candidates, char *pattern,
+			int *isescaped);
+bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped);
 
 // STREAM
 //stream/set_stream.c
@@ -208,6 +215,13 @@ char	*get_last_exit_status(t_data *data);
 //utils/print_utils.c
 void	display_tree(t_node *node);
 void	print_tokens(t_token *tokens);
+//utils/wildcard_utils.c
+char	**merge_strarr(t_data *data, char **arr1, char **arr2,
+	t_Inplace_Type inplace);
+char	**sort_join_matches(t_data *data, t_list **matches);
+void	merge_error(char **arr1, char **arr2, t_Inplace_Type inplace);
+void	append_arr(char **arr1, char **arr2);
+
 
 // MAIN
 int		disable_echoctl(int disable);

@@ -6,16 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 12:58:55 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:13:10 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		*is_quote_escaped(t_data *data, char *str);
-char	*remove_quotes_ws(t_data *data, char *str, int *isescaped,
-			bool inplace);
-size_t	go_to_next(char *str, char *chars, size_t i);
 
 int	*is_quote_escaped(t_data *data, char *str)
 {
@@ -56,7 +51,7 @@ void	remove_quotes(char *str, int *isescaped)
 	while (str[i + offset])
 	{
 		if ((str[i + offset] == '\''
-			&& isescaped[i + offset] != IS_DOUBLE_QUOTED)
+				&& isescaped[i + offset] != IS_DOUBLE_QUOTED)
 			|| (str[i + offset] == '"'
 				&& isescaped[i + offset] != IS_SINGLE_QUOTED))
 			offset++;

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:14:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/13 15:27:30 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:22:48 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,21 @@ unsigned int	token_list_size(t_token *list)
 char	**token_list_to_args(t_data *data, t_token *token_list)
 {
 	unsigned int	i;
+	char			**parsed_arr;
 	char			**args;
 
-	args = ft_calloc(token_list_size(token_list) + 1, sizeof(char *));
+	args = ft_calloc(1, sizeof(char *));
 	if (!args)
 		return (ft_error(data, "malloc: memory allocation failed"), NULL);
 	i = 0;
 	while (token_list)
 	{
-		args[i] = parse_str(data, token_list->str, false);
-		if (!args[i])
-			return (ft_error(data, "malloc: memory allocation failed"), \
-				ft_free_array((void **)args, ft_arrlen(args)), NULL);
+		parsed_arr = parse_str(data, token_list->str, token_list->type);
+		if (!parsed_arr)
+			return (ft_free_array((void **)args, ft_arrlen(args)), NULL);
+		merge_strarr(data, args, parsed_arr, FREE_S1S2);
+		if (!args)
+			return (NULL);
 		token_list = token_list->next;
 		i++;
 	}
