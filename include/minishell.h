@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 12:11:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:54:55 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,8 +190,7 @@ void	init_env(t_data *data, char **envp);
 void	ft_error(t_data *data, const char *message);
 //utils/parsing_utils.c
 int		*is_quote_escaped(t_data *data, char *str);
-char	*remove_quotes_ws(t_data *data, char *str, int *isescaped,
-			bool inplace);
+void	remove_quotes(char *str, int *isescaped);
 size_t	go_to_next(char *str, char *chars, size_t i);
 //utils/token_utils.c
 t_token	*lexer_error(t_data *data, t_token *head, t_token *current);

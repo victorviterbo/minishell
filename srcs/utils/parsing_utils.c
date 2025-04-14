@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/10 21:44:28 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:58:55 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,28 @@ int	*is_quote_escaped(t_data *data, char *str)
 	return (escaped);
 }
 
-char	*remove_quotes_ws(t_data *data, char *str, int *isescaped, bool inplace)
+void	remove_quotes(char *str, int *isescaped)
 {
 	size_t	i;
-	size_t	j;
-	char	*newstr;
+	size_t	offset;
 
-	newstr = ft_calloc(ft_strlen(str) + 1, sizeof(char));
-	if (!newstr)
-		return (ft_error(data, "parsing: memory allocation failed"), NULL);
-	i = -1;
-	j = -1;
-	while (str[i + 1])
+	i = 0;
+	offset = 0;
+	while (str[i + offset])
 	{
-		i++;
-		if ((str[i] == '\'' && isescaped[i] != IS_DOUBLE_QUOTED)
-			|| (str[i] == '"' && isescaped[i] != IS_SINGLE_QUOTED)
-			|| (str[i] == ' ' && str[i + 1] == ' '
-				&& isescaped[i] == IS_NOT_QUOTED))
-			continue ;
-		j++;
-		newstr[j] = str[i];
+		if ((str[i + offset] == '\''
+			&& isescaped[i + offset] != IS_DOUBLE_QUOTED)
+			|| (str[i + offset] == '"'
+				&& isescaped[i + offset] != IS_SINGLE_QUOTED))
+			offset++;
+		else
+		{
+			str[i] = str[i + offset];
+			isescaped[i] = isescaped[i + offset];
+			i++;
+		}
 	}
-	newstr[j + 1] = '\0';
-	if (inplace)
-		free(str);
-	return (newstr);
+	str[i] = '\0';
 }
 
 size_t	go_to_next(char *str, char *chars, size_t i)

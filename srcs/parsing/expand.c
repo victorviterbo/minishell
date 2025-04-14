@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 12:35:40 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:56:19 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	*expand_var(t_data *data, char *str, int *isescaped)
 			i++;
 			j++;
 		}
-		ft_printf("%s\n", expanded);
 	}
 	return (expanded);
 }
