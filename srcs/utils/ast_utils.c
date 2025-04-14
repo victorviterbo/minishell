@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:14:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 16:22:48 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:06:04 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**token_list_to_args(t_data *data, t_token *token_list)
 		parsed_arr = parse_str(data, token_list->str, token_list->type);
 		if (!parsed_arr)
 			return (ft_free_array((void **)args, ft_arrlen(args)), NULL);
-		merge_strarr(data, args, parsed_arr, FREE_S1S2);
+		args = merge_strarr(data, args, parsed_arr, FREE_S1S2);
 		if (!args)
 			return (NULL);
 		token_list = token_list->next;

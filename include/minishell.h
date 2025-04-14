@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 15:25:27 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:52:00 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ char	**merge_strarr(t_data *data, char **arr1, char **arr2,
 char	**sort_join_matches(t_data *data, t_list **matches);
 void	merge_error(char **arr1, char **arr2, t_Inplace_Type inplace);
 void	append_arr(char **arr1, char **arr2);
-
+void	no_free(void *content);
 
 // MAIN
 int		disable_echoctl(int disable);

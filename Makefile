@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/04/14 15:21:11 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/04/14 18:16:24 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 HEADER = minishell.h
 
-CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
 
 ifdef DEBUG
     CFLAGS += -DDEBUG=1 -g

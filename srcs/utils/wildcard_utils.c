@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:20:33 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 16:27:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:52:14 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	**sort_join_matches(t_data *data, t_list **matches)
 	char	**sorted_args;
 
 	current = *matches;
+	sorted_args = NULL;
 	while (current)
 	{
 		current = *matches;
@@ -30,7 +31,7 @@ char	**sort_join_matches(t_data *data, t_list **matches)
 			current = current->next;
 		}
 		sorted_args = ft_array_append(sorted_args, best->content, false);
-		ft_lstpop(matches, best, free);
+		ft_lstpop(matches, best, no_free);
 		if (!sorted_args)
 			return (ft_error(data, "wildcard: memory allocation failed"),
 				ft_lstclear(matches, free), NULL);
@@ -39,10 +40,12 @@ char	**sort_join_matches(t_data *data, t_list **matches)
 }
 
 char	**merge_strarr(t_data *data, char **arr1, char **arr2,
-	t_Inplace_Type inplace)
+			t_Inplace_Type inplace)
 {
 	char	**joined_arr;
 
+	if (!arr1 || !arr2)
+		return (merge_error(arr1, arr2, inplace), NULL);
 	joined_arr = ft_calloc(ft_arrlen(arr1) + ft_arrlen(arr2) + 1,
 			sizeof(char *));
 	if (!joined_arr)
@@ -81,5 +84,11 @@ void	append_arr(char **arr1, char **arr2)
 		i++;
 		j++;
 	}
+	return ;
+}
+
+void	no_free(void *content)
+{
+	(void)content;
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 16:01:24 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 23:03:42 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**substitute_wildcard(t_data *data, char *str, int *isescaped)
 		return (NULL);
 	// TODO: check behaviour for hidden files -> only if first character is . -> to investigate
 	matches = filter_matches(data, candidates, str, isescaped);
-	ft_free_array((void **)candidates, ft_arrlen(candidates));
+	free(candidates);
 	if (!matches)
 		return (NULL);
 	sorted_matches = sort_join_matches(data, matches);
@@ -78,11 +78,10 @@ t_list	**filter_matches(t_data *data, char **candidates, char *pattern,
 	t_list	**matches;
 	t_list	*new_match;
 
-	if (!candidates)
-		return (NULL);
 	matches = ft_calloc(1, sizeof(t_list *));
 	if (!matches)
-		return (ft_error(data, "wildcard; memory allocation failed"), NULL);
+		return (ft_error(data, "wildcard; memory allocation failed"),
+			ft_free_array((void **)candidates, ft_arrlen(candidates)), NULL);
 	while (*candidates)
 	{
 		if (is_wildcard_match(pattern, *candidates, isescaped))
@@ -90,9 +89,13 @@ t_list	**filter_matches(t_data *data, char **candidates, char *pattern,
 			new_match = ft_lstnew_void(*candidates);
 			if (!new_match)
 				return (ft_error(data, "wildcard: memory allocation failed"),
-					ft_lstclear(matches, free), NULL);
+					ft_lstclear(matches, free), 
+					ft_free_array((void **)candidates, ft_arrlen(candidates)),
+					NULL);
 			ft_lstadd_back(matches, new_match);
 		}
+		else
+			free(*candidates);
 		candidates++;
 	}
 	return (matches);
@@ -100,28 +103,28 @@ t_list	**filter_matches(t_data *data, char **candidates, char *pattern,
 
 bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	bool	is_wildcard;
 
 	i = 0;
-	j = -1;
+	j = 0;
 	while (pattern[i])
 	{
-		i += pattern[i] != '*';
-		j += 1;
-		if (isescaped[i] != IS_NOT_QUOTED)
-			continue ;
-		if (pattern[i] == '*' && pattern[i + 1] == '*')
+		is_wildcard = (pattern[i] == '*' && isescaped != IS_NOT_QUOTED);
+		if (is_wildcard && pattern[i + 1] && pattern[i + 1] == '*')
 			i++;
-		else if (pattern[i] != '*' && pattern[i] != candidate[j])
+		else if (!is_wildcard && pattern[i] != candidate[j])
 			return (false);
-		else if (pattern[i] == '*' && !pattern[i + 1])
+		else if (is_wildcard && !pattern[i + 1])
 			return (true);
-		else if (pattern[i] == '*' && pattern[i + 1] == candidate[j])
+		else if (is_wildcard && pattern[i + 1] == candidate[j])
 		{
 			if (is_wildcard_match(pattern + i + 1, candidate + j, isescaped))
 				return (true);
 		}
+		i += (pattern[i] != '*' || i == -1);
+		j += 1;
 	}
 	return (!candidate[j]);
 }
