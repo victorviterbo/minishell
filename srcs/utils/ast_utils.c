@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:14:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/07 13:31:12 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/13 15:27:30 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**token_list_to_args(t_data *data, t_token *token_list)
 	i = 0;
 	while (token_list)
 	{
-		args[i] = ft_strdup(token_list->str);
+		args[i] = parse_str(data, token_list->str, false);
 		if (!args[i])
 			return (ft_error(data, "malloc: memory allocation failed"), \
 				ft_free_array((void **)args, ft_arrlen(args)), NULL);

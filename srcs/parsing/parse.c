@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:45:49 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/10 21:59:19 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:27:30 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*parse_str(t_data *data, char *str, bool inplace)
 	isescaped = is_quote_escaped(data, parsed);
 	if (data->exit_status)
 		return (NULL);
-	parsed = remove_quotes_ws(data, parsed, isescaped, true); //TODO investigate
+	//parsed = remove_quotes_ws(data, parsed, isescaped, true); //TODO investigate
 	if (data->exit_status)
 		return (NULL);
 	if (isescaped)

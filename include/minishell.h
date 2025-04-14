@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/13 13:36:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:11:21 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,8 +159,11 @@ t_node	*build_tree(t_data *data, t_token *start, t_token *end);
 char	*parse_str(t_data *data, char *str, bool inplace);
 //parsing/expand.c
 char	*expand_var(t_data *data, char *str, int *isescaped);
-char	*replace_var(t_data *data, char *str, size_t *i, size_t *j);
-char	*get_varname(t_data *data, char *str, size_t *i, size_t *j);
+int		replace_var(t_data *data, char *str, char *expanded, size_t *j);
+char	*get_varname(t_data *data, char *str, size_t *j);
+char	*dry_run_allocate(t_data *data, char *str, int *isescaped);
+void	dry_run_skip_var(t_data *data, char *str, size_t *new_size, size_t *i);
+char	*parse_varname(t_data *data, char *str, size_t *j);
 //parsing/lexer.c
 t_token	*lexer(t_data *data, char *str);
 
