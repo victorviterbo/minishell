@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/15 15:10:51 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:11:24 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
 }
 
 char	**substitute_wildcard(t_data *data, char *str, int *isescaped)
-{// TODO: check behaviour for hidden files -> only if first character is .
+{
 	char	**candidates;
 	char	**sorted_matches;
 
