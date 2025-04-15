@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/06 23:04:37 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:18:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ enum e_signal
 	INSIGQUIT,
 };
 
-enum e_token_type
+typedef enum e_token_type
 {
 	WORD,
 	STDOUT,
@@ -67,7 +67,7 @@ enum e_token_type
 	AND,
 	OR,
 	CMD,
-};
+}	t_token_type;
 
 typedef struct s_token
 {
@@ -159,7 +159,8 @@ char	*replace_var(t_data *data, char *str, size_t *i, size_t *j);
 char	*get_varname(t_data *data, char *str, size_t *i, size_t *j);
 //parsing/lexer.c
 t_token	*lexer(t_data *data, char *str);
-
+//parsing/syntax_check.c
+int		syntax_check(t_data *data, t_token *tokens);
 // STREAM
 //stream/set_stream.c
 int		open_stream(t_data *data, t_leaf *leaf, t_token *token);

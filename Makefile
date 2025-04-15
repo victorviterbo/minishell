@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/03/31 03:57:58 by vbronov          ###   ########.fr        #
+#    Updated: 2025/04/15 17:32:11 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c execve.c exit.c \
 				run_ast.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
-PARSING_F		= 	expand.c parse.c build_ast.c lexer.c
+PARSING_F		= 	expand.c parse.c build_ast.c lexer.c syntax_check.c
 SRCS_PARSING	=	$(addprefix parsing/, $(PARSING_F))
 
 STREAM_F		= 	set_stream.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_ast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:00:21 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/07 00:51:39 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:44:20 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	handle_and(t_data *data, t_node *node)
 
 	if (!node || !node->left || !node->right)
 	{
-		ft_error(data, "syntax error near unexpected token 'AND'");
+		ft_error(data, "syntax error near unexpected token '&&'");
 		return (EXIT_FAILURE);
 	}
 	ret = ft_run_ast(data, node->left);
@@ -33,7 +33,7 @@ static int	handle_or(t_data *data, t_node *node)
 
 	if (!node || !node->left || !node->right)
 	{
-		ft_error(data, "syntax error near unexpected token 'OR'");
+		ft_error(data, "syntax error near unexpected token '||'");
 		return (EXIT_FAILURE);
 	}
 	ret = ft_run_ast(data, node->left);
@@ -41,6 +41,7 @@ static int	handle_or(t_data *data, t_node *node)
 		return (ft_run_ast(data, node->right));
 	return (ret);
 }
+
 int	handle_command(t_data *data, t_node *node)
 {
 	char		**args;

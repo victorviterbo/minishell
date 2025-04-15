@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/06 23:07:46 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:31:30 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	main_loop(t_data *data)
 			ft_exit(data, NULL, 0);
 		}
 		data->tokens = lexer(data, line);
-		if (data->tokens)
+		if (data->tokens && syntax_check(data, data->tokens) == EXIT_SUCCESS)
 		{
 			add_history(line);
 			if (DEBUG)
