@@ -6,27 +6,47 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 23:03:42 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:10:51 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**substitute_wildcard(t_data *data, char *str, int *isescaped)
+
+char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
+	t_token_type type)
 {
+	char	**parsed_arr;
+
+	parsed_arr = NULL;
+	if ((type == STDIN || type == WORD) && ft_strchr(parsed, '*'))
+	{
+		parsed_arr = substitute_wildcard(data, parsed, isescaped);
+		if (data->exit_status == EXIT_FAILURE)
+			return (free(parsed), NULL);
+	}
+	if (!parsed_arr && data->exit_status == EXIT_SUCCESS)
+	{
+		parsed_arr = ft_str_to_arr(parsed);
+		if (!parsed_arr)
+			return (ft_error(data, "parsing: memory allocation failed"),
+				free(parsed), NULL);
+	}
+	else
+		free(parsed);
+	return (parsed_arr);
+}
+
+char	**substitute_wildcard(t_data *data, char *str, int *isescaped)
+{// TODO: check behaviour for hidden files -> only if first character is .
 	char	**candidates;
-	t_list	**matches;
 	char	**sorted_matches;
 
 	candidates = ls_curr_dir(data);
 	if (!candidates)
 		return (NULL);
-	// TODO: check behaviour for hidden files -> only if first character is . -> to investigate
-	matches = filter_matches(data, candidates, str, isescaped);
-	free(candidates);
-	if (!matches)
-		return (NULL);
-	sorted_matches = sort_join_matches(data, matches);
+	sorted_matches = filter_sort_matches(data, candidates, str, isescaped);
+	ft_free_array((void **)candidates, ft_arrlen(candidates));
 	return (sorted_matches);
 }
 
@@ -72,33 +92,32 @@ char	**add_fname_to_arr(t_data *data, const char *fname, char **files)
 	return (files);
 }
 
-t_list	**filter_matches(t_data *data, char **candidates, char *pattern,
+char	**filter_sort_matches(t_data *data, char **candidates, char *pattern,
 		int *isescaped)
 {
 	t_list	**matches;
-	t_list	*new_match;
+	size_t	i;
 
 	matches = ft_calloc(1, sizeof(t_list *));
 	if (!matches)
 		return (ft_error(data, "wildcard; memory allocation failed"),
 			ft_free_array((void **)candidates, ft_arrlen(candidates)), NULL);
-	while (*candidates)
+	i = 0;
+	while (candidates[i])
 	{
-		if (is_wildcard_match(pattern, *candidates, isescaped))
+		if (candidates[i][0] == '.' && pattern[0] != '.')
 		{
-			new_match = ft_lstnew_void(*candidates);
-			if (!new_match)
-				return (ft_error(data, "wildcard: memory allocation failed"),
-					ft_lstclear(matches, free), 
-					ft_free_array((void **)candidates, ft_arrlen(candidates)),
-					NULL);
-			ft_lstadd_back(matches, new_match);
+			i++;
+			continue ;
 		}
-		else
-			free(*candidates);
-		candidates++;
+		else if (is_wildcard_match(pattern, candidates[i], isescaped))
+		{
+			if (handle_match(data, matches, candidates[i]) == EXIT_FAILURE)
+				return (ft_lstclear(matches, free), NULL);	
+		}
+		i++;
 	}
-	return (matches);
+	return (sort_matches(data, matches));
 }
 
 bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
@@ -128,4 +147,3 @@ bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
 	}
 	return (!candidate[j]);
 }
-

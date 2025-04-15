@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 17:52:00 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:29:06 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,10 +167,12 @@ char	*parse_varname(t_data *data, char *str, size_t *j);
 //parsing/lexer.c
 t_token	*lexer(t_data *data, char *str);
 //parsing/wildcard.c
+char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
+			t_token_type type);
 char	**substitute_wildcard(t_data *data, char *str, int *isescaped);
 char	**ls_curr_dir(t_data *data);
 char	**add_fname_to_arr(t_data *data, const char *fname, char **files);
-t_list	**filter_matches(t_data *data, char **candidates, char *pattern,
+char	**filter_sort_matches(t_data *data, char **candidates, char *pattern,
 			int *isescaped);
 bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped);
 
@@ -218,10 +220,8 @@ void	print_tokens(t_token *tokens);
 //utils/wildcard_utils.c
 char	**merge_strarr(t_data *data, char **arr1, char **arr2,
 	t_Inplace_Type inplace);
-char	**sort_join_matches(t_data *data, t_list **matches);
-void	merge_error(char **arr1, char **arr2, t_Inplace_Type inplace);
-void	append_arr(char **arr1, char **arr2);
-void	no_free(void *content);
+int		handle_match(t_data *data, t_list **matches, char *new_match);
+char	**sort_matches(t_data *data, t_list **matches);
 
 // MAIN
 int		disable_echoctl(int disable);
