@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:10:43 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/16 19:19:26 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:29:46 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static	int	check_ope(t_data *data, t_token *token)
 			EXIT_FAILURE);
 	else if (is_ope(token->next))
 	{
-		ft_fprintf(STDERR_FILENO, "syntax error near unexpected token `%s'\n", \
-			token->next->str);
+		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected \
+token `%s'\n", SHELL_NAME, token->next->str);
 		data->exit_status = EXIT_FAILURE;
 		return (EXIT_FAILURE);
 	}
@@ -45,15 +45,15 @@ static	int	check_par(t_data *data, t_token *token, t_token *last, int *parlvl)
 	if (token->type == OPENPAR && last != token
 		&& (last->type == WORD || last->type == CMD))
 	{
-		ft_fprintf(STDERR_FILENO, "syntax error near unexpected token `%s'\n", \
-			token->next->str);
+		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected \
+token `%s'\n", SHELL_NAME, token->next->str);
 		data->exit_status = EXIT_FAILURE;
 		return (EXIT_FAILURE);
 	}
 	else if (token->type == CLOSEPAR && token->next && !is_ope(token->next))
 	{
-		ft_fprintf(STDERR_FILENO, "syntax error near unexpected token `%s'\n", \
-			token->next->str);
+		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected \
+token `%s'\n", SHELL_NAME, token->next->str);
 		data->exit_status = EXIT_FAILURE;
 		return (EXIT_FAILURE);
 	}
@@ -67,8 +67,8 @@ static	int	check_redi(t_data *data, t_token *token)
 			EXIT_FAILURE);
 	else if (token->next->type != WORD)
 	{
-		ft_fprintf(STDERR_FILENO, "syntax error near unexpected token `%s'\n", \
-			token->next->str);
+		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected token \
+`%s'\n", SHELL_NAME, token->next->str);
 		data->exit_status = EXIT_FAILURE;
 		return (EXIT_FAILURE);
 	}

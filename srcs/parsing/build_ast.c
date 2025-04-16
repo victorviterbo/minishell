@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 11:47:44 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/16 19:13:28 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:25:17 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ int	init_node_redirs(t_data *data, t_token *start, t_node *cmd_node, \
 
 	if (start->next->type != WORD)
 	{
-		ft_fprintf(STDERR_FILENO, "syntax error near unexpected token '%s'\n", \
-			start->next->str);
+		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected \
+token '%s'\n", SHELL_NAME, start->next->str);
 		data->exit_status = EXIT_NUMARG;
 		return (FALSE);
 	}

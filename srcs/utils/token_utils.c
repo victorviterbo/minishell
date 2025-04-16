@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:26:45 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/16 18:44:17 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:30:54 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 t_token	*lexer_error(t_data *data, t_token *head, t_token *current)
 {
 	data->exit_status = errno;
-	ft_fprintf(STDERR_FILENO, "lexer: %s\n", strerror(data->exit_status));
+	ft_fprintf(STDERR_FILENO, "%s: lexer: %s\n", SHELL_NAME,
+		strerror(data->exit_status));
 	free_tokens(head);
 	free_token(current);
 	return (NULL);
