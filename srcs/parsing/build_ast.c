@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 11:47:44 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/15 17:28:02 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:13:28 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_token	*skip_parenthesis(t_data *data, t_token *token)
 		token = token->next;
 	}
 	if (scope > 0)
-		return (ft_error(data, "syntax error near unexpected token ')'"), \
+		return (ft_error(data, "syntax error near unexpected token `('"), \
 				data->exit_status = EXIT_NUMARG, NULL);
 	if (scope < 0)
-		return (ft_error(data, "syntax error near unexpected token '('"), \
+		return (ft_error(data, "syntax error near unexpected token `)'"), \
 				data->exit_status = EXIT_NUMARG, NULL);
 	return (NULL);
 }
@@ -59,7 +59,6 @@ t_node	*handle_operator(t_data *data, t_token *start, t_token *end, \
 {
 	t_node	*new_node;
 
-	ft_printf("is and %i, is or %i\n", op_token->type == AND, op_token->type == OR);
 	new_node = new_tree_node(data, op_token->type);
 	if (!new_node)
 		return (NULL);
