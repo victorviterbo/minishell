@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 22:58:30 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 00:13:44 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,15 @@ char	*parse_varname(t_data *data, char *str, size_t *j)
 		*j = go_to_next(str, "}", i + 2) + 1;
 		varname = ft_substr(str, i + 2, *j - (i + 3));
 	}
-	else
+	else if (str[i + 1] != '?')
 	{
 		*j = go_to_next(str, "\"\\\n $'", i + 1);
 		varname = ft_substr(str, i + 1, *j - (i + 1));
+	}
+	else
+	{
+		*j += 2;
+		varname = ft_strdup("?");
 	}
 	if (!varname)
 		return (ft_error(data, "variable substitution: memory \

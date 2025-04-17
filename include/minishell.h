@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 23:41:44 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 00:08:03 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ void			add_var(t_data *data, t_list **env, char *str, size_t name_len);
 void			change_var(t_data *data, t_list *current, char *first_equal,
 					bool append);
 char			*get_var(t_data *data, char *varname);
-char			*get_last_exit_status(t_data *data);
+char			*get_last_exit_status(t_data *data, char *varname);
 //utils/print_utils.c
 void			display_tree(t_node *node);
 //utils/wildcard_utils.c

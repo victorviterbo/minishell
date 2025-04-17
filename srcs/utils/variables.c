@@ -6,18 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 22:52:13 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 00:08:27 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	new_var(t_data *data, char *str);
-void	add_var(t_data *data, t_list **env, char *str, size_t name_len);
-void	change_var(t_data *data, t_list *current, char *first_equal,
-			bool append);
-char	*get_var(t_data *data, char *varname);
-char	*get_last_exit_status(t_data *data);
 
 void	new_var(t_data *data, char *str)
 {
@@ -101,7 +94,7 @@ char	*get_var(t_data *data, char *varname)
 	char	*var_str;
 
 	if (*varname == '?')
-		return (get_last_exit_status(data));
+		return (get_last_exit_status(data, varname));
 	current = *(data->envp);
 	while (current)
 	{
@@ -119,10 +112,16 @@ char	*get_var(t_data *data, char *varname)
 	return (NULL);
 }
 
-char	*get_last_exit_status(t_data *data)
+char	*get_last_exit_status(t_data *data, char *varname)
 {
 	char	*var_str;
 
+	if (ft_strcmp(varname, "?"))
+	{
+		ft_printf("%s; ${%s}: bad substitution", SHELL_NAME, varname);
+		data->exit_status = EXIT_FAILURE;
+		return (NULL);
+	}
 	var_str = ft_itoa(data->last_exit_status);
 	if (!var_str)
 	{
