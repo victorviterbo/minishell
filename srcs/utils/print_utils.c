@@ -6,59 +6,13 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:57:29 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/06 22:18:29 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/17 01:04:48 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_tokens(t_token *tokens)
-{
-	t_token	*current;
-
-	current = tokens;
-	while (current)
-	{
-		ft_printf("Token: %s, Type: %d\n", current->str, current->type);
-		current = current->next;
-	}
-}
-
-const char	*node_type_to_string_expand(enum e_token_type type)
-{
-	if (type == AND)
-		return ("AND");
-	else if (type == PIPE)
-		return ("PIPE");
-	else if (type == OPENPAR)
-		return ("OPENPAR");
-	else if (type == CLOSEPAR)
-		return ("CLOSEPAR");
-	else if (type == CMD)
-		return ("CMD");
-	else
-		return ("UNKNOWN");
-}
-
-const char	*node_type_to_string(enum e_token_type type)
-{
-	if (type == WORD)
-		return ("WORD");
-	else if (type == STDIN)
-		return ("STDIN");
-	else if (type == STDIN_HEREDOC)
-		return ("STDIN_HEREDOC");
-	else if (type == STDOUT)
-		return ("STDOUT");
-	else if (type == STDOUT_APPEND)
-		return ("STDOUT_APPEND");
-	else if (type == OR)
-		return ("OR");
-	else
-		return (node_type_to_string_expand(type));
-}
-
-void	display_token_list(t_token *token)
+static void	display_token_list(t_token *token)
 {
 	if (!token)
 	{
@@ -73,7 +27,7 @@ void	display_token_list(t_token *token)
 	ft_printf("\n");
 }
 
-void	display_leaf(t_node *node, int depth, int *siblings)
+static void	display_leaf(t_node *node, int depth, int *siblings)
 {
 	int	i;
 
@@ -102,7 +56,7 @@ void	display_leaf(t_node *node, int depth, int *siblings)
 	display_token_list(node->redi);
 }
 
-void	display_indentation(int depth, int *siblings)
+static void	display_indentation(int depth, int *siblings)
 {
 	int	i;
 
@@ -117,7 +71,7 @@ void	display_indentation(int depth, int *siblings)
 	}
 }
 
-void	display_tree_recursive(t_node *node, int depth, int isLast,
+static void	display_tree_recursive(t_node *node, int depth, int isLast,
 	int *siblings)
 {
 	if (!node)

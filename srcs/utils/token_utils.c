@@ -6,20 +6,11 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:26:45 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/06 22:01:09 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/17 01:00:01 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_token	*lexer_error(t_data *data, t_token *head, t_token *current)
-{
-	data->exit_status = errno;
-	//ft_fprintf(STDERR_FILENO, "lexer: %s\n", strerror(data->exit_status));
-	free_tokens(head);
-	free_token(current);
-	return (NULL);
-}
 
 void	free_token(void *content)
 {
@@ -71,17 +62,29 @@ t_token	*copy_token(t_data *data, t_token *token)
 	return (new_tok);
 }
 
-void	push_back_token(t_token **list, t_token *token)
+void	push_back_token(t_token **head, t_token *new)
 {
-	t_token	*index;
+	t_token	*current;
 
-	if (!*list)
-		*list = token;
+	if (!*head)
+		*head = new;
 	else
 	{
-		index = *list;
-		while (index->next)
-			index = index->next;
-		index->next = token;
+		current = *head;
+		while (current->next)
+			current = current->next;
+		current->next = new;
+	}
+}
+
+void	print_tokens(t_token *tokens)
+{
+	t_token	*current;
+
+	current = tokens;
+	while (current)
+	{
+		ft_printf("Token: %s, Type: %d\n", current->str, current->type);
+		current = current->next;
 	}
 }

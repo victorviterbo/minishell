@@ -3,44 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   env_to_arr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 21:49:19 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 16:30:39 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/16 23:35:26 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**env_to_arr(t_data *data);
-char	*var_to_str(t_data *data, t_list *current);
-void	update_env_arr(t_data *data);
-void	change_shlvl(t_data *data, int change);
-void	*copy_var(void	*var);
-
-char	**env_to_arr(t_data *data)
+void	update_env_arr(t_data *data)
 {
-	char	**envarr;
 	t_list	*current;
 	int		i;
 
 	if (!data || !data->envp)
-		return (ft_error(data, "env parsing: no environment found"), NULL);
-	envarr = ft_calloc(ft_lstsize(*data->envp) + 1, sizeof(char *));
-	if (!envarr)
-		return (ft_error(data, "env parsing: memory allocation failed"), NULL);
+		return (ft_error(data, "env parsing: no environment found"));
+	if (data->env_arr)
+		ft_free_array((void **)data->env_arr, ft_arrlen(data->env_arr));
+	data->env_arr = ft_calloc(ft_lstsize(*data->envp) + 1, sizeof(char *));
+	if (!data->env_arr)
+		return (ft_error(data, "env parsing: memory allocation failed"));
 	current = *data->envp;
 	i = 0;
 	while (current)
 	{
-		envarr[i] = var_to_str(data, current);
+		data->env_arr[i] = var_to_str(data, current);
 		if (data->exit_status)
-			return (ft_free_array((void **)envarr, ft_arrlen(envarr)), NULL);
+		{
+			ft_free_array((void **)data->env_arr, ft_arrlen(data->env_arr));
+			data->env_arr = NULL;
+			return ;
+		}
 		current = current->next;
 		i++;
 	}
-	envarr[i] = NULL;
-	return (envarr);
 }
 
 char	*var_to_str(t_data *data, t_list *current)
@@ -58,16 +55,6 @@ char	*var_to_str(t_data *data, t_list *current)
 	if (!varstr)
 		return (ft_error(data, "env parsing: memory allocation failed"), NULL);
 	return (varstr);
-}
-
-void	update_env_arr(t_data *data)
-{
-	if (data->env_arr)
-		ft_free_array((void **)data->env_arr, ft_arrlen(data->env_arr));
-	data->env_arr = env_to_arr(data);
-	if (!data->env_arr)
-		return (ft_error(data, "env array update: memory allocation failed"));
-	return ;
 }
 
 void	change_shlvl(t_data *data, int change)

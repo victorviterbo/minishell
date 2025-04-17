@@ -6,52 +6,38 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by madelmen          #+#    #+#             */
-/*   Updated: 2025/04/01 00:34:00 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/17 03:02:02 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_execve(t_data *data, char **args);
-char	*find_exec(t_data *data, char *path_list, char *exec);
-char	*search_exec(t_data *data, char *path_list, char *exec);
-
-void	ft_execve(t_data *data, char **args)
+void	get_exec_path(t_data *data, char **args)
 {
-	char	*path;
-	char	*path_exec;
-
-	if (!args)
-		return (ft_error(data, "execve: empty command"));
-	path = get_var(data, "PATH");
-	if (data->exit_status)
-		return ;
-	path_exec = find_exec(data, path, args[0]);
-	free(path);
-	if (data->exit_status)
-		return ;
-	if (execve(path_exec, args, data->env_arr) == -1)
-		return (ft_error(data, "execve: calling of executable failed !"));
-	return ;
-}
-
-char	*find_exec(t_data *data, char *path_list, char *exec)
-{
+	char	*path_list;
 	char	*full_path;
 
-	if (!exec)
-		return (ft_error(data, "execve: no executable given"), NULL);
-	if (access(exec, X_OK) == 0)
+	if (!args || !args[0] || args[0][0] == '/' || !ft_strncmp(args[0], "./", 2)
+		|| !ft_strncmp(args[0], "../", 3))
+		return ;
+	path_list = get_var(data, "PATH");
+	if (data->exit_status)
+		return ;
+	full_path = find_exec(data, path_list, args[0]);
+	free(path_list);
+	if (data->exit_status)
+		return ;
+	if (!full_path)
 	{
-		full_path = ft_strdup(exec);
-		if (!full_path)
-			return (ft_error(data, "execve: memory allocation failed"), NULL);
-		return (full_path);
+		data->exit_status = 127;
+		ft_fprintf(STDERR_FILENO, "%s: command not found\n", args[0]);
+		return ;
 	}
-	return (search_exec(data, path_list, exec));
+	free(args[0]);
+	args[0] = full_path;
 }
 
-char	*search_exec(t_data *data, char *path_list, char *exec)
+char	*find_exec(t_data *data, char *path_list, char *cmd)
 {
 	char	**paths;
 	char	*full_path;
@@ -60,21 +46,72 @@ char	*search_exec(t_data *data, char *path_list, char *exec)
 	paths = ft_split(path_list, ':');
 	if (!paths)
 		return (ft_error(data, "execve: memory allocation failed"), NULL);
+	cmd = ft_strjoin("/", cmd);
+	if (!cmd)
+		return (ft_free_array((void **)paths, ft_arrlen(paths)),
+			ft_error(data, "execve: memory allocation failed"), NULL);
 	i = 0;
-	exec = ft_strjoin("/", exec);
 	while (paths[i])
 	{
-		full_path = ft_strjoin(paths[i], exec);
+		full_path = ft_strjoin(paths[i], cmd);
 		if (!full_path)
-			return (ft_error(data, "execve: memory allocation failed"), NULL);
+			return (ft_free_array((void **)paths, ft_arrlen(paths)),
+				ft_error(data, "execve: memory allocation failed"), NULL);
 		if (access(full_path, X_OK) == 0)
-			return (ft_free_array((void **)paths, ft_arrlen(paths)), free(exec),
+			return (ft_free_array((void **)paths, ft_arrlen(paths)), free(cmd),
 				full_path);
 		free(full_path);
 		i++;
 	}
-	return (free(exec), ft_error(data, "execve: could not find executable"),
-		NULL);
+	return (ft_free_array((void **)paths, ft_arrlen(paths)), free(cmd), NULL);
+}
+
+int	ft_execve(t_data *data, char **args)
+{
+	if (access(args[0], X_OK) == -1)
+	{
+		if (errno == ENOENT)
+			return (ft_error(data, args[0]), data->exit_status = 127);
+		else if (errno == EACCES)
+			return (ft_error(data, args[0]), data->exit_status = 126);
+		else
+			return (ft_error(data, args[0]), data->exit_status);
+	}
+	update_env_arr(data);
+	if (data->exit_status)
+		return (data->exit_status);
+	if (execve(args[0], args, data->env_arr) == -1)
+	{
+		data->exit_status = errno;
+		if (errno == ENOENT)
+			return (ft_error(data, args[0]), data->exit_status = 127);
+		else if (errno == EACCES)
+			return (ft_error(data, args[0]), data->exit_status = 126);
+		else
+			return (ft_error(data, args[0]), data->exit_status);
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	exec_non_builtin(t_data *data, char **args)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		get_exec_path(data, args);
+		set_signal(SIGINT, SIG_DFL);
+		set_signal(SIGQUIT, SIG_DFL);
+		if (data->exit_status == EXIT_SUCCESS)
+			ft_execve(data, args);
+		ft_free_array((void **)args, ft_arrlen(args));
+		free_all(data);
+		exit (data->exit_status);
+	}
+	else if (pid < 0)
+		return (ft_error(data, "fork"), data->exit_status);
+	return (wait_pid(data, pid));
 }
 
 void	init_builtin(t_data *data)
