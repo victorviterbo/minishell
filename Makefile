@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/04/15 17:32:11 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/04/17 19:32:56 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,17 +27,19 @@ LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_src
 LIBFT = $(LIBFT_DIR)libft.a
 
 EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c execve.c exit.c \
-				run_ast.c
+				run_ast.c redir.c pipe.c fork.c wait.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
-PARSING_F		= 	expand.c parse.c build_ast.c lexer.c syntax_check.c
+PARSING_F		= 	expand.c parse.c build_ast_helpers.c build_ast.c lexer.c \
+					syntax_check.c
 SRCS_PARSING	=	$(addprefix parsing/, $(PARSING_F))
 
 STREAM_F		= 	set_stream.c
 SRCS_STREAM		=	$(addprefix stream/, $(STREAM_F))
 
 UTILS_F		= 	error_utils.c variables.c env_to_arr.c parsing_utils.c \
-				ast_utils.c token_utils.c env_utils.c print_utils.c
+				ast_utils.c token_utils.c env_utils.c print_utils.c \
+				string_utils.c signal_utils.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING) $(SRCS_STREAM))

@@ -6,16 +6,11 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:27:53 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/06 18:43:37 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/17 00:46:40 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char		get_token_type(char *str);
-static void		find_token_end(char *str, size_t *j, char type);
-static void		add_back_token(t_token **head, t_token *current);
-t_token			*lexer(t_data *data, char *str);
 
 static char	get_token_type(char *str)
 {
@@ -69,31 +64,20 @@ static void	find_token_end(char *str, size_t *j, char type)
 	return ;
 }
 
-static void	add_back_token(t_token **head, t_token *current)
+static void	lexer_error(t_data *data, t_token *current)
 {
-	t_token	*last;
-
-	if (!head)
-		return ;
-	if (!*head)
-	{
-		*head = current;
-		return ;
-	}
-	last = *head;
-	while (last->next)
-		last = last->next;
-	last->next = current;
+	ft_error(data, "lexer: memory allocation failed");
+	free_tokens(data->tokens);
+	data->tokens = NULL;
+	free_token(current);
 }
 
-t_token	*lexer(t_data *data, char *str)
+void	lexer(t_data *data, char *str)
 {
-	t_token	*head;
 	t_token	*current;
 	size_t	i;
 	size_t	j;
 
-	head = NULL;
 	i = 0;
 	while (str && str[i])
 	{
@@ -105,14 +89,13 @@ t_token	*lexer(t_data *data, char *str)
 		j = i;
 		current = ft_calloc(1, sizeof(t_token));
 		if (!current)
-			return (lexer_error(data, head, current));
+			return (lexer_error(data, current));
 		current->type = get_token_type(&str[j]);
 		find_token_end(str, &j, current->type);
 		current->str = ft_substr(str, i, j - i);
 		if (!current->str)
-			return (lexer_error(data, head, current));
-		add_back_token(&head, current);
+			return (lexer_error(data, current));
+		push_back_token(&data->tokens, current);
 		i = j;
 	}
-	return (head);
 }

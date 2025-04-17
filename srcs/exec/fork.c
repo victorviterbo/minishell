@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_utils.c                                      :+:      :+:    :+:   */
+/*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 20:41:42 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 00:05:18 by vbronov          ###   ########.fr       */
+/*   Created: 2025/04/14 22:08:39 by vbronov           #+#    #+#             */
+/*   Updated: 2025/04/14 22:09:33 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_error(t_data *data, const char *message)
+int	create_pipe_process(t_data *data, t_node *node, int *pipefds, int fd_dst)
 {
-	if (data && errno)
-		data->exit_status = errno;
-	if (!message)
-		message = DEFAULT_ERROR;
-	ft_fprintf(STDERR_FILENO, "%s: ", SHELL_NAME);
-	if (data->exit_status)
-		ft_fprintf(STDERR_FILENO, "%s: %s\n", message,
-			strerror(data->exit_status));
-	else
-		ft_fprintf(STDERR_FILENO, "%s\n", message);
-	if (data->exit_status == EXIT_SUCCESS)
-		data->exit_status = EXIT_FAILURE;
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		if (fd_dst == STDOUT_FILENO)
+			dup2(pipefds[PIPE_IN], STDOUT_FILENO);
+		else
+			dup2(pipefds[PIPE_OUT], STDIN_FILENO);
+		close_pipe(data, pipefds);
+		ft_run_ast(data, node);
+		free_all(data);
+		exit(data->exit_status);
+	}
+	else if (pid < 0)
+	{
+		ft_error(data, "fork");
+		return (-1);
+	}
+	return (pid);
 }
