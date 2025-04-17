@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/06 23:07:46 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/17 03:26:42 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,62 +34,21 @@ void	signal_handler(int signum)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-	else if (signum == SIGQUIT && g_signal == READLINE_MODE)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (signum == SIGINT && g_signal == EXECUTION_MODE)
-	{
-		g_signal = INSIGINT;
-	}
-	else if (signum == SIGQUIT && g_signal == EXECUTION_MODE)
-	{
-		g_signal = INSIGQUIT;
-	}
 }
 
 int	init_data(t_data *data, char **envp)
 {
-	// TODO: initialize env_arr right before execve
+	if (save_std_streams(data) != EXIT_SUCCESS)
+		return (data->exit_status);
 	data->env_arr = NULL;
 	data->envp = NULL;
 	data->tokens = NULL;
 	data->exit_status = EXIT_SUCCESS;
+	data->last_exit_status = EXIT_SUCCESS;
 	data->tree = NULL;
 	init_env(data, envp);
 	init_builtin(data);
 	return (data->exit_status);
-}
-
-/**
- * Disables the echoing of control characters (CTRL+C, CTRL+\)
- * in the terminal. This function modifies the terminal attributes to
- * prevent control characters from being displayed when entered.
- * 
- * @param disable If TRUE, disable echoing; if FALSE, restore original settings
- * @return int Returns 0 on success, -1 on failure
- */
-int	disable_echoctl(int disable)
-{
-	struct termios			term;
-	static struct termios	term_old;
-
-	if (disable)
-	{
-		if (tcgetattr(STDIN_FILENO, &term) == -1)
-			return (EXIT_FAILURE);
-		term_old = term;
-		term.c_lflag &= ~ECHOCTL;
-		if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
-			return (EXIT_FAILURE);
-	}
-	else
-	{
-		if (tcsetattr(STDIN_FILENO, TCSANOW, &term_old) == -1)
-			return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
 }
 
 void	main_loop(t_data *data)
@@ -98,10 +57,6 @@ void	main_loop(t_data *data)
 
 	while (TRUE)
 	{
-		if (g_signal == INSIGINT)
-			ft_fprintf(STDERR_FILENO, "^C\n");
-		else if (g_signal == INSIGQUIT)
-			ft_fprintf(STDERR_FILENO, "^\\Quit (core dumped)\n");
 		g_signal = READLINE_MODE;
 		line = readline(SHELL_PROMPT);
 		g_signal = EXECUTION_MODE;
@@ -110,7 +65,9 @@ void	main_loop(t_data *data)
 			data->exit_status = EXIT_SUCCESS;
 			ft_exit(data, NULL, 0);
 		}
-		data->tokens = lexer(data, line);
+		data->last_exit_status = data->exit_status;
+		data->exit_status = EXIT_SUCCESS;
+		lexer(data, line);
 		if (data->tokens)
 		{
 			add_history(line);
@@ -133,18 +90,13 @@ void	main_loop(t_data *data)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data				data;
-	struct sigaction	sa;
 
 	(void)argc;
 	(void)argv;
-	sa.sa_handler = &signal_handler;
-	sa.sa_flags = SA_RESTART;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(SIGQUIT, &sa, NULL);
+	set_signal(SIGINT, signal_handler);
+	set_signal(SIGQUIT, SIG_IGN);
 	if (init_data(&data, envp) != EXIT_SUCCESS)
 		return (data.exit_status);
-	disable_echoctl(TRUE);
 	main_loop(&data);
 	return (EXIT_SUCCESS);
 }

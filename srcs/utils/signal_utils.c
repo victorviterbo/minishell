@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_utils.c                                      :+:      :+:    :+:   */
+/*   signal_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 20:41:42 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 00:05:18 by vbronov          ###   ########.fr       */
+/*   Created: 2025/04/17 02:58:23 by vbronov           #+#    #+#             */
+/*   Updated: 2025/04/17 02:59:01 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_error(t_data *data, const char *message)
+void	set_signal(int signum, void (*handler)(int))
 {
-	if (data && errno)
-		data->exit_status = errno;
-	if (!message)
-		message = DEFAULT_ERROR;
-	ft_fprintf(STDERR_FILENO, "%s: ", SHELL_NAME);
-	if (data->exit_status)
-		ft_fprintf(STDERR_FILENO, "%s: %s\n", message,
-			strerror(data->exit_status));
-	else
-		ft_fprintf(STDERR_FILENO, "%s\n", message);
-	if (data->exit_status == EXIT_SUCCESS)
-		data->exit_status = EXIT_FAILURE;
+	struct sigaction	sa;
+
+	sa.sa_handler = handler;
+	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
+	sigaction(signum, &sa, NULL);
 }

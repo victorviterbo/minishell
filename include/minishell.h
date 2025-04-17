@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/06 23:04:37 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/17 03:26:33 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@
 # ifndef DEBUG
 #  define DEBUG 0
 # endif
-# define SHELL_NAME "Minishell: "
-# define SHELL_PROMPT "Minishell$ "
+# define SHELL_NAME "minishell"
+# define SHELL_PROMPT "minishell$ "
 # define DEFAULT_ERROR "an unknown error has occured"
 # define FALSE		0
 # define TRUE		1
+# define PIPE_OUT	0
+# define PIPE_IN	1
 # define EXIT_NUMARG 2
 
 enum e_quotes
@@ -50,8 +52,6 @@ enum e_signal
 {
 	READLINE_MODE,
 	EXECUTION_MODE,
-	INSIGINT,
-	INSIGQUIT,
 };
 
 enum e_token_type
@@ -85,6 +85,7 @@ typedef struct s_node
 	struct s_node	*right;
 }	t_node;
 
+// TODO: delete it later
 typedef struct s_leaf
 {
 	int		fdin;
@@ -108,8 +109,10 @@ typedef struct s_data
 	char			**env_arr;
 	t_token			*tokens;
 	int				exit_status;
+	int				last_exit_status;
 	struct s_node	*tree;
 	t_builtin		builtins[8];
+	int				saved_streams[2];
 }	t_data;
 
 typedef struct s_var
@@ -120,49 +123,66 @@ typedef struct s_var
 
 // EXEC
 //exec/echo.c
-int		ft_echo(t_data *data, char **args, int argc);
+int				ft_echo(t_data *data, char **args, int argc);
 //exec/cd.c
-int		ft_cd(t_data *data, char **args, int argc);
-char	*get_absolute_path(t_data *data, char *path);
+int				ft_cd(t_data *data, char **args, int argc);
+char			*get_absolute_path(t_data *data, char *path);
 //exec/env.c
-int		ft_env(t_data *data, char **args, int argc);
+int				ft_env(t_data *data, char **args, int argc);
 //exec/export.c
-int		ft_export(t_data *data, char **args, int argc);
-int		export_no_args(t_data *data);
+int				ft_export(t_data *data, char **args, int argc);
+int				export_no_args(t_data *data);
+//exec/fork.c
+int				create_pipe_process(t_data *data, t_node *node, int *pipefds,
+					int fd_dst);
+//exec/pipe.c
+int				init_pipe(t_data *data, int pipefds[2]);
+void			close_pipe(t_data *data, int pipe[2]);
+int				handle_pipex(t_data *data, t_node *node);
 //exec/pwd.c
-int		ft_pwd(t_data *data, char **args, int argc);
-char	*ft_get_current_path(t_data *data);
+int				ft_pwd(t_data *data, char **args, int argc);
+char			*ft_get_current_path(t_data *data);
+//exec/redir.c
+int				save_std_streams(t_data *data);
+int				restore_std_streams(t_data *data, int saved_streams[2]);
 //exec/unset.c
-int		ft_unset(t_data *data, char **args, int argc);
-void	pop_var(t_data *data, char *varname);
-void	free_var(void *data);
+int				ft_unset(t_data *data, char **args, int argc);
+void			pop_var(t_data *data, char *varname);
+void			free_var(void *data);
 //exec/execve.c
-void	ft_execve(t_data *data, char **args);
-char	*find_exec(t_data *data, char *path_list, char *exec);
-void	init_builtin(t_data *data);
+void			get_exec_path(t_data *data, char **args);
+char			*find_exec(t_data *data, char *path_list, char *exec);
+int				exec_non_builtin(t_data *data, char **args);
+void			init_builtin(t_data *data);
 //exec/exit.c
-int		ft_exit(t_data *data, char **args, int argc);
-void	free_all(t_data *data);
-void	free_env(t_data *data);
+int				ft_exit(t_data *data, char **args, int argc);
+void			free_all(t_data *data);
+void			free_env(t_data *data);
 //exec/run_ast.c
-int		ft_run_ast(t_data *data, t_node *node);
-int		handle_command(t_data *data, t_node *node);
+int				ft_run_ast(t_data *data, t_node *node);
+int				handle_command(t_data *data, t_node *node);
+//exec/wait.c
+int				wait_pid(t_data *data, int child_pid);
 
 // PARSING
-//parsing/build_tree.c
-t_node	*build_tree(t_data *data, t_token *start, t_token *end);
+//parsing/build_ast_helpers.c
+t_node			*handle_cmd(t_data *data, t_token *start, t_token *end);
+t_node			*handle_operator(t_data *data, t_token *start, t_token *end,
+					t_token *op_token);
+//parsing/build_ast.c
+t_node			*build_tree(t_data *data, t_token *start, t_token *end);
 //parsing/parse.c
-char	*parse_str(t_data *data, char *str, bool inplace);
+char			*parse_str(t_data *data, char *str, bool inplace);
 //parsing/expand.c
-char	*expand_var(t_data *data, char *str, int *isescaped);
-char	*replace_var(t_data *data, char *str, size_t *i, size_t *j);
-char	*get_varname(t_data *data, char *str, size_t *i, size_t *j);
+char			*expand_var(t_data *data, char *str, int *isescaped);
+char			*replace_var(t_data *data, char *str, size_t *i, size_t *j);
+char			*get_varname(t_data *data, char *str, size_t *i, size_t *j);
 //parsing/lexer.c
-t_token	*lexer(t_data *data, char *str);
+void			lexer(t_data *data, char *str);
 
 // STREAM
 //stream/set_stream.c
-int		open_stream(t_data *data, t_leaf *leaf, t_token *token);
+int				open_stream(t_data *data, t_leaf *leaf, t_token *token);
 
 // UTILS
 //utils/ast_utils.c
@@ -172,38 +192,37 @@ t_pfunc			is_builtin(char *str, t_builtin *builtin);
 unsigned int	token_list_size(t_token *list);
 char			**token_list_to_args(t_data *data, t_token *token_list);
 //utils/env_to_arr.c
-char	**env_to_arr(t_data *data);
-char	*var_to_str(t_data *data, t_list *current);
-void	update_env_arr(t_data *data);
-void	change_shlvl(t_data *data, int change);
-void	*copy_var(void	*var);
+char			*var_to_str(t_data *data, t_list *current);
+void			update_env_arr(t_data *data);
+void			change_shlvl(t_data *data, int change);
+void			*copy_var(void	*var);
 //utils/env_utils.c
-void	init_env(t_data *data, char **envp);
+void			init_env(t_data *data, char **envp);
 //utils/error_handlings.c
-void	ft_error(t_data *data, const char *message);
+void			ft_error(t_data *data, const char *message);
 //utils/parsing_utils.c
-int		*is_quote_escaped(t_data *data, char *str);
-char	*remove_quotes_ws(t_data *data, char *str, int *isescaped,
-			bool inplace);
-size_t	go_to_next(char *str, char *chars, size_t i);
+int				*is_quote_escaped(t_data *data, char *str);
+char			*remove_quotes_ws(t_data *data, char *str, int *isescaped,
+					bool inplace);
+size_t			go_to_next(char *str, char *chars, size_t i);
 //utils/token_utils.c
-t_token	*lexer_error(t_data *data, t_token *head, t_token *current);
-void	free_token(void *content);
-void	free_tokens(t_token *head);
-t_token	*copy_token(t_data *data, t_token *token);
-void	push_back_token(t_token **list, t_token *token);
+void			free_token(void *content);
+void			free_tokens(t_token *head);
+t_token			*copy_token(t_data *data, t_token *token);
+void			push_back_token(t_token **list, t_token *token);
+void			print_tokens(t_token *tokens);
 //utils/variables.c
-void	new_var(t_data *data, char *str);
-void	add_var(t_data *data, t_list **env, char *str, size_t name_len);
-void	change_var(t_data *data, t_list *current, char *first_equal,
-			bool append);
-char	*get_var(t_data *data, char *varname);
-char	*get_last_exit_status(t_data *data);
+void			new_var(t_data *data, char *str);
+void			add_var(t_data *data, t_list **env, char *str, size_t name_len);
+void			change_var(t_data *data, t_list *current, char *first_equal,
+					bool append);
+char			*get_var(t_data *data, char *varname);
+char			*get_last_exit_status(t_data *data);
 //utils/print_utils.c
-void	display_tree(t_node *node);
-void	print_tokens(t_token *tokens);
-
-// MAIN
-int		disable_echoctl(int disable);
+void			display_tree(t_node *node);
+//utils/signal_utils.c
+void			set_signal(int signum, void (*handler)(int));
+//utils/string_utils.c
+const char		*node_type_to_string(enum e_token_type type);
 
 #endif
