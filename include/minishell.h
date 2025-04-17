@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 19:15:57 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/17 19:52:27 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <readline/history.h>
 # include <termios.h>
 # include <fcntl.h>
+# include <string.h>
+# include <dirent.h>
 
 # include "libft.h"
 
@@ -93,6 +95,7 @@ typedef struct s_leaf
 	char	*limiter;
 	char	**args;
 }	t_leaf;
+
 
 struct		s_data;
 typedef int	(*t_pfunc)(struct s_data *data, char *args[], int argc);
@@ -172,15 +175,29 @@ t_node			*handle_operator(t_data *data, t_token *start, t_token *end,
 //parsing/build_ast.c
 t_node			*build_tree(t_data *data, t_token *start, t_token *end);
 //parsing/parse.c
-char			*parse_str(t_data *data, char *str, bool inplace);
+char			**parse_str(t_data *data, char *str, t_token_type type);
 //parsing/expand.c
 char			*expand_var(t_data *data, char *str, int *isescaped);
-char			*replace_var(t_data *data, char *str, size_t *i, size_t *j);
-char			*get_varname(t_data *data, char *str, size_t *i, size_t *j);
+int				replace_var(t_data *data, char *str, char *expanded, size_t *j);
+char			*get_varname(t_data *data, char *str, size_t *j);
+char			*dry_run_allocate(t_data *data, char *str, int *isescaped);
+void			dry_run_skip_var(t_data *data, char *str, size_t *new_size,
+					size_t *i);
+char			*parse_varname(t_data *data, char *str, size_t *j);
 //parsing/lexer.c
 void			lexer(t_data *data, char *str);
 //parsing/syntax_check.c
 int				syntax_check(t_data *data, t_token *tokens);
+//parsing/wildcard.c
+char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
+			t_token_type type);
+char	**substitute_wildcard(t_data *data, char *str, int *isescaped);
+char	**ls_curr_dir(t_data *data);
+char	**add_fname_to_arr(t_data *data, const char *fname, char **files);
+char	**filter_sort_matches(t_data *data, char **candidates, char *pattern,
+			int *isescaped);
+bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped);
+
 // STREAM
 //stream/set_stream.c
 int				open_stream(t_data *data, t_leaf *leaf, t_token *token);
@@ -203,8 +220,7 @@ void			init_env(t_data *data, char **envp);
 void			ft_error(t_data *data, const char *message);
 //utils/parsing_utils.c
 int				*is_quote_escaped(t_data *data, char *str);
-char			*remove_quotes_ws(t_data *data, char *str, int *isescaped,
-					bool inplace);
+void			remove_quotes(char *str, int *isescaped);
 size_t			go_to_next(char *str, char *chars, size_t i);
 //utils/token_utils.c
 void			free_token(void *content);
@@ -221,6 +237,11 @@ char			*get_var(t_data *data, char *varname);
 char			*get_last_exit_status(t_data *data);
 //utils/print_utils.c
 void			display_tree(t_node *node);
+//utils/wildcard_utils.c
+char			**merge_strarr(t_data *data, char **arr1, char **arr2,
+					t_Inplace_Type inplace);
+int				handle_match(t_data *data, t_list **matches, char *new_match);
+char			**sort_matches(t_data *data, t_list **matches);
 //utils/signal_utils.c
 void			set_signal(int signum, void (*handler)(int));
 //utils/string_utils.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 02:26:46 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/14 22:19:50 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/17 19:51:32 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	free_all(t_data *data)
 		free_tokens(data->tokens);
 	data->tokens = NULL;
 	free_env(data);
-	rl_clear_history();
+	//rl_clear_history();
 	close_pipe(data, data->saved_streams);
 }
 

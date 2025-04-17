@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/31 00:51:46 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/13 13:35:36 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,7 @@ int	ft_cd(t_data *data, char **args, int argc)
 	char	*abspath;
 	char	*path;
 
-	if (argc > 2)
-	{
-		ft_error(data, "cd: too many arguments");
-		return (EXIT_FAILURE);
-	}
+	(void)argc;
 	path = handle_special_paths(data, args[1]);
 	if (!path)
 		return (EXIT_FAILURE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_to_arr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 21:49:19 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/16 23:35:26 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/17 19:49:38 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	change_shlvl(t_data *data, int change)
 	char	*shlvl;
 
 	shlvl = get_var(data, "SHLVL");
-	if (!ft_isint(shlvl))
+	if (!shlvl || !ft_isint(shlvl))
 		return (ft_error(data, "env parsing: shlvl is not an int"));
 	current_shlvl = ft_atoi(shlvl);
 	free(shlvl);
@@ -71,6 +71,8 @@ void	change_shlvl(t_data *data, int change)
 	if (!shlvl)
 		return (ft_error(data, "env parsing: memory allocation failed"));
 	shlvl = ft_strjoin_ip("SHLVL=", shlvl, FREE_S2);
+	if (!shlvl)
+		return (ft_error(data, "env parsing: memory allocation failed"));
 	new_var(data, shlvl);
 	free(shlvl);
 	return ;
@@ -88,6 +90,6 @@ void	*copy_var(void	*var)
 		return (free(copy), NULL);
 	copy->value = ft_strdup(((t_var *)var)->value);
 	if (!copy->value)
-		return (free(copy->name), free(copy->value), NULL);
+		return (free(copy->name), free(copy), NULL);
 	return (copy);
 }

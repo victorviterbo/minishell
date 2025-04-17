@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/06 01:00:26 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/10 17:31:10 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void	new_var(t_data *data, char *str)
 	t_list	*current;
 
 	first_equal = ft_strchr(str, '=');
-	if (!first_equal || first_equal == str)
-		return (ft_error(data, "variable: invalid input string"));
 	append = (*(first_equal - 1) == '+');
-	name_len = first_equal - str - append;
+	if (first_equal)
+		name_len = first_equal - str - append;
+	else
+		name_len = ft_strlen(str);
 	current = *(data->envp);
 	while (current)
 	{
@@ -56,14 +57,21 @@ void	add_var(t_data *data, t_list **env, char *str, size_t name_len)
 		return (ft_error(data, "env: memory allocation failed"));
 	new_var->name = ft_substr(str, 0, name_len);
 	if (!new_var->name)
-		return (ft_error(data, "env: memory allocation failed"));
-	new_var->value = ft_strdup(first_equal + 1);
-	if (!new_var->value)
-		return (ft_error(data, "env: memory allocation failed"));
+		return (free_var(new_var),
+			ft_error(data, "env: memory allocation failed"));
+	if (first_equal)
+	{
+		new_var->value = ft_strdup(first_equal + 1);
+		if (!new_var->value)
+			return (free_var(new_var),
+				ft_error(data, "env: memory allocation failed"));
+	}
 	new_node = ft_lstnew_void(new_var);
 	if (!new_node)
-		return (ft_error(data, "env: creation of new variable failed"));
+		return (free_var(new_var),
+			ft_error(data, "env: creation of new variable failed"));
 	ft_lstadd_back(env, new_node);
+	return ;
 }
 
 void	change_var(t_data *data, t_list *current,
@@ -71,8 +79,12 @@ void	change_var(t_data *data, t_list *current,
 {
 	t_var	*var;
 
+	if (first_equal == NULL)
+		return ;
 	var = current->content;
-	if (append)
+	if (!var->value)
+		var->value = ft_strdup(first_equal + 1);
+	else if (append)
 		var->value = ft_strjoin_ip(var->value, first_equal + 1, FREE_S1);
 	else
 	{

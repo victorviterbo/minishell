@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:00:21 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/17 19:16:32 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/17 19:49:21 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	handle_openpar(t_data *data, t_node *node)
 
 int	ft_run_ast(t_data *data, t_node *node)
 {
+
 	if (!node)
 		return (EXIT_SUCCESS);
 	if (node->type == AND)
