@@ -6,12 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/15 15:11:24 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:59:46 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
 	t_token_type type)
@@ -113,37 +112,9 @@ char	**filter_sort_matches(t_data *data, char **candidates, char *pattern,
 		else if (is_wildcard_match(pattern, candidates[i], isescaped))
 		{
 			if (handle_match(data, matches, candidates[i]) == EXIT_FAILURE)
-				return (ft_lstclear(matches, free), NULL);	
+				return (ft_lstclear(matches, free), NULL);
 		}
 		i++;
 	}
 	return (sort_matches(data, matches));
-}
-
-bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
-{
-	int		i;
-	int		j;
-	bool	is_wildcard;
-
-	i = 0;
-	j = 0;
-	while (pattern[i])
-	{
-		is_wildcard = (pattern[i] == '*' && isescaped != IS_NOT_QUOTED);
-		if (is_wildcard && pattern[i + 1] && pattern[i + 1] == '*')
-			i++;
-		else if (!is_wildcard && pattern[i] != candidate[j])
-			return (false);
-		else if (is_wildcard && !pattern[i + 1])
-			return (true);
-		else if (is_wildcard && pattern[i + 1] == candidate[j])
-		{
-			if (is_wildcard_match(pattern + i + 1, candidate + j, isescaped))
-				return (true);
-		}
-		i += (pattern[i] != '*' || i == -1);
-		j += 1;
-	}
-	return (!candidate[j]);
 }

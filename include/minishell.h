@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 19:52:27 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/17 23:41:44 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct s_leaf
 	char	*limiter;
 	char	**args;
 }	t_leaf;
-
 
 struct		s_data;
 typedef int	(*t_pfunc)(struct s_data *data, char *args[], int argc);
@@ -189,14 +188,16 @@ void			lexer(t_data *data, char *str);
 //parsing/syntax_check.c
 int				syntax_check(t_data *data, t_token *tokens);
 //parsing/wildcard.c
-char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
-			t_token_type type);
-char	**substitute_wildcard(t_data *data, char *str, int *isescaped);
-char	**ls_curr_dir(t_data *data);
-char	**add_fname_to_arr(t_data *data, const char *fname, char **files);
-char	**filter_sort_matches(t_data *data, char **candidates, char *pattern,
-			int *isescaped);
-bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped);
+char			**wildcard_handle(t_data *data, char *parsed, int *isescaped,
+					t_token_type type);
+char			**substitute_wildcard(t_data *data, char *str, int *isescaped);
+char			**ls_curr_dir(t_data *data);
+char			**add_fname_to_arr(t_data *data, const char *fname,
+					char **files);
+char			**filter_sort_matches(t_data *data, char **candidates,
+					char *pattern, int *isescaped);
+bool			is_wildcard_match(char *pattern, char *candidate,
+					int *isescaped);
 
 // STREAM
 //stream/set_stream.c
@@ -241,6 +242,7 @@ void			display_tree(t_node *node);
 char			**merge_strarr(t_data *data, char **arr1, char **arr2,
 					t_Inplace_Type inplace);
 int				handle_match(t_data *data, t_list **matches, char *new_match);
+//utils/wildcard_sort_utils.c
 char			**sort_matches(t_data *data, t_list **matches);
 //utils/signal_utils.c
 void			set_signal(int signum, void (*handler)(int));

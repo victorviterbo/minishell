@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/10 17:31:10 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:52:13 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*get_last_exit_status(t_data *data)
 {
 	char	*var_str;
 
-	var_str = ft_itoa(data->exit_status);
+	var_str = ft_itoa(data->last_exit_status);
 	if (!var_str)
 	{
 		ft_error(data, "env: could not retrieve last exit status");

@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/04/17 19:51:08 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/04/17 23:11:48 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 HEADER = minishell.h
 
-CFLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror 
 
 ifdef DEBUG
     CFLAGS += -DDEBUG=1 -g
@@ -39,7 +39,8 @@ SRCS_STREAM		=	$(addprefix stream/, $(STREAM_F))
 
 UTILS_F		= 	error_utils.c variables.c env_to_arr.c parsing_utils.c \
 				ast_utils.c token_utils.c env_utils.c print_utils.c \
-				string_utils.c signal_utils.c wildcard_utils.c
+				string_utils.c signal_utils.c wildcard_utils.c \
+				wildcard_sort_utils.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING) $(SRCS_STREAM))

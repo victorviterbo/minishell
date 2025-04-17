@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:00:21 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/17 19:49:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/17 23:19:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	handle_command(t_data *data, t_node *node)
 	char		**args;
 	t_pfunc		func;
 
-	// TODO: expand $, expand ""/'',
 	args = token_list_to_args(data, node->args);
 	if (!args)
 		return (data->exit_status);
@@ -79,7 +78,6 @@ int	handle_openpar(t_data *data, t_node *node)
 
 int	ft_run_ast(t_data *data, t_node *node)
 {
-
 	if (!node)
 		return (EXIT_SUCCESS);
 	if (node->type == AND)

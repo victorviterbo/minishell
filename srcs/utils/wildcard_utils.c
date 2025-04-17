@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:20:33 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/15 15:04:17 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/17 23:03:32 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ static void	append_arr(char **arr1, char **arr2)
 	return ;
 }
 
-static void	no_free(void *content)
-{
-	(void)content;
-	return ;
-}
-
 char	**merge_strarr(t_data *data, char **arr1, char **arr2,
 	t_Inplace_Type inplace)
 {
@@ -73,39 +67,40 @@ int	handle_match(t_data *data, t_list **matches, char *new_match)
 
 	strcpy = ft_strdup(new_match);
 	if (!strcpy)
-	return (ft_error(data, "wildcard: memory allocation failed"),
-		EXIT_FAILURE);
+		return (ft_error(data, "wildcard: memory allocation failed"),
+			EXIT_FAILURE);
 	new_match_node = ft_lstnew_void(strcpy);
 	if (!new_match_node)
-	return (ft_error(data, "wildcard: memory allocation failed"),
-		free(strcpy), EXIT_FAILURE);
+		return (ft_error(data, "wildcard: memory allocation failed"),
+			free(strcpy), EXIT_FAILURE);
 	ft_lstadd_back(matches, new_match_node);
 	return (EXIT_SUCCESS);
 }
 
-char	**sort_matches(t_data *data, t_list **matches)
+bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
 {
-	t_list	*current;
-	t_list	*best;
-	char	**sorted_args;
+	int		i;
+	int		j;
+	bool	is_wildcard;
 
-	sorted_args = NULL;
-	while (*matches)
+	i = 0;
+	j = 0;
+	while (pattern[i])
 	{
-		current = *matches;
-		best = current;
-		while (current)
+		is_wildcard = (pattern[i] == '*' && isescaped != IS_NOT_QUOTED);
+		if (is_wildcard && pattern[i + 1] && pattern[i + 1] == '*')
+			i++;
+		else if (!is_wildcard && pattern[i] != candidate[j])
+			return (false);
+		else if (is_wildcard && !pattern[i + 1])
+			return (true);
+		else if (is_wildcard && pattern[i + 1] == candidate[j])
 		{
-			if (ft_strcmp(current->content, best->content) < 0)
-				best = current;
-			current = current->next;
+			if (is_wildcard_match(pattern + i + 1, candidate + j, isescaped))
+				return (true);
 		}
-		sorted_args = ft_array_append(sorted_args, best->content, false);
-		if (!sorted_args)
-			return (ft_error(data, "wildcard: memory allocation failed"),
-				ft_lstclear(matches, free), NULL);
-		ft_lstpop(matches, best, no_free);
+		i += (pattern[i] != '*' || i == -1);
+		j += 1;
 	}
-	free(matches);
-	return (sorted_args);
+	return (!candidate[j]);
 }

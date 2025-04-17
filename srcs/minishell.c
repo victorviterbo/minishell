@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 19:50:26 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/17 23:41:16 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	main_loop(t_data *data)
 	while (TRUE)
 	{
 		g_signal = READLINE_MODE;
-		line = readline(SHELL_PROMPT); 
+		line = readline(SHELL_PROMPT);
 		errno = EXIT_SUCCESS;
 		//TODO: why does readline sets errno = 2 ? (on first pass ?)
 		g_signal = EXECUTION_MODE;
@@ -98,7 +98,7 @@ int	main(int argc, char **argv, char **envp)
 	set_signal(SIGINT, signal_handler);
 	set_signal(SIGQUIT, SIG_IGN);
 	if (init_data(&data, envp) != EXIT_SUCCESS)
-		return (data.exit_status);
+		return (data.exit_status); //TODO: solve ctrl + c ->exit minishell
 	main_loop(&data);
 	return (EXIT_SUCCESS);
 }

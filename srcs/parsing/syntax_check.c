@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:10:43 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/16 19:29:46 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/17 23:38:18 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 static bool	is_ope(t_token *token)
 {
 	return (token->type == AND || token->type == OR || token->type == PIPE);
+}
+
+static int	check_parenthesis(t_data *data, int parlvl, bool final_check)
+{
+	if (parlvl < 0)
+		return (ft_error(data, "syntax error near unexpected token `)'"),
+			EXIT_FAILURE);
+	if (parlvl > 0 && final_check == FALSE)
+		return (ft_error(data, "syntax error near unexpected token `('"),
+			EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 static	int	check_ope(t_data *data, t_token *token)
@@ -36,9 +47,7 @@ static	int	check_par(t_data *data, t_token *token, t_token *last, int *parlvl)
 {
 	*parlvl += (token->type == OPENPAR);
 	*parlvl -= (token->type == CLOSEPAR);
-	if (*parlvl < 0)
-		return (ft_error(data, "syntax error near unexpected token `)'"),
-			EXIT_FAILURE);
+	check_parenthesis(data, *parlvl, false);
 	if (token->type == OPENPAR && !token->next)
 		return (ft_error(data, "syntax error near unexpected token `('"),
 			EXIT_FAILURE);
@@ -94,17 +103,11 @@ int	syntax_check(t_data *data, t_token *tokens)
 			if (check_par(data, tokens, last, &parlvl) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
-		else if (STDIN <= tokens->type && tokens->type <= STDIN_HEREDOC)
+		else if (STDOUT <= tokens->type && tokens->type <= STDIN_HEREDOC)
 			if (check_redi(data, tokens) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		last = tokens;
 		tokens = tokens->next;
 	}
-	if (parlvl < 0)
-		return (ft_error(data, "syntax error near unexpected token `)'"),
-			EXIT_FAILURE);
-	if (parlvl > 0)
-		return (ft_error(data, "syntax error near unexpected token `('"),
-			EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	return (check_parenthesis(data, parlvl, true));
 }
