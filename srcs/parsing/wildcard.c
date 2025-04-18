@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 22:59:46 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:25:53 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,14 @@ char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
 	{
 		parsed_arr = substitute_wildcard(data, parsed, isescaped);
 		if (data->exit_status == EXIT_FAILURE)
-			return (free(parsed), NULL);
+			return (NULL);
 	}
 	if (!parsed_arr && data->exit_status == EXIT_SUCCESS)
 	{
 		parsed_arr = ft_str_to_arr(parsed);
 		if (!parsed_arr)
-			return (ft_error(data, "parsing: memory allocation failed"),
-				free(parsed), NULL);
+			return (ft_error(data, "parsing: memory allocation failed"), NULL);
 	}
-	else
-		free(parsed);
 	return (parsed_arr);
 }
 
