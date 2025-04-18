@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/04/17 03:00:13 by vbronov          ###   ########.fr        #
+#    Updated: 2025/04/17 23:11:48 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 HEADER = minishell.h
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror 
 
 ifdef DEBUG
     CFLAGS += -DDEBUG=1 -g
@@ -30,7 +30,8 @@ EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c execve.c exit.c \
 				run_ast.c redir.c pipe.c fork.c wait.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
-PARSING_F		= 	expand.c parse.c build_ast_helpers.c build_ast.c lexer.c
+PARSING_F		= 	expand.c parse.c build_ast_helpers.c build_ast.c lexer.c \
+					syntax_check.c wildcard.c
 SRCS_PARSING	=	$(addprefix parsing/, $(PARSING_F))
 
 STREAM_F		= 	set_stream.c
@@ -38,7 +39,8 @@ SRCS_STREAM		=	$(addprefix stream/, $(STREAM_F))
 
 UTILS_F		= 	error_utils.c variables.c env_to_arr.c parsing_utils.c \
 				ast_utils.c token_utils.c env_utils.c print_utils.c \
-				string_utils.c signal_utils.c
+				string_utils.c signal_utils.c wildcard_utils.c \
+				wildcard_sort_utils.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING) $(SRCS_STREAM))

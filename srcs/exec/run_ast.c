@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_ast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:00:21 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/15 00:43:02 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/17 23:19:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	handle_and(t_data *data, t_node *node)
 
 	if (!node || !node->left || !node->right)
 	{
-		ft_error(data, "syntax error near unexpected token 'AND'");
+		ft_error(data, "syntax error near unexpected token '&&'");
 		return (EXIT_FAILURE);
 	}
 	ret = ft_run_ast(data, node->left);
@@ -33,7 +33,7 @@ static int	handle_or(t_data *data, t_node *node)
 
 	if (!node || !node->left || !node->right)
 	{
-		ft_error(data, "syntax error near unexpected token 'OR'");
+		ft_error(data, "syntax error near unexpected token '||'");
 		return (EXIT_FAILURE);
 	}
 	ret = ft_run_ast(data, node->left);
@@ -47,7 +47,6 @@ int	handle_command(t_data *data, t_node *node)
 	char		**args;
 	t_pfunc		func;
 
-	// TODO: expand $, expand ""/'', resolve wildcards
 	args = token_list_to_args(data, node->args);
 	if (!args)
 		return (data->exit_status);

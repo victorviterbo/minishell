@@ -6,15 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/15 17:44:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 00:13:44 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*expand_var(t_data *data, char *str, int *isescaped);
-char	*replace_var(t_data *data, char *str, size_t *i, size_t *j);
-char	*get_varname(t_data *data, char *str, size_t *i, size_t *j);
 
 char	*expand_var(t_data *data, char *str, int *isescaped)
 {
@@ -22,18 +18,22 @@ char	*expand_var(t_data *data, char *str, int *isescaped)
 	size_t	j;
 	char	*expanded;
 
+	expanded = dry_run_allocate(data, str, isescaped);
+	if (!expanded)
+		return (NULL);
 	i = 0;
 	j = 0;
-	expanded = ft_strdup(str);
-	if (!expanded)
-		return (ft_error(data, "var expansion: memory allocation failed"),
-			NULL);
-	while (expanded[i] && str[j])
+	while (str[j] && data->exit_status == EXIT_SUCCESS)
 	{
-		if (expanded[i] == '$' && isescaped[j] != IS_SINGLE_QUOTED)
-			expanded = replace_var(data, expanded, &i, &j);
+		if (str[j] == '$' && isescaped[j] != IS_SINGLE_QUOTED)
+		{
+			if (replace_var(data, str, expanded, &j) != EXIT_SUCCESS)
+				return (free(expanded), NULL);
+			i = ft_strlen(expanded);
+		}
 		else
 		{
+			expanded[i] = str[j];
 			i++;
 			j++;
 		}
@@ -41,51 +41,98 @@ char	*expand_var(t_data *data, char *str, int *isescaped)
 	return (expanded);
 }
 
-char	*replace_var(t_data *data, char *str, size_t *i, size_t *j)
+int	replace_var(t_data *data, char *str, char *expanded, size_t *j)
 {
-	char	*newstr;
 	char	*varvalue;
 	char	*varname;
 
-	varname = get_varname(data, str, i, j);
+	varname = parse_varname(data, str, j);
 	if (data->exit_status)
-		return (NULL);
+		return (data->exit_status);
 	varvalue = get_var(data, varname);
 	free(varname);
 	if (data->exit_status)
-		return (free(str), NULL);
-	if (!varvalue)
+		return (free(str), data->exit_status);
+	if (!varvalue && data->exit_status == EXIT_SUCCESS)
 		varvalue = ft_strdup("");
 	if (!varvalue)
-		return (free(str), ft_error(data, "variable substitution: memory \
-allocation failed"), NULL);
-	newstr = ft_substr(str, 0, *i);
-	newstr = ft_strjoin_ip(newstr, varvalue, FREE_S1S2);
-	newstr = ft_strjoin_ip(newstr, str + *j, FREE_S1);
-	if (!newstr)
-		return (free(str), ft_error(data, "variable substitution: memory \
-allocation failed"), NULL);
-	*i += ft_strlen(varvalue);
-	free(str);
-	return (newstr);
+		return (ft_error(data, "variable substitution: memory allocation \
+failed"), free(varname), EXIT_FAILURE);
+	ft_strlcat(expanded, varvalue,
+		ft_strlen(expanded) + ft_strlen(varvalue) + 1);
+	free(varvalue);
+	return (EXIT_SUCCESS);
 }
 
-char	*get_varname(t_data *data, char *str, size_t *i, size_t *j)
+char	*parse_varname(t_data *data, char *str, size_t *j)
 {
 	char	*varname;
+	int		i;
 
-	if (str[*i + 1] == '{')
+	i = *j;
+	if (str[i + 1] == '{')
 	{
-		*j = go_to_next(str, "}", *i + 2) + 1;
-		varname = ft_substr(str, *i + 2, *j - (*i + 3));
+		*j = go_to_next(str, "}", i + 2) + 1;
+		varname = ft_substr(str, i + 2, *j - (i + 3));
+	}
+	else if (str[i + 1] != '?')
+	{
+		*j = go_to_next(str, "\"\\\n $'", i + 1);
+		varname = ft_substr(str, i + 1, *j - (i + 1));
 	}
 	else
 	{
-		*j = go_to_next(str, "\"\\\n $'", *i + 1);
-		varname = ft_substr(str, *i + 1, *j - (*i + 1));
+		*j += 2;
+		varname = ft_strdup("?");
 	}
 	if (!varname)
 		return (ft_error(data, "variable substitution: memory \
 allocation failed"), NULL);
 	return (varname);
+}
+
+char	*dry_run_allocate(t_data *data, char *str, int *isescaped)
+{
+	char	*new_str;
+	size_t	new_size;
+	size_t	j;
+
+	j = 0;
+	new_size = 0;
+	while (str[j])
+	{
+		if (str[j] == '$' && isescaped[j] != IS_SINGLE_QUOTED)
+		{
+			dry_run_skip_var(data, str, &new_size, &j);
+			if (data->exit_status)
+				return (NULL);
+		}
+		else
+		{
+			new_size++;
+			j++;
+		}
+	}
+	new_str = ft_calloc(new_size + 1, sizeof(char));
+	if (!new_str)
+		return (ft_error(data, "variable substitution: memory \
+allocation failed"), NULL);
+	return (new_str);
+}
+
+void	dry_run_skip_var(t_data *data, char *str, size_t *new_size, size_t *j)
+{
+	char	*varname;
+	char	*varvalue;
+
+	varname = parse_varname(data, str, j);
+	if (!varname)
+		return ;
+	varvalue = get_var(data, varname);
+	if (!varvalue)
+		return (free(varname));
+	*new_size += ft_strlen(varvalue);
+	free(varname);
+	free(varvalue);
+	return ;
 }

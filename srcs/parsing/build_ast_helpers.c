@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_ast_helpers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:38:10 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/17 00:52:58 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/17 19:31:26 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static int	init_node_redirs(t_data *data, t_token *start, t_node *cmd_node, \
 
 	if (start->next->type != WORD)
 	{
-		ft_fprintf(STDERR_FILENO, "syntax error near unexpected token '%s'\n", \
-			start->next->str);
+		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected \
+token '%s'\n", SHELL_NAME, start->next->str);
 		data->exit_status = EXIT_NUMARG;
 		return (FALSE);
 	}

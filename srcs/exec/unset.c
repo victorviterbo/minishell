@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 20:21:35 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/31 02:33:19 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/10 17:23:09 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,12 @@ void	free_var(void *data)
 	t_var	*var;
 
 	var = data;
-	free(var->name);
-	free(var->value);
+	if (!var)
+		return ;
+	if (var->name)
+		free(var->name);
+	if (var->value)
+		free(var->value);
 	free(var);
 	return ;
 }

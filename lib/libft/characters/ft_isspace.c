@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:44:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/03/07 13:27:17 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/17 23:18:15 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ int	ft_isspace(char c);
 
 int	ft_isspace(char c)
 {
-	return (c == '\t' || c ==  ' ' || c == '\n');
+	return (c == '\t' || c == ' ' || c == '\n');
 }
