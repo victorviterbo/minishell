@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_ast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:00:21 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/17 23:19:49 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:27:27 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ static int	handle_and(t_data *data, t_node *node)
 	}
 	ret = ft_run_ast(data, node->left);
 	if (ret == EXIT_SUCCESS)
+	{
+		data->last_exit_status = ret;
+		data->exit_status = EXIT_SUCCESS;
 		return (ft_run_ast(data, node->right));
+	}
 	return (ret);
 }
 
@@ -38,7 +42,11 @@ static int	handle_or(t_data *data, t_node *node)
 	}
 	ret = ft_run_ast(data, node->left);
 	if (ret != EXIT_SUCCESS)
+	{
+		data->last_exit_status = ret;
+		data->exit_status = EXIT_SUCCESS;
 		return (ft_run_ast(data, node->right));
+	}
 	return (ret);
 }
 

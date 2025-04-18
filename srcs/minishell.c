@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 23:41:16 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:14:21 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	signal_handler(int signum)
 {
 	if (signum == SIGINT && g_signal == READLINE_MODE)
 	{
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		ft_printf("\n");
 		rl_on_new_line();
 		rl_redisplay();
@@ -59,8 +59,6 @@ void	main_loop(t_data *data)
 	{
 		g_signal = READLINE_MODE;
 		line = readline(SHELL_PROMPT);
-		errno = EXIT_SUCCESS;
-		//TODO: why does readline sets errno = 2 ? (on first pass ?)
 		g_signal = EXECUTION_MODE;
 		if (!line)
 		{
@@ -98,7 +96,7 @@ int	main(int argc, char **argv, char **envp)
 	set_signal(SIGINT, signal_handler);
 	set_signal(SIGQUIT, SIG_IGN);
 	if (init_data(&data, envp) != EXIT_SUCCESS)
-		return (data.exit_status); //TODO: solve ctrl + c ->exit minishell
+		return (data.exit_status);
 	main_loop(&data);
 	return (EXIT_SUCCESS);
 }

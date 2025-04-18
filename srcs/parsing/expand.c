@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/18 00:13:44 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:58:22 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int	replace_var(t_data *data, char *str, char *expanded, size_t *j)
 	varvalue = get_var(data, varname);
 	free(varname);
 	if (data->exit_status)
-		return (free(str), data->exit_status);
+		return (data->exit_status);
 	if (!varvalue && data->exit_status == EXIT_SUCCESS)
 		varvalue = ft_strdup("");
 	if (!varvalue)
 		return (ft_error(data, "variable substitution: memory allocation \
-failed"), free(varname), EXIT_FAILURE);
+failed"), EXIT_FAILURE);
 	ft_strlcat(expanded, varvalue,
 		ft_strlen(expanded) + ft_strlen(varvalue) + 1);
 	free(varvalue);

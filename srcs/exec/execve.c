@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 22:49:39 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:15:06 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	get_exec_path(t_data *data, char **args)
 	if (!full_path)
 	{
 		data->exit_status = 127;
-		ft_fprintf(STDERR_FILENO, "%s: %s: command not found\n", SHELL_NAME,
-			args[0]);
+		ft_fprintf(STDERR_FILENO, "%s: command not found\n", args[0]);
 		return ;
 	}
 	free(args[0]);
