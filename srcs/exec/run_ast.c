@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:00:21 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/18 18:27:27 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/18 19:29:18 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	handle_command(t_data *data, t_node *node)
 	args = token_list_to_args(data, node->args);
 	if (!args)
 		return (data->exit_status);
+	apply_redirections(data, node->redi);
 	func = is_builtin(args[0], data->builtins);
 	if (func)
 		data->exit_status = func(data, args, ft_arrlen(args));

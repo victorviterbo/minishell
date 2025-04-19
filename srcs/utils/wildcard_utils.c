@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:20:33 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 23:03:32 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 23:24:25 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	merge_error(char **arr1, char **arr2, t_Inplace_Type inplace)
+static void	free_arrs(char **arr1, char **arr2, t_Inplace_Type inplace)
 {
 	if (arr1 && (inplace == FREE_S1 || inplace == FREE_S1S2))
 		ft_free_array((void **)arr1, ft_arrlen(arr1));
@@ -45,12 +45,12 @@ char	**merge_strarr(t_data *data, char **arr1, char **arr2,
 	char	**joined_arr;
 
 	if (!arr1 || !arr2)
-		return (merge_error(arr1, arr2, inplace), NULL);
+		return (free_arrs(arr1, arr2, inplace), NULL);
 	joined_arr = ft_calloc(ft_arrlen(arr1) + ft_arrlen(arr2) + 1,
 			sizeof(char *));
 	if (!joined_arr)
 		return (ft_error(data, "argument merge: memory allocation failed"),
-			merge_error(arr1, arr2, inplace), NULL);
+			free_arrs(arr1, arr2, inplace), NULL);
 	append_arr(joined_arr, arr1);
 	append_arr(joined_arr, arr2);
 	if (inplace == FREE_S1 || inplace == FREE_S1S2)
@@ -63,16 +63,16 @@ char	**merge_strarr(t_data *data, char **arr1, char **arr2,
 int	handle_match(t_data *data, t_list **matches, char *new_match)
 {
 	t_list	*new_match_node;
-	char	*strcpy;
+	char	*tmp;
 
-	strcpy = ft_strdup(new_match);
-	if (!strcpy)
+	tmp = ft_strdup(new_match);
+	if (!tmp)
 		return (ft_error(data, "wildcard: memory allocation failed"),
 			EXIT_FAILURE);
-	new_match_node = ft_lstnew_void(strcpy);
+	new_match_node = ft_lstnew_void(tmp);
 	if (!new_match_node)
 		return (ft_error(data, "wildcard: memory allocation failed"),
-			free(strcpy), EXIT_FAILURE);
+			free(tmp), EXIT_FAILURE);
 	ft_lstadd_back(matches, new_match_node);
 	return (EXIT_SUCCESS);
 }

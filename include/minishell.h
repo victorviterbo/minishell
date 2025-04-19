@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/18 00:08:03 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/19 02:09:08 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,6 @@ typedef struct s_node
 	struct s_node	*right;
 }	t_node;
 
-// TODO: delete it later
-typedef struct s_leaf
-{
-	int		fdin;
-	int		fdout;
-	char	*limiter;
-	char	**args;
-}	t_leaf;
-
 struct		s_data;
 typedef int	(*t_pfunc)(struct s_data *data, char *args[], int argc);
 
@@ -145,8 +136,7 @@ int				handle_pipex(t_data *data, t_node *node);
 int				ft_pwd(t_data *data, char **args, int argc);
 char			*ft_get_current_path(t_data *data);
 //exec/redir.c
-int				save_std_streams(t_data *data);
-int				restore_std_streams(t_data *data, int saved_streams[2]);
+void			apply_redirections(t_data *data, t_token *redi);
 //exec/unset.c
 int				ft_unset(t_data *data, char **args, int argc);
 void			pop_var(t_data *data, char *varname);
@@ -163,6 +153,9 @@ void			free_env(t_data *data);
 //exec/run_ast.c
 int				ft_run_ast(t_data *data, t_node *node);
 int				handle_command(t_data *data, t_node *node);
+//exec/std_redir.c
+int				save_std_streams(t_data *data);
+int				restore_std_streams(t_data *data, int saved_streams[2]);
 //exec/wait.c
 int				wait_pid(t_data *data, int child_pid);
 
@@ -198,10 +191,6 @@ char			**filter_sort_matches(t_data *data, char **candidates,
 					char *pattern, int *isescaped);
 bool			is_wildcard_match(char *pattern, char *candidate,
 					int *isescaped);
-
-// STREAM
-//stream/set_stream.c
-int				open_stream(t_data *data, t_leaf *leaf, t_token *token);
 
 // UTILS
 //utils/ast_utils.c
@@ -248,5 +237,9 @@ char			**sort_matches(t_data *data, t_list **matches);
 void			set_signal(int signum, void (*handler)(int));
 //utils/string_utils.c
 const char		*node_type_to_string(enum e_token_type type);
+int				is_redir_token(char *str);
+//utils/syntax_check_utils.c
+bool			is_ope(t_token *token);
+int				check_parenthesis(t_data *data, int parlvl, bool final_check);
 
 #endif
