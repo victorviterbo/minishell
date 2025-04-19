@@ -6,18 +6,24 @@
 #    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/04/19 02:09:30 by vbronov          ###   ########.fr        #
+#    Updated: 2025/04/19 15:08:58 by vbronov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
+NAME = bin/minishell
 
 HEADER = minishell.h
 
-CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g
+
+ifdef SANITIZE
+    SANITIZE_FLAGS = -fsanitize=address
+else
+    SANITIZE_FLAGS =
+endif
 
 ifdef DEBUG
-    CFLAGS += -DDEBUG=1 -g
+	CFLAGS += -DDEBUG=1
 endif
 
 LIBFT_DIR = ./lib/libft/
@@ -40,45 +46,56 @@ UTILS_F		= 	error_utils.c variables.c env_to_arr.c parsing_utils.c \
 				wildcard_sort_utils.c syntax_check_utils.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
-SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING))
+SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING)) srcs/minishell.c
 
 BIN = ./bin/
+OBJ_DIR = ./objs/
+
+OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 
 CC = cc
 
-INCLUDE = -I./include/ -I$(LIBFT_DIR) -L$(LIBFT_DIR) -lft -lreadline
+INCLUDE = -I./include/ -I$(LIBFT_DIR)
+LDFLAGS = -L$(LIBFT_DIR) -lft -lreadline
 
-all: folders $(NAME)
+all: folders $(LIBFT) $(NAME)
 
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
-	@rm -f objs/*.o
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean
-	@rm -f $(BIN)$(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
-folders :
-	@mkdir -p objs/
-	@mkdir -p bin/
+bonus: all
 
-$(OBJS): $(SRCS)
-	@$(CC) $(CFLAGS) -c $< -o $@
+folders:
+	@mkdir -p $(OBJ_DIR)srcs/exec
+	@mkdir -p $(OBJ_DIR)srcs/parsing
+	@mkdir -p $(OBJ_DIR)srcs/utils
+	@mkdir -p $(BIN)
 
-$(LIBFT): $(LIBFT_SRCS)
+$(OBJ_DIR)%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(SANITIZE_FLAGS) $(INCLUDE) -c $< -o $@
+
+$(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) all
 
-$(NAME): $(SRCS)
-	@$(MAKE) -C $(LIBFT_DIR) all
-	@$(CC) $(CFLAGS) $(SRCS) ./srcs/minishell.c $(INCLUDE) -o $(BIN)$(NAME)
+$(NAME): $(OBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) $(SANITIZE_FLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
 	@echo "Minishell compiled successfully"
 
 print_srcs:
 	@echo $(SRCS)
 
-leak:
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=all --suppressions=ignore_readline_leaks.supp $(BIN)$(NAME)
+print_objs:
+	@echo $(OBJS)
 
-.PHONY: all clean fclean re
+leak:
+	@valgrind --leak-check=full --show-leak-kinds=all --track-fds=all --suppressions=ignore_readline_leaks.supp $(NAME)
+
+.PHONY: all clean fclean re folders print_srcs print_objs leak bonus

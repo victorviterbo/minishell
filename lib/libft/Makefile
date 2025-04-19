@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
+#    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/03/09 20:28:14 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/04/19 15:04:19 by vbronov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,38 +103,38 @@ print_srcs:
 objs_folder :
 	@mkdir -p objs/
 
-$(NAME): objs_folder $(OBJS)
+$(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 	@echo "Libft compiled successfully"
 
-objs/%.o: characters/%.c
+objs/%.o: characters/%.c | objs_folder
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-objs/%.o: conversions/%.c
+objs/%.o: conversions/%.c | objs_folder
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-objs/%.o: math/%.c
+objs/%.o: math/%.c | objs_folder
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-objs/%.o: miscs/%.c
+objs/%.o: miscs/%.c | objs_folder
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-objs/%.o: strings/%.c
+objs/%.o: strings/%.c | objs_folder
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-objs/%.o: write_read/%.c
+objs/%.o: write_read/%.c | objs_folder
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-objs/%.o: lists/%.c
+objs/%.o: lists/%.c | objs_folder
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-objs/%.o: memory/%.c
+objs/%.o: memory/%.c | objs_folder
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-objs/%.o: printf/%.c
+objs/%.o: printf/%.c | objs_folder
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-objs/%.o: tree/%.c
+objs/%.o: tree/%.c | objs_folder
 	@$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re objs_folder bonus print_srcs
