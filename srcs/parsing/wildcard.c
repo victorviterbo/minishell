@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/18 16:25:53 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/19 01:44:37 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
 	{
 		parsed_arr = substitute_wildcard(data, parsed, isescaped);
 		if (data->exit_status == EXIT_FAILURE)
-			return (NULL);
+			return (free(parsed), NULL);
+		free(parsed);
 	}
 	if (!parsed_arr && data->exit_status == EXIT_SUCCESS)
 	{
 		parsed_arr = ft_str_to_arr(parsed);
 		if (!parsed_arr)
-			return (ft_error(data, "parsing: memory allocation failed"), NULL);
+			return (ft_error(data, "parsing: memory allocation failed"),
+				free(parsed), NULL);
 	}
 	return (parsed_arr);
 }
@@ -96,8 +98,7 @@ char	**filter_sort_matches(t_data *data, char **candidates, char *pattern,
 
 	matches = ft_calloc(1, sizeof(t_list *));
 	if (!matches)
-		return (ft_error(data, "wildcard; memory allocation failed"),
-			ft_free_array((void **)candidates, ft_arrlen(candidates)), NULL);
+		return (ft_error(data, "wildcard: memory allocation failed"), NULL);
 	i = 0;
 	while (candidates[i])
 	{

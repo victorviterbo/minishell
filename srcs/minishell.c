@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/18 13:14:21 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/19 02:02:04 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	signal_handler(int signum)
 	}
 }
 
-int	init_data(t_data *data, char **envp)
+static int	init_data(t_data *data, char **envp)
 {
 	if (save_std_streams(data) != EXIT_SUCCESS)
 		return (data->exit_status);
@@ -51,7 +51,25 @@ int	init_data(t_data *data, char **envp)
 	return (data->exit_status);
 }
 
-void	main_loop(t_data *data)
+static void	process_line(t_data *data, char *line)
+{
+	data->last_exit_status = data->exit_status;
+	data->exit_status = EXIT_SUCCESS;
+	lexer(data, line);
+	if (data->tokens)
+	{
+		add_history(line);
+		if (DEBUG)
+			print_tokens(data->tokens);
+		data->tree = build_tree(data, data->tokens, NULL);
+		if (DEBUG)
+			display_tree(data->tree);
+		if (data->tree)
+			ft_run_ast(data, data->tree);
+	}
+}
+
+static void	main_loop(t_data *data)
 {
 	char	*line;
 
@@ -65,20 +83,7 @@ void	main_loop(t_data *data)
 			data->exit_status = EXIT_SUCCESS;
 			ft_exit(data, NULL, 0);
 		}
-		data->last_exit_status = data->exit_status;
-		data->exit_status = EXIT_SUCCESS;
-		lexer(data, line);
-		if (data->tokens)
-		{
-			add_history(line);
-			if (DEBUG)
-				print_tokens(data->tokens);
-			data->tree = build_tree(data, data->tokens, NULL);
-			if (DEBUG)
-				display_tree(data->tree);
-			if (data->tree)
-				ft_run_ast(data, data->tree);
-		}
+		process_line(data, line);
 		free(line);
 		free_tree(data->tree);
 		data->tree = NULL;

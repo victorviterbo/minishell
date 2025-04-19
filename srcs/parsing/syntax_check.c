@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:10:43 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 23:38:18 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/19 02:07:54 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static bool	is_ope(t_token *token)
-{
-	return (token->type == AND || token->type == OR || token->type == PIPE);
-}
-
-static int	check_parenthesis(t_data *data, int parlvl, bool final_check)
-{
-	if (parlvl < 0)
-		return (ft_error(data, "syntax error near unexpected token `)'"),
-			EXIT_FAILURE);
-	if (parlvl > 0 && final_check == FALSE)
-		return (ft_error(data, "syntax error near unexpected token `('"),
-			EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
 
 static	int	check_ope(t_data *data, t_token *token)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_sort_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 23:01:12 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 23:12:41 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/18 23:41:18 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
