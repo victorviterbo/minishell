@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/19 02:09:08 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/20 03:33:50 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,19 @@ int				handle_pipex(t_data *data, t_node *node);
 //exec/pwd.c
 int				ft_pwd(t_data *data, char **args, int argc);
 char			*ft_get_current_path(t_data *data);
+//exec/redir_check.c
+int				check_next_token(t_data *data, t_token *next, int heredoc_fd);
+int				redir_error(int heredoc_fd);
+int				handle_ambiguous_redirect(t_data *data, t_token *token,
+					char **parsed, int heredoc_fd);
+//exec/redir_heredoc_handler.c
+int				handle_heredoc_redirection(t_data *data, t_token *token,
+					int *heredoc_fd);
+//exec/redir_heredoc.c
+void			handle_heredoc_child(t_data *data, int *pipe_fds,
+					char *delimiter, int is_quoted);
+int				handle_heredoc_parent(t_data *data, int *pipe_fds,
+					pid_t pid);
 //exec/redir.c
 void			apply_redirections(t_data *data, t_token *redi);
 //exec/unset.c
@@ -156,6 +169,10 @@ int				handle_command(t_data *data, t_node *node);
 //exec/std_redir.c
 int				save_std_streams(t_data *data);
 int				restore_std_streams(t_data *data, int saved_streams[2]);
+int				handle_stdin_redirection(t_data *data, t_token *token,
+					int *heredoc_fd);
+int				handle_stdout_redirection(t_data *data, t_token *token,
+					int *heredoc_fd, int append);
 //exec/wait.c
 int				wait_pid(t_data *data, int child_pid);
 
@@ -209,7 +226,7 @@ void			init_env(t_data *data, char **envp);
 //utils/error_handlings.c
 void			ft_error(t_data *data, const char *message);
 //utils/parsing_utils.c
-int				*is_quote_escaped(t_data *data, char *str);
+int				*parse_quote_positions(t_data *data, char *str);
 void			remove_quotes(char *str, int *isescaped);
 size_t			go_to_next(char *str, char *chars, size_t i);
 //utils/token_utils.c
@@ -237,7 +254,6 @@ char			**sort_matches(t_data *data, t_list **matches);
 void			set_signal(int signum, void (*handler)(int));
 //utils/string_utils.c
 const char		*node_type_to_string(enum e_token_type type);
-int				is_redir_token(char *str);
 //utils/syntax_check_utils.c
 bool			is_ope(t_token *token);
 int				check_parenthesis(t_data *data, int parlvl, bool final_check);

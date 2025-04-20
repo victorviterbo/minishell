@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 11:47:44 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 23:34:43 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/19 15:53:10 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ t_node	*build_tree(t_data *data, t_token *start, t_token *end)
 {
 	t_token			*op_token;
 
+	if (start == NULL)
+		return (NULL);
 	op_token = search_operator(data, start, end);
 	if (data->exit_status)
 		return (NULL);

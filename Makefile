@@ -6,7 +6,7 @@
 #    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/04/19 15:08:58 by vbronov          ###   ########.fr        #
+#    Updated: 2025/04/20 03:34:33 by vbronov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ LIBFT_SRCS = $(addprefix $(LIBFT_DIR), $(shell make -C $(LIBFT_DIR) -s print_src
 LIBFT = $(LIBFT_DIR)libft.a
 
 EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c execve.c exit.c \
-				run_ast.c redir.c pipe.c fork.c wait.c std_redir.c
+				run_ast.c redir.c pipe.c fork.c wait.c std_redir.c redir_check.c \
+				redir_heredoc_handler.c redir_heredoc.c
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
 PARSING_F		= 	expand.c parse.c build_ast_helpers.c build_ast.c lexer.c \

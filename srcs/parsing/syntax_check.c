@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:10:43 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/19 02:07:54 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/19 17:37:52 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static	int	check_par(t_data *data, t_token *token, t_token *last, int *parlvl)
 {
 	*parlvl += (token->type == OPENPAR);
 	*parlvl -= (token->type == CLOSEPAR);
-	check_parenthesis(data, *parlvl, false);
+	if (check_parenthesis(data, *parlvl, false) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
 	if (token->type == OPENPAR && !token->next)
 		return (ft_error(data, "syntax error near unexpected token `('"),
 			EXIT_FAILURE);
