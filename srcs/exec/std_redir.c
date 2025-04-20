@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 01:51:13 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/19 01:53:06 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/20 03:36:48 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,74 @@ int	restore_std_streams(t_data *data, int saved_streams[2])
 	if (dup2(saved_streams[1], STDOUT_FILENO) == -1)
 		return (ft_error(data, "dup2"), data->exit_status);
 	return (EXIT_SUCCESS);
+}
+
+static int	redirect(t_data *data, int redi_fd, char *path, int flags)
+{
+	int	fd;
+
+	fd = open(path, flags, 0664);
+	if (fd == -1)
+		return (ft_error(data, "open"), data->exit_status);
+	if (dup2(fd, redi_fd) == -1)
+		ft_error(data, "dup2");
+	close(fd);
+	return (data->exit_status);
+}
+
+int	handle_stdin_redirection(t_data *data, t_token *token,
+	int *heredoc_fd)
+{
+	char	**parsed;
+	int		len;
+
+	if (*heredoc_fd != -1)
+	{
+		close(*heredoc_fd);
+		*heredoc_fd = -1;
+	}
+	parsed = parse_str(data, token->str, STDIN);
+	if (!parsed)
+		return (EXIT_FAILURE);
+	len = ft_arrlen(parsed);
+	if (len == 0 && token->str[0] == '$')
+		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
+	if (len == 0)
+		return (ft_free_array((void **)parsed, len),
+			redirect(data, STDIN_FILENO, token->str, O_RDONLY));
+	if (len > 1)
+		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
+	if (redirect(data, STDIN_FILENO, parsed[0], O_RDONLY))
+		return (ft_free_array((void **)parsed, len), EXIT_FAILURE);
+	return (ft_free_array((void **)parsed, len), EXIT_SUCCESS);
+}
+
+int	handle_stdout_redirection(t_data *data, t_token *token,
+	int *heredoc_fd, int append)
+{
+	char	**parsed;
+	int		len;
+	int		flags;
+
+	flags = O_CREAT | O_WRONLY | O_TRUNC;
+	if (append)
+		flags = O_CREAT | O_WRONLY | O_APPEND;
+	parsed = parse_str(data, token->str, STDOUT);
+	if (!parsed)
+		return (redir_error(*heredoc_fd));
+	len = ft_arrlen(parsed);
+	if (len == 0 && token->str[0] == '$')
+		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
+	if (len == 0)
+	{
+		ft_free_array((void **)parsed, len);
+		if (redirect(data, STDOUT_FILENO, token->str, flags))
+			return (redir_error(*heredoc_fd));
+		return (EXIT_SUCCESS);
+	}
+	if (len > 1)
+		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
+	if (redirect(data, STDOUT_FILENO, parsed[0], flags))
+		return (ft_free_array((void **)parsed, len), redir_error(*heredoc_fd));
+	return (ft_free_array((void **)parsed, len), EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 01:02:31 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/19 01:38:30 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/19 21:44:22 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,4 @@ const char	*node_type_to_string(enum e_token_type type)
 		return ("OR");
 	else
 		return (node_type_to_string_expand(type));
-}
-
-int	is_redir_token(char *str)
-{
-	return (ft_strcmp(str, ">") == 0 || ft_strcmp(str, ">>") == 0
-		|| ft_strcmp(str, "<") == 0 || ft_strcmp(str, "<<") == 0);
 }

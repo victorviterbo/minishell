@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/19 02:02:04 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/20 01:38:48 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static void	process_line(t_data *data, char *line)
 		add_history(line);
 		if (DEBUG)
 			print_tokens(data->tokens);
+		if (syntax_check(data, data->tokens) != EXIT_SUCCESS)
+			return ;
 		data->tree = build_tree(data, data->tokens, NULL);
 		if (DEBUG)
 			display_tree(data->tree);

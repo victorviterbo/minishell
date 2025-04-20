@@ -6,26 +6,39 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:45:49 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/19 00:43:56 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/19 19:21:34 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Parses a string according to the specified token type
+ *
+ * This function parses the input string based on the token type provided
+ * and stores relevant information in the data structure.
+ * It handles variable expansion, wildcard handling, and quote removal.
+ *
+ * @param data Pointer to the shell's data structure
+ * @param str String to be parsed
+ * @param type Type of token to guide the parsing process
+ *
+ * @return Array of strings resulting from the parsing process, or NULL on error
+ */
 char	**parse_str(t_data *data, char *str, t_token_type type)
 {
 	char	*parsed;
 	int		*isescaped;
 	char	**parsed_arr;
 
-	isescaped = is_quote_escaped(data, str);
+	isescaped = parse_quote_positions(data, str);
 	if (!isescaped)
 		return (NULL);
 	parsed = expand_var(data, str, isescaped);
 	free(isescaped);
 	if (!parsed)
 		return (NULL);
-	isescaped = is_quote_escaped(data, parsed);
+	isescaped = parse_quote_positions(data, parsed);
 	if (!isescaped)
 		return (free(parsed), NULL);
 	remove_quotes(parsed, isescaped);
