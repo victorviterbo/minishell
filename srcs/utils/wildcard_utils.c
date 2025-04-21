@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:20:33 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 13:17:31 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:57:39 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,11 @@ bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
 	while (pattern[i] && candidate[j])
 	{
 		is_wildcard = (pattern[i] == '*' && isescaped != IS_NOT_QUOTED);
-		if (is_wildcard && pattern[i + 1] && pattern[i + 1] == '*')
+		while (is_wildcard && pattern[i + 1] && pattern[i + 1] == '*')
 			i++;
-		else if (!is_wildcard && pattern[i] != candidate[j])
+		if (!is_wildcard && pattern[i] != candidate[j])
 			return (false);
-		else if (is_wildcard && !pattern[i + 1])
-			return (true);
-		else if (is_wildcard && pattern[i + 1]
-			&& pattern[i + 1] == candidate[j])
+		else if (is_wildcard && pattern[i + 1] == candidate[j])
 		{
 			if (is_wildcard_match(pattern + i + 1, candidate + j, isescaped))
 				return (true);
@@ -103,5 +100,7 @@ bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
 		i += (pattern[i] != '*');
 		j += 1;
 	}
-	return (false);
+	if ((pattern[i] == '*' && isescaped != IS_NOT_QUOTED) && !pattern[i + 1])
+		return (true);
+	return (!candidate[j] && !pattern[i]);
 }
