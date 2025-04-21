@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 23:41:16 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/21 09:37:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	signal_handler(int signum)
 {
 	if (signum == SIGINT && g_signal == READLINE_MODE)
 	{
-		//rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		ft_printf("\n");
 		rl_on_new_line();
 		rl_redisplay();
 	}
 }
 
-int	init_data(t_data *data, char **envp)
+static int	init_data(t_data *data, char **envp)
 {
 	if (save_std_streams(data) != EXIT_SUCCESS)
 		return (data->exit_status);
@@ -51,7 +51,27 @@ int	init_data(t_data *data, char **envp)
 	return (data->exit_status);
 }
 
-void	main_loop(t_data *data)
+static void	process_line(t_data *data, char *line)
+{
+	data->last_exit_status = data->exit_status;
+	data->exit_status = EXIT_SUCCESS;
+	lexer(data, line);
+	if (data->tokens)
+	{
+		add_history(line);
+		if (DEBUG)
+			print_tokens(data->tokens);
+		if (syntax_check(data, data->tokens) != EXIT_SUCCESS)
+			return ;
+		data->tree = build_tree(data, data->tokens, NULL);
+		if (DEBUG)
+			display_tree(data->tree);
+		if (data->tree)
+			ft_run_ast(data, data->tree);
+	}
+}
+
+static void	main_loop(t_data *data)
 {
 	char	*line;
 
@@ -60,27 +80,13 @@ void	main_loop(t_data *data)
 		g_signal = READLINE_MODE;
 		line = readline(SHELL_PROMPT);
 		errno = EXIT_SUCCESS;
-		//TODO: why does readline sets errno = 2 ? (on first pass ?)
 		g_signal = EXECUTION_MODE;
 		if (!line)
 		{
 			data->exit_status = EXIT_SUCCESS;
 			ft_exit(data, NULL, 0);
 		}
-		data->last_exit_status = data->exit_status;
-		data->exit_status = EXIT_SUCCESS;
-		lexer(data, line);
-		if (data->tokens)
-		{
-			add_history(line);
-			if (DEBUG)
-				print_tokens(data->tokens);
-			data->tree = build_tree(data, data->tokens, NULL);
-			if (DEBUG)
-				display_tree(data->tree);
-			if (data->tree)
-				ft_run_ast(data, data->tree);
-		}
+		process_line(data, line);
 		free(line);
 		free_tree(data->tree);
 		data->tree = NULL;
@@ -98,7 +104,7 @@ int	main(int argc, char **argv, char **envp)
 	set_signal(SIGINT, signal_handler);
 	set_signal(SIGQUIT, SIG_IGN);
 	if (init_data(&data, envp) != EXIT_SUCCESS)
-		return (data.exit_status); //TODO: solve ctrl + c ->exit minishell
+		return (data.exit_status);
 	main_loop(&data);
 	return (EXIT_SUCCESS);
 }

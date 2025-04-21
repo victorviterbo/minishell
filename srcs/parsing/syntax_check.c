@@ -6,27 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:10:43 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 23:38:18 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/21 09:34:37 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static bool	is_ope(t_token *token)
-{
-	return (token->type == AND || token->type == OR || token->type == PIPE);
-}
-
-static int	check_parenthesis(t_data *data, int parlvl, bool final_check)
-{
-	if (parlvl < 0)
-		return (ft_error(data, "syntax error near unexpected token `)'"),
-			EXIT_FAILURE);
-	if (parlvl > 0 && final_check == FALSE)
-		return (ft_error(data, "syntax error near unexpected token `('"),
-			EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
 
 static	int	check_ope(t_data *data, t_token *token)
 {
@@ -47,7 +31,8 @@ static	int	check_par(t_data *data, t_token *token, t_token *last, int *parlvl)
 {
 	*parlvl += (token->type == OPENPAR);
 	*parlvl -= (token->type == CLOSEPAR);
-	check_parenthesis(data, *parlvl, false);
+	if (check_parenthesis(data, *parlvl, false) != EXIT_SUCCESS)
+		return (EXIT_FAILURE);
 	if (token->type == OPENPAR && !token->next)
 		return (ft_error(data, "syntax error near unexpected token `('"),
 			EXIT_FAILURE);

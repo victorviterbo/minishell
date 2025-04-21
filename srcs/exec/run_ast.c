@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:00:21 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/17 23:19:49 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/21 09:29:19 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ static int	handle_and(t_data *data, t_node *node)
 	}
 	ret = ft_run_ast(data, node->left);
 	if (ret == EXIT_SUCCESS)
+	{
+		data->last_exit_status = ret;
+		data->exit_status = EXIT_SUCCESS;
 		return (ft_run_ast(data, node->right));
+	}
 	return (ret);
 }
 
@@ -38,7 +42,11 @@ static int	handle_or(t_data *data, t_node *node)
 	}
 	ret = ft_run_ast(data, node->left);
 	if (ret != EXIT_SUCCESS)
+	{
+		data->last_exit_status = ret;
+		data->exit_status = EXIT_SUCCESS;
 		return (ft_run_ast(data, node->right));
+	}
 	return (ret);
 }
 
@@ -47,9 +55,14 @@ int	handle_command(t_data *data, t_node *node)
 	char		**args;
 	t_pfunc		func;
 
+	apply_redirections(data, node->redi);
+	if (data->exit_status != EXIT_SUCCESS)
+		return (restore_std_streams(data, data->saved_streams),
+			data->exit_status);
 	args = token_list_to_args(data, node->args);
 	if (!args)
-		return (data->exit_status);
+		return (restore_std_streams(data, data->saved_streams),
+			data->exit_status);
 	func = is_builtin(args[0], data->builtins);
 	if (func)
 		data->exit_status = func(data, args, ft_arrlen(args));

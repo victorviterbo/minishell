@@ -6,13 +6,13 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:10:56 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/14 16:13:10 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/21 09:33:42 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	*is_quote_escaped(t_data *data, char *str)
+int	*parse_quote_positions(t_data *data, char *str)
 {
 	int		*escaped;
 	int		quotation;
