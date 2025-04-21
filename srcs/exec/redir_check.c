@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 03:18:16 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/21 20:06:42 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/21 21:00:48 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_next_token(t_data *data, t_token *next, int heredoc_fd)
 			close(heredoc_fd);
 		return (EXIT_FAILURE);
 	}
-	if (next->type != WORD) //&& next->type == OPENPAR
+	if (next->type != WORD)
 	{
 		ft_fprintf(STDERR_FILENO,
 			"%s: syntax error near unexpected token `%s'\n",

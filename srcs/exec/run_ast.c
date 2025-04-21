@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:00:21 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/21 13:34:54 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/21 21:00:23 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,16 @@ int	handle_command(t_data *data, t_node *node)
 int	handle_openpar(t_data *data, t_node *node)
 {
 	int	pid;
+	int	exit_status;
 
 	pid = fork();
 	if (pid == -1)
 		return (ft_error(data, "fork"), data->exit_status);
 	if (pid == 0)
 	{
-		data->exit_status = ft_run_ast(data, node->left);
+		exit_status = ft_run_ast(data, node->left);
 		free_all(data);
-		exit(data->exit_status);
+		exit(exit_status);
 	}
 	return (wait_pid(data, pid));
 }
