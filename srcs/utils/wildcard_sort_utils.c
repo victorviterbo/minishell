@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 23:01:12 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 09:36:03 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/21 12:06:16 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**sort_matches(t_data *data, t_list **matches)
 		best = current;
 		while (current)
 		{
-			if (ft_strcmp(current->content, best->content) < 0)
+			if (ft_stricmp(current->content, best->content) < 0)
 				best = current;
 			current = current->next;
 		}

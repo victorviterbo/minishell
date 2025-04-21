@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 09:27:47 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/21 13:22:04 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,5 +257,7 @@ const char		*node_type_to_string(enum e_token_type type);
 //utils/syntax_check_utils.c
 bool			is_ope(t_token *token);
 int				check_parenthesis(t_data *data, int parlvl, bool final_check);
+int				check_opening_par(t_data *data, t_token *token, t_token *last);
+int				check_closing_par(t_data *data, t_token *token, t_token *last);
 
 #endif

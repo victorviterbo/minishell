@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 22:59:46 by vviterbo         ###   ########.fr       */
-=======
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/19 01:44:37 by vbronov          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2025/04/21 13:17:06 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +23,16 @@ char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
 		parsed_arr = substitute_wildcard(data, parsed, isescaped);
 		if (data->exit_status == EXIT_FAILURE)
 			return (free(parsed), NULL);
-		free(parsed);
 	}
-	if (!parsed_arr && data->exit_status == EXIT_SUCCESS)
+	if (!parsed_arr)
 	{
 		parsed_arr = ft_str_to_arr(parsed);
 		if (!parsed_arr)
 			return (ft_error(data, "parsing: memory allocation failed"),
 				free(parsed), NULL);
 	}
+	else
+		free(parsed);
 	return (parsed_arr);
 }
 
@@ -105,16 +99,12 @@ char	**filter_sort_matches(t_data *data, char **candidates, char *pattern,
 
 	matches = ft_calloc(1, sizeof(t_list *));
 	if (!matches)
-<<<<<<< HEAD
-		return (ft_error(data, "wildcard; memory allocation failed"),
-			ft_free_array((void **)candidates, ft_arrlen(candidates)), NULL);
-=======
 		return (ft_error(data, "wildcard: memory allocation failed"), NULL);
->>>>>>> main
 	i = 0;
 	while (candidates[i])
 	{
-		if (candidates[i][0] == '.' && pattern[0] != '.')
+		if ((candidates[i][0] == '.' && pattern[0] != '.')
+			|| !ft_strcmp(candidates[i], ".") || !ft_strcmp(candidates[i], ".."))
 		{
 			i++;
 			continue ;
