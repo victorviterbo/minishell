@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 21:01:19 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/21 21:17:13 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	main_loop(t_data *data)
 	{
 		g_signal = READLINE_MODE;
 		line = readline(SHELL_PROMPT);
-		errno = EXIT_SUCCESS;
 		g_signal = EXECUTION_MODE;
 		if (!line)
 		{
