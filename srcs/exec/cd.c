@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 21:14:27 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/24 13:30:44 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,18 @@ char	*get_absolute_path(t_data *data, char *path)
 			return (ft_error(data, "cd: memory allocation failed"), NULL);
 		return (absolute_path);
 	}
-	current_path = ft_strjoin_ip(ft_get_current_path(data), "/", FREE_S1);
+	absolute_path = ft_get_current_path(data);
+	if (absolute_path)
+		return (absolute_path);
+	ft_fprintf(STDERR_FILENO, "cd: error retrieving current directory: "
+		"getcwd: cannot access parent directories: %s\n",
+		strerror(data->exit_status));
+	data->exit_status = EXIT_SUCCESS;
+	current_path = get_var(data, "PWD");
+	if (!current_path)
+		return (ft_error(data, "cd: PWD not set"),
+			data->exit_status = EXIT_FAILURE, NULL);
+	current_path = ft_strjoin_ip(current_path, "/", FREE_S1);
 	if (!current_path)
 		return (ft_error(data, "cd: memory allocation failed"), NULL);
 	absolute_path = ft_strjoin_ip(current_path, path, FREE_S1);
@@ -65,24 +76,33 @@ static int	ft_update_oldpwd(t_data *data)
 
 	pwd = get_var(data, "PWD");
 	if (!pwd)
-		return (ft_error(data, "cd: PWD not set"), EXIT_FAILURE);
+	{
+		ft_error(data, "cd: PWD not set");
+		data->exit_status = EXIT_FAILURE;
+		return (data->exit_status);
+	}
 	pwd = ft_strjoin_ip("OLDPWD=", pwd, FREE_S2);
 	if (!pwd)
-		return (ft_error(data, "cd: memory allocation failed"), EXIT_FAILURE);
+	{
+		ft_error(data, "cd: memory allocation failed");
+		data->exit_status = EXIT_FAILURE;
+		return (data->exit_status);
+	}
 	new_var(data, pwd);
 	free(pwd);
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_update_pwd(t_data *data)
+static int	ft_update_pwd(t_data *data, const char *abspath)
 {
 	char	*pwd;
 
-	pwd = ft_strjoin_ip("PWD=", ft_get_current_path(data), FREE_S2);
+	pwd = ft_strjoin("PWD=", abspath);
 	if (!pwd)
 	{
 		ft_error(data, "cd: memory allocation failed");
-		return (EXIT_FAILURE);
+		data->exit_status = EXIT_FAILURE;
+		return (data->exit_status);
 	}
 	new_var(data, pwd);
 	free(pwd);
@@ -95,25 +115,19 @@ int	ft_cd(t_data *data, char **args, int argc)
 	char	*path;
 
 	if (argc > 2)
-	{
-		ft_error(data, "cd: too many arguments");
-		return (EXIT_FAILURE);
-	}
+		return (ft_error(data, "cd: too many arguments"), EXIT_FAILURE);
 	path = handle_special_paths(data, args[1]);
 	if (!path)
-		return (EXIT_FAILURE);
+		return (data->exit_status = EXIT_FAILURE, EXIT_FAILURE);
+	if (access(path, R_OK) == -1 || chdir(path) == -1)
+	{
+		ft_fprintf(STDERR_FILENO, "%s: cd: %s: %s\n",
+			SHELL_NAME, path, strerror(errno));
+		return (free(path), data->exit_status = EXIT_FAILURE, EXIT_FAILURE);
+	}
 	abspath = get_absolute_path(data, path);
 	free(path);
-	if (data->exit_status)
-		return (EXIT_FAILURE);
-	if (access(abspath, R_OK) == -1 || chdir(abspath) == -1)
-	{
-		ft_error(data, "cd");
-		free(abspath);
-		return (EXIT_FAILURE);
-	}
-	free(abspath);
-	if (ft_update_oldpwd(data) || ft_update_pwd(data))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	if (ft_update_oldpwd(data) || ft_update_pwd(data, abspath))
+		return (free(abspath), EXIT_FAILURE);
+	return (free(abspath), EXIT_SUCCESS);
 }

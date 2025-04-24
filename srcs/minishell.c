@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 21:17:13 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/24 13:30:19 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ enum e_signal	g_signal;
 
 /**
  * @brief Handles incoming signals for minishell
- * 
+ *
  * SIGINT: CTRL+C, SIGQUIT: CTRL+\ and CTRL+D (EOF) are handled
  * acording to the current mode of the shell,
  * either interactive (READLINE_MODE) or execution (EXECUTION_MODE).
- * 
+ *
  * @param signum The signal number to be handled
- * 
+ *
  * @return void
  */
 void	signal_handler(int signum)
@@ -53,11 +53,11 @@ static int	init_data(t_data *data, char **envp)
 
 static void	process_line(t_data *data, char *line)
 {
-	data->last_exit_status = data->exit_status;
-	data->exit_status = EXIT_SUCCESS;
 	lexer(data, line);
 	if (data->tokens)
 	{
+		data->last_exit_status = data->exit_status;
+		data->exit_status = EXIT_SUCCESS;
 		add_history(line);
 		if (DEBUG)
 			print_tokens(data->tokens);
