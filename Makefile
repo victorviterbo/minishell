@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/04/21 13:21:51 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/04/24 14:25:09 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRCS_PARSING	=	$(addprefix parsing/, $(PARSING_F))
 UTILS_F		= 	error_utils.c variables.c env_to_arr.c parsing_utils.c \
 				ast_utils.c token_utils.c env_utils.c print_utils.c \
 				string_utils.c signal_utils.c wildcard_utils.c \
-				wildcard_sort_utils.c syntax_check_utils.c
+				wildcard_sort_utils.c syntax_check_utils.c path_utils.c
 SRCS_UTILS	=	$(addprefix utils/, $(UTILS_F))
 
 SRCS = $(addprefix srcs/, $(SRCS_EXEC) $(SRCS_UTILS) $(SRCS_PARSING)) srcs/minishell.c

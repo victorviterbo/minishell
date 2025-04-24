@@ -13,7 +13,7 @@ bash: .: filename argument required
 
 minishell :
 
-minishell: /usr/local/sbin/.: Permission denied
+minishell: /usr/local/sbin/.: Permission denied ----------> OK
 
 echo $
 

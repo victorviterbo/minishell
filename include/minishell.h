@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 20:05:01 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:25:39 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,8 @@ void			ft_error(t_data *data, const char *message);
 int				*parse_quote_positions(t_data *data, char *str);
 void			remove_quotes(char *str, int *isescaped);
 size_t			go_to_next(char *str, char *chars, size_t i);
+//path_utils.c
+bool			ft_isdirectory(char *path);
 //utils/token_utils.c
 void			free_token(void *content);
 void			free_tokens(t_token *head);
