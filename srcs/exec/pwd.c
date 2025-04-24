@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tkashi <tkashi@student.42lausanne.ch>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:22:20 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/07 13:47:57 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/24 04:38:24 by tkashi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,18 @@ int	ft_pwd(t_data *data, char **args, int argc)
 	char	*current_path;
 	size_t	printed;
 
-	if (argc > 1)
-	{
-		ft_error(data, "pwd: too many arguments");
-		return (EXIT_FAILURE);
-	}
 	(void)args;
+	if (argc > 1)
+		return (ft_error(data, "pwd: too many arguments"),EXIT_FAILURE);
 	current_path = ft_get_current_path(data);
-	if (data->exit_status)
-		return (EXIT_FAILURE);
+	if (!current_path)
+	{
+		data->exit_status = EXIT_SUCCESS;
+		current_path = get_var(data, "PWD");
+		if (!current_path)
+			return (ft_error(data, "pwd: PWD not set"),
+				data->exit_status = EXIT_FAILURE, EXIT_FAILURE);
+	}
 	printed = ft_printf("%s\n", current_path);
 	if (printed != ft_strlen(current_path) + 1)
 	{
@@ -40,25 +43,21 @@ int	ft_pwd(t_data *data, char **args, int argc)
 char	*ft_get_current_path(t_data *data)
 {
 	char	*current_path;
-	int		attempts;
+	int		attempt;
 	char	*retvalue;
 
-	attempts = 1;
-	current_path = ft_calloc(PATH_MAX + 1, sizeof(char));
-	if (!current_path)
-		return (ft_error(data, "pwd: memory allocation failed"), NULL);
-	retvalue = getcwd(current_path, PATH_MAX * attempts);
-	while (attempts < 3 && retvalue == NULL && errno == ERANGE)
+	retvalue = NULL;
+	attempt = 1;
+	while ((attempt <= 2 && data->exit_status == ERANGE) || attempt == 1)
 	{
-		attempts++;
-		free(current_path);
-		current_path = ft_calloc(PATH_MAX * attempts + 1, sizeof(char));
+		current_path = ft_calloc(PATH_MAX * attempt + 1, sizeof(char));
 		if (!current_path)
-			return (ft_error(data, "pwd: memory allocation failed"), NULL);
-		retvalue = getcwd(current_path, PATH_MAX * attempts);
+			return (data->exit_status = errno, NULL);
+		retvalue = getcwd(current_path, PATH_MAX * attempt);
+		data->exit_status = errno;
+		if (!retvalue)
+			free(current_path);
+		attempt++;
 	}
-	if (retvalue == NULL)
-		return (free(current_path),
-			ft_error(data, "pwd: could not load path"), NULL);
-	return (current_path);
+	return (retvalue);
 }

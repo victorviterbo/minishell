@@ -1,0 +1,37 @@
+test minishell  to fix: (echo with dollars and dot)
+
+
+$ echo $HOME
+$ echo $HOMEsdjhfk$HOME
+$ echo $HOME.sdjhfk$HOME
+
+"."
+
+bash : 
+bash: .: filename argument required
+.: usage: . filename [arguments]
+
+minishell :
+
+minishell: /usr/local/sbin/.: Permission denied
+
+echo $
+
+
+cat >$x
+
+<file1
+
+
+(differnce between open: and file1: no such file)
+
+
+minishell$ pwd
+/home/csa
+minishell$ mkdir test
+minishell$ cd test/
+minishell$ rm -rf ../test
+minishell$ cd .
+
+
+
