@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/24 13:38:52 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:44:33 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*expand_var(t_data *data, char *str, int *isescaped)
 	j = 0;
 	while (str[j] && data->exit_status == EXIT_SUCCESS)
 	{
-		if (str[j] == '$' && isescaped[j] != IS_SINGLE_QUOTED)
+		if (str[j] == '$' && isescaped[j] != IS_SINGLE_QUOTED && str[j + 1])
 		{
 			if (replace_var(data, str, expanded, &j) != EXIT_SUCCESS)
 				return (free(expanded), NULL);
@@ -77,7 +77,7 @@ char	*parse_varname(t_data *data, char *str, size_t *j)
 	}
 	else if (str[i + 1] != '?')
 	{
-		*j = go_to_next(str, "\"\\\n $'.", i + 1);
+		*j = go_to_next(str, "\"\\\n $'.{}", i + 1);
 		varname = ft_substr(str, i + 1, *j - (i + 1));
 	}
 	else
@@ -101,7 +101,7 @@ char	*dry_run_allocate(t_data *data, char *str, int *isescaped)
 	new_size = 0;
 	while (str[j])
 	{
-		if (str[j] == '$' && isescaped[j] != IS_SINGLE_QUOTED)
+		if (str[j] == '$' && isescaped[j] != IS_SINGLE_QUOTED && str[j + 1])
 		{
 			dry_run_skip_var(data, str, &new_size, &j);
 			if (data->exit_status)
