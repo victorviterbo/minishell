@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 21:14:27 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/23 23:17:26 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ char	*get_absolute_path(t_data *data, char *path)
 			return (ft_error(data, "cd: memory allocation failed"), NULL);
 		return (absolute_path);
 	}
-	current_path = ft_strjoin_ip(ft_get_current_path(data), "/", FREE_S1);
+	current_path = ft_get_current_path(data);
+	if (!current_path)
+		return (NULL);
+	current_path = ft_strjoin_ip(current_path, "/", FREE_S1);
 	if (!current_path)
 		return (ft_error(data, "cd: memory allocation failed"), NULL);
 	absolute_path = ft_strjoin_ip(current_path, path, FREE_S1);
@@ -108,9 +111,7 @@ int	ft_cd(t_data *data, char **args, int argc)
 		return (EXIT_FAILURE);
 	if (access(abspath, R_OK) == -1 || chdir(abspath) == -1)
 	{
-		ft_error(data, "cd");
-		free(abspath);
-		return (EXIT_FAILURE);
+		return (ft_error(data, "cd"), free(abspath), EXIT_FAILURE);
 	}
 	free(abspath);
 	if (ft_update_oldpwd(data) || ft_update_pwd(data))
