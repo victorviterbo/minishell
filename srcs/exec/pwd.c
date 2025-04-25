@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:22:20 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 16:13:27 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:49:52 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	ft_pwd(t_data *data, char **args, int argc)
 	size_t	printed;
 
 	(void)args;
-	//if (argc > 1)
-	//	return (ft_error(data, "pwd: too many arguments"),EXIT_FAILURE);
 	(void)argc;
 	current_path = ft_get_current_path(data);
 	if (!current_path)

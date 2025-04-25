@@ -1,0 +1,34 @@
+[200~test minishell  to fix: (echo with dollars and dot)
+
+
+$ echo /home/vviterbo
+$ echo /home/vviterbo
+$ echo /home/vviterbo.sdjhfk/home/vviterbo
+
+.
+
+bash : 
+bash: .: filename argument required
+.: usage: . filename [arguments]
+
+minishell :
+
+minishell: /usr/local/sbin/.: Permission denied
+
+echo $
+
+
+cat >
+
+<file1
+
+
+(differnce between open: and file1: no such file)
+
+
+minishell$ pwd
+/home/csa
+minishell$ mkdir test
+minishell$ cd test/
+minishell$ rm -rf ../test
+minishell$ cd .~
