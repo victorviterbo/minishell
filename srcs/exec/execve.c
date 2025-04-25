@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/24 17:34:39 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:22:35 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	get_exec_path(t_data *data, char **args)
 	{
 		data->exit_status = EXIT_NUMARG;
 		ft_fprintf(STDERR_FILENO, ".: filename argument required\n.: usage: . \
-			filename [arguments]");
+			filename [arguments]\n");
 		return ;
 	}
 	path_list = get_var(data, "PATH");

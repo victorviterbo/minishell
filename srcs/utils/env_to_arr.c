@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 21:49:19 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 19:49:38 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:45:58 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,15 @@ void	change_shlvl(t_data *data, int change)
 
 	shlvl = get_var(data, "SHLVL");
 	if (!shlvl || !ft_isint(shlvl))
-		return (ft_error(data, "env parsing: shlvl is not an int"));
-	current_shlvl = ft_atoi(shlvl);
-	free(shlvl);
+	{
+		if (data->exit_status)
+			return ;
+		current_shlvl = 0;
+	}
+	else
+		current_shlvl = ft_atoi(shlvl);
+	if (shlvl)
+		free(shlvl);
 	shlvl = ft_itoa(current_shlvl + change);
 	if (!shlvl)
 		return (ft_error(data, "env parsing: memory allocation failed"));
