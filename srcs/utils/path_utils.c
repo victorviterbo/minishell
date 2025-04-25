@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 14:24:23 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 19:30:22 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 19:41:57 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ char	*get_absolute_path(t_data *data, char *path)
 		return (absolute_path);
 	}
 	absolute_path = ft_get_current_path(data);
-	ft_printf("->%s\n", absolute_path);
 	if (absolute_path)
 		return (absolute_path);
 	return (get_absolute_path_backup_method(data, path));

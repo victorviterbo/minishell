@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 16:54:37 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 19:41:38 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ char	*get_last_exit_status(t_data *data, char *varname)
 
 	if (ft_strcmp(varname, "?"))
 	{
-		ft_printf("%s: ${%s}: bad substitution\n", SHELL_NAME, varname);
+		ft_fprintf(STDERR_FILENO, "%s: ${%s}: bad substitution\n",
+			SHELL_NAME, varname);
 		data->exit_status = EXIT_FAILURE;
 		return (NULL);
 	}
