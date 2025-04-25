@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 01:51:13 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/24 18:52:25 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:57:19 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	handle_stdin_redirection(t_data *data, t_token *token,
 			redirect(data, STDIN_FILENO, token->str, O_RDONLY));
 	if (len > 1 || ft_strlen(parsed[0]) == 0)
 		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
-	if (redirect(data, STDIN_FILENO, parsed[0], O_RDONLY))
+	if (check_file_error(data, parsed, 'r') == EXIT_FAILURE
+		|| redirect(data, STDIN_FILENO, parsed[0], O_RDONLY))
 		return (ft_free_array((void **)parsed, len), EXIT_FAILURE);
 	return (ft_free_array((void **)parsed, len), EXIT_SUCCESS);
 }
@@ -83,9 +84,8 @@ int	handle_stdout_redirection(t_data *data, t_token *token,
 	int		len;
 	int		flags;
 
-	flags = O_CREAT | O_WRONLY | O_TRUNC;
-	if (append)
-		flags = O_CREAT | O_WRONLY | O_APPEND;
+	flags = !append * (O_CREAT | O_WRONLY | O_TRUNC)
+		+ append * (O_CREAT | O_WRONLY | O_APPEND);
 	parsed = parse_str(data, token->str, STDOUT);
 	if (!parsed)
 		return (redir_error(*heredoc_fd));
@@ -101,7 +101,8 @@ int	handle_stdout_redirection(t_data *data, t_token *token,
 	}
 	if (len > 1 || ft_strlen(parsed[0]) == 0)
 		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
-	if (redirect(data, STDOUT_FILENO, parsed[0], flags))
+	if (check_file_error(data, parsed, 'w')
+		|| redirect(data, STDOUT_FILENO, parsed[0], flags))
 		return (ft_free_array((void **)parsed, len), redir_error(*heredoc_fd));
 	return (ft_free_array((void **)parsed, len), EXIT_SUCCESS);
 }

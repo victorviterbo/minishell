@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/24 18:44:33 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:47:11 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ char	*expand_var(t_data *data, char *str, int *isescaped)
 	j = 0;
 	while (str[j] && data->exit_status == EXIT_SUCCESS)
 	{
-		if (str[j] == '$' && isescaped[j] != IS_SINGLE_QUOTED && str[j + 1])
+		if (str[j] == '$' && need_expand(data, str, isescaped, j))
 		{
 			if (replace_var(data, str, expanded, &j) != EXIT_SUCCESS)
 				return (free(expanded), NULL);
 			i = ft_strlen(expanded);
 		}
-		else
+		else if (data->exit_status == EXIT_SUCCESS)
 		{
 			expanded[i] = str[j];
 			i++;
@@ -47,7 +47,7 @@ int	replace_var(t_data *data, char *str, char *expanded, size_t *j)
 	char	*varname;
 
 	varname = parse_varname(data, str, j);
-	if (data->exit_status)
+	if (!varname)
 		return (data->exit_status);
 	varvalue = get_var(data, varname);
 	free(varname);
@@ -91,48 +91,22 @@ allocation failed"), NULL);
 	return (varname);
 }
 
-char	*dry_run_allocate(t_data *data, char *str, int *isescaped)
+bool	need_expand(t_data *data, char *str, int *isescaped, int j)
 {
-	char	*new_str;
-	size_t	new_size;
-	size_t	j;
-
-	j = 0;
-	new_size = 0;
-	while (str[j])
+	if (isescaped[j] == IS_SINGLE_QUOTED)
+		return (false);
+	if (str[j + 1] == '{' && !ft_strchr(str, '}'))
+		return (ft_error(data, "${: bad substitution"), false);
+	if (!ft_strncmp(str + j, "${}", 3))
+		return (ft_error(data, "${}: bad substitution"), false);
+	if (ft_strncmp(str + j, "${?", 3) != ft_strncmp(str + j, "${?}", 4))
 	{
-		if (str[j] == '$' && isescaped[j] != IS_SINGLE_QUOTED && str[j + 1])
-		{
-			dry_run_skip_var(data, str, &new_size, &j);
-			if (data->exit_status)
-				return (NULL);
-		}
-		else
-		{
-			new_size++;
-			j++;
-		}
+		*(ft_strchr(str + j, '}') + 1) = '\0';
+		ft_fprintf(STDERR_FILENO, "%s: %s: bad substitution",
+			SHELL_NAME, str + j);
+		return (data->exit_status = EXIT_FAILURE, false);
 	}
-	new_str = ft_calloc(new_size + 1, sizeof(char));
-	if (!new_str)
-		return (ft_error(data, "variable substitution: memory \
-allocation failed"), NULL);
-	return (new_str);
-}
-
-void	dry_run_skip_var(t_data *data, char *str, size_t *new_size, size_t *j)
-{
-	char	*varname;
-	char	*varvalue;
-
-	varname = parse_varname(data, str, j);
-	if (!varname)
-		return ;
-	varvalue = get_var(data, varname);
-	if (!varvalue)
-		return (free(varname));
-	*new_size += ft_strlen(varvalue);
-	free(varname);
-	free(varvalue);
-	return ;
+	else if (ft_strchr("\\\n $.}", str[j + 1]))
+		return (false);
+	return (true);
 }
