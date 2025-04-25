@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 01:51:13 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/25 15:31:48 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:29:00 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	handle_stdin_redirection(t_data *data, t_token *token,
 			redirect(data, STDIN_FILENO, token->str, O_RDONLY));
 	if (len > 1 || ft_strlen(parsed[0]) == 0)
 		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
-	if (check_file_error(data, parsed, 'r') != EXIT_SUCCESS
+	if (check_file_error(data, parsed[0], 'r') != EXIT_SUCCESS
 		|| redirect(data, STDIN_FILENO, parsed[0], O_RDONLY))
 		return (ft_free_array((void **)parsed, len), EXIT_FAILURE);
 	return (ft_free_array((void **)parsed, len), EXIT_SUCCESS);
@@ -101,7 +101,7 @@ int	handle_stdout_redirection(t_data *data, t_token *token,
 	}
 	if (len > 1 || ft_strlen(parsed[0]) == 0)
 		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
-	if (check_file_error(data, parsed, 'w') != EXIT_SUCCESS
+	if (check_file_error(data, parsed[0], 'w') != EXIT_SUCCESS
 		|| redirect(data, STDOUT_FILENO, parsed[0], flags))
 		return (ft_free_array((void **)parsed, len), redir_error(*heredoc_fd));
 	return (ft_free_array((void **)parsed, len), EXIT_SUCCESS);

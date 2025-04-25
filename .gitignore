@@ -1,4 +1,4 @@
-minishell/tester/
+minishell_tester/
 *.vscode
 *.a
 *.o

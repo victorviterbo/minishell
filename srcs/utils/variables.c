@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 14:45:03 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:54:37 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	new_var(t_data *data, char *str)
 	t_list	*current;
 
 	first_equal = ft_strchr(str, '=');
-	append = (*(first_equal - 1) == '+');
+	append = false;
+	if (first_equal)
+		append = (*(first_equal - 1) == '+');
 	if (first_equal)
 		name_len = first_equal - str - append;
 	else
@@ -48,10 +50,9 @@ void	add_var(t_data *data, t_list **env, char *str, size_t name_len)
 	new_var = ft_calloc(1, sizeof(t_var));
 	if (!new_var)
 		return (ft_error(data, "env: memory allocation failed"));
-	new_var->name = ft_substr(str, 0, name_len);
+	new_var->name = check_varname(data, str, name_len);
 	if (!new_var->name)
-		return (free_var(new_var),
-			ft_error(data, "env: memory allocation failed"));
+		return (free_var(new_var));
 	if (first_equal)
 	{
 		new_var->value = ft_strdup(first_equal + 1);

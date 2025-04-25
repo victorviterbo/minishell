@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 14:47:11 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:11:29 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ bool	need_expand(t_data *data, char *str, int *isescaped, int j)
 			SHELL_NAME, str + j);
 		return (data->exit_status = EXIT_FAILURE, false);
 	}
+	else if (isescaped[j] == IS_DOUBLE_QUOTED && str[j + 1] == '"')
+		return (false);
 	else if (ft_strchr("\\\n $.}", str[j + 1]))
 		return (false);
 	return (true);

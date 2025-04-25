@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:20:33 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 15:57:39 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:41:20 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,26 @@ static void	append_arr(char **arr1, char **arr2)
 	return ;
 }
 
+static void	remove_empty_strs(char **arr)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (arr[i])
+	{
+		if (ft_strlen(arr[i]))
+		{
+			arr[j] = arr[i];
+			j++;
+		}
+		i++;
+	}
+	arr[j] = NULL;
+	return ;
+}
+
 char	**merge_strarr(t_data *data, char **arr1, char **arr2,
 	t_Inplace_Type inplace)
 {
@@ -46,6 +66,8 @@ char	**merge_strarr(t_data *data, char **arr1, char **arr2,
 
 	if (!arr1 || !arr2)
 		return (free_arrs(arr1, arr2, inplace), NULL);
+	remove_empty_strs(arr1);
+	remove_empty_strs(arr2);
 	joined_arr = ft_calloc(ft_arrlen(arr1) + ft_arrlen(arr2) + 1,
 			sizeof(char *));
 	if (!joined_arr)

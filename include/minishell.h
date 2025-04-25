@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 14:08:59 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:48:52 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ void			*copy_var(void	*var);
 void			init_env(t_data *data, char **envp);
 //utils/error_handlings.c
 void			ft_error(t_data *data, const char *message);
-int				check_file_error(t_data *data, char **parsed, char type);
+int				check_file_error(t_data *data, char *parsed, char type);
 //utils//expand_utils.c
 char			*dry_run_allocate(t_data *data, char *str, int *isescaped);
 void			dry_run_skip_var(t_data *data, char *str, size_t *new_size,
@@ -240,6 +240,8 @@ void			free_tokens(t_token *head);
 t_token			*copy_token(t_data *data, t_token *token);
 void			push_back_token(t_token **list, t_token *token);
 void			print_tokens(t_token *tokens);
+//utils/variable_utils.c
+char			*check_varname(t_data *data, char *str, int name_len);
 //utils/variables.c
 void			new_var(t_data *data, char *str);
 void			add_var(t_data *data, t_list **env, char *str, size_t name_len);
