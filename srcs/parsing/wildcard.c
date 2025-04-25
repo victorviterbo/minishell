@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/19 01:44:37 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/25 19:31:23 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
 		parsed_arr = substitute_wildcard(data, parsed, isescaped);
 		if (data->exit_status == EXIT_FAILURE)
 			return (free(parsed), NULL);
-		free(parsed);
 	}
-	if (!parsed_arr && data->exit_status == EXIT_SUCCESS)
+	if (!parsed_arr)
 	{
 		parsed_arr = ft_str_to_arr(parsed);
 		if (!parsed_arr)
 			return (ft_error(data, "parsing: memory allocation failed"),
 				free(parsed), NULL);
 	}
+	else
+		free(parsed);
 	return (parsed_arr);
 }
 
@@ -102,7 +103,9 @@ char	**filter_sort_matches(t_data *data, char **candidates, char *pattern,
 	i = 0;
 	while (candidates[i])
 	{
-		if (candidates[i][0] == '.' && pattern[0] != '.')
+		if ((candidates[i][0] == '.' && pattern[0] != '.')
+			|| !ft_strcmp(candidates[i], ".")
+			|| !ft_strcmp(candidates[i], ".."))
 		{
 			i++;
 			continue ;

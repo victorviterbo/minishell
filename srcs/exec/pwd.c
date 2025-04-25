@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkashi <tkashi@student.42lausanne.ch>      +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:22:20 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/24 04:38:24 by tkashi           ###   ########.fr       */
+/*   Updated: 2025/04/25 19:18:43 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	ft_pwd(t_data *data, char **args, int argc)
 	size_t	printed;
 
 	(void)args;
-	if (argc > 1)
-		return (ft_error(data, "pwd: too many arguments"),EXIT_FAILURE);
+	(void)argc;
 	current_path = ft_get_current_path(data);
 	if (!current_path)
 	{

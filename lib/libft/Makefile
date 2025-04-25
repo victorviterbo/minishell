@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+         #
+#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/04/19 15:04:19 by vbronov          ###   ########.fr        #
+#    Updated: 2025/04/21 12:05:47 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ STRINGS				=	ft_isfloat.c ft_isint.c ft_split.c ft_strchr.c \
 						ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c \
 						ft_substr.c ft_coalesce_char.c ft_strtrim_char.c \
 						ft_count_charocc.c ft_count_strocc.c ft_str_replace.c \
-						ft_strcmp.c
+						ft_strcmp.c ft_stricmp.c ft_strnicmp.c
 SRCS_STRINGS		=	$(addprefix strings/, $(STRINGS))
 OBJS_STRINGS	 	=	$(patsubst strings/%.c, objs/%.o, $(SRCS_STRINGS))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/20 03:33:50 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/25 19:30:31 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,10 +189,8 @@ char			**parse_str(t_data *data, char *str, t_token_type type);
 char			*expand_var(t_data *data, char *str, int *isescaped);
 int				replace_var(t_data *data, char *str, char *expanded, size_t *j);
 char			*get_varname(t_data *data, char *str, size_t *j);
-char			*dry_run_allocate(t_data *data, char *str, int *isescaped);
-void			dry_run_skip_var(t_data *data, char *str, size_t *new_size,
-					size_t *i);
 char			*parse_varname(t_data *data, char *str, size_t *j);
+bool			need_expand(t_data *data, char *str, int *isescaped, int j);
 //parsing/lexer.c
 void			lexer(t_data *data, char *str);
 //parsing/syntax_check.c
@@ -225,16 +223,28 @@ void			*copy_var(void	*var);
 void			init_env(t_data *data, char **envp);
 //utils/error_handlings.c
 void			ft_error(t_data *data, const char *message);
+void			error_execve_format(t_data *data);
+//utils//expand_utils.c
+char			*dry_run_allocate(t_data *data, char *str, int *isescaped);
+void			dry_run_skip_var(t_data *data, char *str, size_t *new_size,
+					size_t *i);
 //utils/parsing_utils.c
 int				*parse_quote_positions(t_data *data, char *str);
 void			remove_quotes(char *str, int *isescaped);
 size_t			go_to_next(char *str, char *chars, size_t i);
+//path_utils.c
+bool			ft_isdirectory(char *path);
+int				check_file_error(t_data *data, char *parsed, char type);
+char			*get_absolute_path(t_data *data, char *path);
+char			*get_absolute_path_backup_method(t_data *data, char *path);
 //utils/token_utils.c
 void			free_token(void *content);
 void			free_tokens(t_token *head);
 t_token			*copy_token(t_data *data, t_token *token);
 void			push_back_token(t_token **list, t_token *token);
 void			print_tokens(t_token *tokens);
+//utils/variable_utils.c
+char			*check_varname(t_data *data, char *str, int name_len);
 //utils/variables.c
 void			new_var(t_data *data, char *str);
 void			add_var(t_data *data, t_list **env, char *str, size_t name_len);
@@ -257,5 +267,7 @@ const char		*node_type_to_string(enum e_token_type type);
 //utils/syntax_check_utils.c
 bool			is_ope(t_token *token);
 int				check_parenthesis(t_data *data, int parlvl, bool final_check);
+int				check_opening_par(t_data *data, t_token *token, t_token *last);
+int				check_closing_par(t_data *data, t_token *token, t_token *last);
 
 #endif

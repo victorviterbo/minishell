@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:10:43 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/19 17:37:52 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/21 20:32:40 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,13 @@ token `%s'\n", SHELL_NAME, token->next->str);
 
 static	int	check_par(t_data *data, t_token *token, t_token *last, int *parlvl)
 {
-	*parlvl += (token->type == OPENPAR);
-	*parlvl -= (token->type == CLOSEPAR);
+	*parlvl += (token->type == OPENPAR) - (token->type == CLOSEPAR);
 	if (check_parenthesis(data, *parlvl, false) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	if (token->type == OPENPAR && !token->next)
-		return (ft_error(data, "syntax error near unexpected token `('"),
-			EXIT_FAILURE);
-	if (token->type == OPENPAR && last != token
-		&& (last->type == WORD || last->type == CMD))
-	{
-		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected \
-token `%s'\n", SHELL_NAME, token->next->str);
-		data->exit_status = EXIT_FAILURE;
-		return (EXIT_FAILURE);
-	}
-	else if (token->type == CLOSEPAR && token->next && !is_ope(token->next))
-	{
-		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected \
-token `%s'\n", SHELL_NAME, token->next->str);
-		data->exit_status = EXIT_FAILURE;
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+	if (token->type == OPENPAR)
+		return (check_opening_par(data, token, last));
+	else
+		return (check_closing_par(data, token, last));
 }
 
 static	int	check_redi(t_data *data, t_token *token)

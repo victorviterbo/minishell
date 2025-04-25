@@ -1,11 +1,11 @@
-test minishell  to fix: (echo with dollars and dot)
+[200~test minishell  to fix: (echo with dollars and dot)
 
 
-$ echo $HOME
-$ echo $HOMEsdjhfk$HOME
-$ echo $HOME.sdjhfk$HOME
+$ echo /home/vviterbo
+$ echo /home/vviterbo
+$ echo /home/vviterbo.sdjhfk/home/vviterbo
 
-"."
+.
 
 bash : 
 bash: .: filename argument required
@@ -18,7 +18,7 @@ minishell: /usr/local/sbin/.: Permission denied
 echo $
 
 
-cat >$x
+cat >
 
 <file1
 
@@ -31,7 +31,4 @@ minishell$ pwd
 minishell$ mkdir test
 minishell$ cd test/
 minishell$ rm -rf ../test
-minishell$ cd .
-
-
-
+minishell$ cd .~

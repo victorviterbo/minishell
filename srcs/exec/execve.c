@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/18 16:15:06 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/25 19:29:10 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	get_exec_path(t_data *data, char **args)
 	if (!args || !args[0] || args[0][0] == '/' || !ft_strncmp(args[0], "./", 2)
 		|| !ft_strncmp(args[0], "../", 3))
 		return ;
+	if (!ft_strcmp(args[0], "."))
+		return (error_execve_format(data));
 	path_list = get_var(data, "PATH");
 	if (data->exit_status)
 		return ;
@@ -57,7 +59,7 @@ char	*find_exec(t_data *data, char *path_list, char *cmd)
 		if (!full_path)
 			return (ft_free_array((void **)paths, ft_arrlen(paths)),
 				ft_error(data, "execve: memory allocation failed"), NULL);
-		if (access(full_path, X_OK) == 0)
+		if (!ft_isdirectory(full_path) && access(full_path, X_OK) == 0)
 			return (ft_free_array((void **)paths, ft_arrlen(paths)), free(cmd),
 				full_path);
 		free(full_path);
@@ -101,6 +103,14 @@ int	exec_non_builtin(t_data *data, char **args)
 	if (pid == 0)
 	{
 		get_exec_path(data, args);
+		if (!data->exit_status && ft_isdirectory(args[0]))
+		{
+			data->exit_status = 126;
+			ft_fprintf(STDERR_FILENO,
+				"%s: %s: Is a directory\n", SHELL_NAME, args[0]);
+		}
+		if (data->exit_status)
+			exit (data->exit_status);
 		set_signal(SIGINT, SIG_DFL);
 		set_signal(SIGQUIT, SIG_DFL);
 		if (data->exit_status == EXIT_SUCCESS)

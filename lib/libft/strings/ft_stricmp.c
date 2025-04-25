@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_to_arr.c                                    :+:      :+:    :+:   */
+/*   ft_stricmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/09 20:27:12 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 13:12:21 by vviterbo         ###   ########.fr       */
+/*   Created: 2025/01/27 14:09:49 by vviterbo          #+#    #+#             */
+/*   Updated: 2025/04/21 12:04:21 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_str_to_arr(char *str);
+int	ft_stricmp(const char *s1, const char *s2);
 
-char	**ft_str_to_arr(char *str)
+int	ft_stricmp(const char *s1, const char *s2)
 {
-	char	**arr;
-
-	arr = ft_calloc(2, sizeof(char *));
-	if (!arr)
-		return (NULL);
-	arr[0] = str;
-	arr[1] = NULL;
-	return (arr);
+	if (!s1 && !s2)
+		return (0);
+	if (!s1)
+		return (-1);
+	if (!s2)
+		return (1);
+	return (ft_strnicmp(s1, s2, ft_max(ft_strlen(s1), ft_strlen(s2))));
 }

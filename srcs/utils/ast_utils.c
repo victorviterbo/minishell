@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:14:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/15 15:03:04 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:43:05 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,12 @@ unsigned int	token_list_size(t_token *list)
 
 char	**token_list_to_args(t_data *data, t_token *token_list)
 {
-	unsigned int	i;
 	char			**parsed_arr;
 	char			**args;
 
 	args = ft_calloc(1, sizeof(char *));
 	if (!args)
 		return (ft_error(data, "malloc: memory allocation failed"), NULL);
-	i = 0;
 	while (token_list)
 	{
 		parsed_arr = parse_str(data, token_list->str, token_list->type);
@@ -95,7 +93,6 @@ char	**token_list_to_args(t_data *data, t_token *token_list)
 		if (!args)
 			return (NULL);
 		token_list = token_list->next;
-		i++;
 	}
 	return (args);
 }

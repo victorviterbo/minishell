@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 12:33:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/19 01:56:10 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/21 12:04:52 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ char		*ft_str_replace(char *str, char *to_repl, char *repl_w);
 char		*ft_strchr(const char *s, int c);
 int			ft_strcmp(const char *s1, const char *s2);
 char		*ft_strdup(const char *s1);
+int			ft_stricmp(const char *s1, const char *s2);
 void		ft_striteri(char *s, void (*f)(unsigned int, char *s));
 char		*ft_strjoin_ip(char const *s1, char const *s2,
 				t_Inplace_Type in_place);
@@ -167,6 +168,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t		ft_strlen(const char *str);
 char		*ft_strmapi(char const *s, char (*f) (unsigned int, char));
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			ft_strnicmp(const char *s1, const char *s2, size_t n);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char		*ft_strrchr(const char *s, int c);
 char		*ft_strtrim_char(char	*str, char c, bool inplace);
