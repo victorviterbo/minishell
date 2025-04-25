@@ -6,81 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:20:33 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 18:41:20 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 19:30:55 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	free_arrs(char **arr1, char **arr2, t_Inplace_Type inplace)
-{
-	if (arr1 && (inplace == FREE_S1 || inplace == FREE_S1S2))
-		ft_free_array((void **)arr1, ft_arrlen(arr1));
-	if (arr2 && (inplace == FREE_S2 || inplace == FREE_S1S2))
-		ft_free_array((void **)arr2, ft_arrlen(arr2));
-	return ;
-}
-
-static void	append_arr(char **arr1, char **arr2)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (arr1[i])
-		i++;
-	while (arr2[j])
-	{
-		arr1[i] = arr2[j];
-		i++;
-		j++;
-	}
-	return ;
-}
-
-static void	remove_empty_strs(char **arr)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (arr[i])
-	{
-		if (ft_strlen(arr[i]))
-		{
-			arr[j] = arr[i];
-			j++;
-		}
-		i++;
-	}
-	arr[j] = NULL;
-	return ;
-}
-
-char	**merge_strarr(t_data *data, char **arr1, char **arr2,
-	t_Inplace_Type inplace)
-{
-	char	**joined_arr;
-
-	if (!arr1 || !arr2)
-		return (free_arrs(arr1, arr2, inplace), NULL);
-	remove_empty_strs(arr1);
-	remove_empty_strs(arr2);
-	joined_arr = ft_calloc(ft_arrlen(arr1) + ft_arrlen(arr2) + 1,
-			sizeof(char *));
-	if (!joined_arr)
-		return (ft_error(data, "argument merge: memory allocation failed"),
-			free_arrs(arr1, arr2, inplace), NULL);
-	append_arr(joined_arr, arr1);
-	append_arr(joined_arr, arr2);
-	if (inplace == FREE_S1 || inplace == FREE_S1S2)
-		free(arr1);
-	if (inplace == FREE_S2 || inplace == FREE_S1S2)
-		free(arr2);
-	return (joined_arr);
-}
 
 int	handle_match(t_data *data, t_list **matches, char *new_match)
 {
@@ -125,4 +55,37 @@ bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
 	if ((pattern[i] == '*' && isescaped != IS_NOT_QUOTED) && !pattern[i + 1])
 		return (true);
 	return (!candidate[j] && !pattern[i]);
+}
+
+static void	no_free(void *content)
+{
+	(void)content;
+	return ;
+}
+
+char	**sort_matches(t_data *data, t_list **matches)
+{
+	t_list	*current;
+	t_list	*best;
+	char	**sorted_args;
+
+	sorted_args = NULL;
+	while (*matches)
+	{
+		current = *matches;
+		best = current;
+		while (current)
+		{
+			if (ft_stricmp(current->content, best->content) < 0)
+				best = current;
+			current = current->next;
+		}
+		sorted_args = ft_array_append(sorted_args, best->content, false);
+		if (!sorted_args)
+			return (ft_error(data, "wildcard: memory allocation failed"),
+				ft_lstclear(matches, free), NULL);
+		ft_lstpop(matches, best, no_free);
+	}
+	free(matches);
+	return (sorted_args);
 }

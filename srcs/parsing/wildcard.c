@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 13:17:06 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 19:31:23 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ char	**filter_sort_matches(t_data *data, char **candidates, char *pattern,
 	while (candidates[i])
 	{
 		if ((candidates[i][0] == '.' && pattern[0] != '.')
-			|| !ft_strcmp(candidates[i], ".") || !ft_strcmp(candidates[i], ".."))
+			|| !ft_strcmp(candidates[i], ".")
+			|| !ft_strcmp(candidates[i], ".."))
 		{
 			i++;
 			continue ;

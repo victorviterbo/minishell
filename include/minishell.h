@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 16:48:52 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 19:30:31 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ void			*copy_var(void	*var);
 void			init_env(t_data *data, char **envp);
 //utils/error_handlings.c
 void			ft_error(t_data *data, const char *message);
-int				check_file_error(t_data *data, char *parsed, char type);
+void			error_execve_format(t_data *data);
 //utils//expand_utils.c
 char			*dry_run_allocate(t_data *data, char *str, int *isescaped);
 void			dry_run_skip_var(t_data *data, char *str, size_t *new_size,
@@ -234,6 +234,9 @@ void			remove_quotes(char *str, int *isescaped);
 size_t			go_to_next(char *str, char *chars, size_t i);
 //path_utils.c
 bool			ft_isdirectory(char *path);
+int				check_file_error(t_data *data, char *parsed, char type);
+char			*get_absolute_path(t_data *data, char *path);
+char			*get_absolute_path_backup_method(t_data *data, char *path);
 //utils/token_utils.c
 void			free_token(void *content);
 void			free_tokens(t_token *head);

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 02:07:40 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/21 12:55:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/25 19:01:48 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ token `%s'\n", SHELL_NAME, token->next->str);
 	}
 	if (token != last && last->type == OPENPAR)
 		return (ft_error(data, " syntax error near unexpected token `)'"),
-				EXIT_FAILURE);
+			EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
