@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 20:21:35 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 04:10:21 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/26 15:37:33 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	pop_var(t_data *data, char *varname)
 	t_list	*prev;
 	t_var	*var;
 
-	if (!data->envp || !varname)
+	if (!data->envp || !varname || !ft_strcmp(varname, "_"))
 		return ;
 	curr = *(data->envp);
 	prev = NULL;

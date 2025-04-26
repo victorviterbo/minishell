@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 19:29:10 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 16:33:11 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	get_exec_path(t_data *data, char **args)
 	if (!ft_strcmp(args[0], "."))
 		return (error_execve_format(data));
 	path_list = get_var(data, "PATH");
-	if (data->exit_status)
+	if (!path_list)
 		return ;
 	full_path = find_exec(data, path_list, args[0]);
 	free(path_list);
@@ -70,7 +70,7 @@ char	*find_exec(t_data *data, char *path_list, char *cmd)
 
 int	ft_execve(t_data *data, char **args)
 {
-	if (access(args[0], X_OK) == -1)
+	if (access(args[0], X_OK) != 0)
 	{
 		if (errno == ENOENT)
 			return (ft_error(data, args[0]), data->exit_status = 127);

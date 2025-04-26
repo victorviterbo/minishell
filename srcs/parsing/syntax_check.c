@@ -3,26 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:10:43 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 03:34:04 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/26 15:39:37 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	int	check_ope(t_data *data, t_token *token)
+static	int	check_ope(t_data *data, t_token *token, t_token *last)
 {
-	if (!token->next)
-		return (ft_error(data, "syntax error near unexpected token `newline'"),
-			EXIT_FAILURE);
+	if (!last)
+	{
+		ft_fprintf(STDERR_FILENO,
+			"%s: syntax error near unexpected token `%s'\n",
+			SHELL_NAME, token->str);
+		data->exit_status = EXIT_NUMARG;
+		return (EXIT_FAILURE);
+	}
+	else if (!token->next)
+	{
+		ft_fprintf(STDERR_FILENO,
+			"%s: syntax error near unexpected token `newline'\n",
+			SHELL_NAME, token->str);
+		data->exit_status = EXIT_NUMARG;
+		return (EXIT_FAILURE);
+	}
 	else if (is_ope(token->next))
 	{
 		ft_fprintf(STDERR_FILENO,
 			"%s: syntax error near unexpected token `%s'\n",
 			SHELL_NAME, token->next->str);
-		data->exit_status = EXIT_FAILURE;
+		data->exit_status = EXIT_NUMARG;
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -42,14 +55,18 @@ static	int	check_par(t_data *data, t_token *token, t_token *last, int *parlvl)
 static	int	check_redi(t_data *data, t_token *token)
 {
 	if (!token->next)
-		return (ft_error(data, "syntax error near unexpected token `newline'"),
-			EXIT_FAILURE);
+	{
+		ft_fprintf(STDERR_FILENO,
+			"%s: syntax error near unexpected token `newline'", SHELL_NAME);
+		data->exit_status = EXIT_NUMARG;
+		return (EXIT_FAILURE);
+	}
 	else if (token->next->type != WORD)
 	{
 		ft_fprintf(STDERR_FILENO,
 			"%s: syntax error near unexpected token `%s'\n",
 			SHELL_NAME, token->next->str);
-		data->exit_status = EXIT_FAILURE;
+		data->exit_status = EXIT_NUMARG;
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -61,12 +78,12 @@ int	syntax_check(t_data *data, t_token *tokens)
 	t_token	*last;
 
 	parlvl = 0;
-	last = tokens;
+	last = NULL;
 	while (tokens)
 	{
 		if (is_ope(tokens))
 		{
-			if (check_ope(data, tokens) == EXIT_FAILURE)
+			if (check_ope(data, tokens, last) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
 		else if (tokens->type == OPENPAR || tokens->type == CLOSEPAR)
