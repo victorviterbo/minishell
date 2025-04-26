@@ -6,13 +6,11 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:50:47 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/07 13:32:52 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:02:27 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	init_env(t_data *data, char **envp);
 
 void	init_env(t_data *data, char **envp)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 03:01:21 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/26 22:12:14 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*handle_special_paths(t_data *data, char *path)
 	return (special_path);
 }
 
-static int	ft_update_oldpwd(t_data *data)
+int	ft_update_oldpwd(t_data *data)
 {
 	char	*pwd;
 
@@ -63,10 +63,16 @@ static int	ft_update_oldpwd(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	ft_update_pwd(t_data *data, const char *abspath)
+int	ft_update_pwd(t_data *data, char *abspath)
 {
 	char	*pwd;
 
+	if (!abspath)
+	{
+		abspath = ft_get_current_path(data);
+		if (!abspath)
+			return (data->exit_status = EXIT_FAILURE, EXIT_FAILURE);
+	}
 	pwd = ft_strjoin("PWD=", abspath);
 	if (!pwd)
 	{
