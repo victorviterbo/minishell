@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 16:36:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/13 13:37:16 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 23:28:54 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	ft_env(t_data *data, char **args, int argc)
 	{
 		curr_var = current->content;
 		if (!curr_var->value)
+		{
+			current = current->next;
 			continue ;
+		}
 		if ((size_t)ft_printf("%s=%s\n", curr_var->name, curr_var->value)
 			!= (ft_strlen(curr_var->name) + ft_strlen(curr_var->value) + 2))
 			return (ft_error(data, "env: printing error"), EXIT_FAILURE);

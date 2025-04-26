@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 16:33:11 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 00:06:11 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,11 @@ int	ft_execve(t_data *data, char **args)
 	{
 		data->exit_status = errno;
 		if (errno == ENOENT)
-			return (ft_error(data, args[0]), data->exit_status = 127);
+			return (ft_error(data, args[0]), free_all(data), data->exit_status = 127);
 		else if (errno == EACCES)
-			return (ft_error(data, args[0]), data->exit_status = 126);
+			return (ft_error(data, args[0]), free_all(data), data->exit_status = 126);
 		else
-			return (ft_error(data, args[0]), data->exit_status);
+			return (ft_error(data, args[0]), free_all(data), data->exit_status);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -110,7 +110,12 @@ int	exec_non_builtin(t_data *data, char **args)
 				"%s: %s: Is a directory\n", SHELL_NAME, args[0]);
 		}
 		if (data->exit_status)
+		{
+			free_all(data);
+			if (args)
+				ft_free_array((void**)args, ft_arrlen(args));
 			exit (data->exit_status);
+		}
 		set_signal(SIGINT, SIG_DFL);
 		set_signal(SIGQUIT, SIG_DFL);
 		if (data->exit_status == EXIT_SUCCESS)
