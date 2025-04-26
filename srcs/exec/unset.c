@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 20:21:35 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/10 17:23:09 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 04:10:21 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	pop_var(t_data *data, char *varname)
 		if (ft_strcmp(var->name, varname) == 0)
 		{
 			if (!prev)
-				data->envp = &curr->next;
+				*(data->envp) = curr->next;
 			else
 				prev->next = curr->next;
 			ft_lstdelone(curr, free_var);

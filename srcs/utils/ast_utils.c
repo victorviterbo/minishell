@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:14:18 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/24 18:43:05 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 03:39:15 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ t_pfunc	is_builtin(char *str, t_builtin *builtin)
 	while (builtin[i].name)
 	{
 		name_len = ft_strlen(builtin[i].name);
-		if (ft_strncmp(str, builtin[i].name, name_len) == 0 && \
-			str[name_len] == '\0')
+		if (ft_strncmp(str, builtin[i].name, name_len) == 0
+			&& str[name_len] == '\0')
 			return (builtin[i].func);
 		i++;
 	}

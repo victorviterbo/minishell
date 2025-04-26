@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 19:33:06 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 03:01:21 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*handle_special_paths(t_data *data, char *path)
 {
 	char	*special_path;
 
-	if (!path || !ft_strcmp(path, "~")) //TODO somehow in bash you can unset HOME and still do "cd ~" but not "cd" ???
+	if (!path || !ft_strcmp(path, "~"))
 	{
 		special_path = get_var(data, "HOME");
 		if (!special_path)

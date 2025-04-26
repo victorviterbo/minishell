@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 02:26:46 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/21 09:28:55 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 03:30:53 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_exit(t_data *data, char **args, int argc)
 	{
 		if (!is_valid_number(args[1]))
 		{
-			ft_fprintf(2, "%s: exit: %s: numeric argument required\n", \
+			ft_fprintf(2, "%s: exit: %s: numeric argument required\n",
 				SHELL_NAME, args[1]);
 			data->exit_status = EXIT_NUMARG;
 		}
