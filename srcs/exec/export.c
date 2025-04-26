@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 21:08:58 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 16:24:17 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:19:45 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_export(t_data *data, char **args, int argc)
 {
 	int	i;
+	int	ret;
 
 	if (!data->envp)
 	{
@@ -24,14 +25,15 @@ int	ft_export(t_data *data, char **args, int argc)
 	if (argc == 1)
 		return (export_no_args(data));
 	i = 1;
+	ret = EXIT_SUCCESS;
 	while (i < argc)
 	{
 		new_var(data, args[i]);
 		if (data->exit_status)
-			return (EXIT_FAILURE);
+			ret = EXIT_FAILURE;
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (ret);
 }
 
 static int	export_print_node(t_data *data, t_list *best)
