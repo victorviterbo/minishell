@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 16:54:05 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:17:13 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,12 @@ static int	init_data(t_data *data, char **envp)
 
 static void	process_line(t_data *data, char *line)
 {
-	ft_printf("coucou %s\n", line);
 	lexer(data, line);
-	ft_printf("coucou %s\n", line);
 	if (data->tokens)
 	{
 		data->last_exit_status = data->exit_status;
 		data->exit_status = EXIT_SUCCESS;
 		add_history(line);
-		ft_printf("DEBUG  %i\n", DEBUG);
 		if (DEBUG)
 			print_tokens(data->tokens);
 		if (syntax_check(data, data->tokens) != EXIT_SUCCESS)
