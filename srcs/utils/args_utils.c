@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 19:02:21 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 19:03:31 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 02:17:28 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void	remove_empty_strs(char **arr)
 			arr[j] = arr[i];
 			j++;
 		}
+		else
+			free(arr[i]);
 		i++;
 	}
 	arr[j] = NULL;

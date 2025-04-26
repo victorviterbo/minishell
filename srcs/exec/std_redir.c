@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   std_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 01:51:13 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/25 18:29:00 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 03:51:53 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,12 @@ static int	redirect(t_data *data, int redi_fd, char *path, int flags)
 
 	fd = open(path, flags, 0664);
 	if (fd == -1)
-		return (ft_error(data, "open"), data->exit_status);
+	{
+		ft_fprintf(STDERR_FILENO, "%s: %s: %s\n", SHELL_NAME, path,
+			strerror(errno));
+		data->exit_status = EXIT_FAILURE;
+		return (EXIT_FAILURE);
+	}
 	if (dup2(fd, redi_fd) == -1)
 		ft_error(data, "dup2");
 	close(fd);

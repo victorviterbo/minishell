@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   build_ast_helpers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 00:38:10 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/24 17:43:48 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 03:31:57 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	init_node_redirs(t_data *data, t_token *start, t_node *cmd_node, \
+static int	init_node_redirs(t_data *data, t_token *start, t_node *cmd_node,
 	t_token *op_token)
 {
 	t_token	*file_token;
 
 	if (start->next->type != WORD)
 	{
-		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected \
-token '%s'\n", SHELL_NAME, start->next->str);
+		ft_fprintf(STDERR_FILENO,
+			"%s: syntax error near unexpected token '%s'\n",
+			SHELL_NAME, start->next->str);
 		data->exit_status = EXIT_NUMARG;
 		return (FALSE);
 	}
@@ -73,7 +74,7 @@ t_node	*handle_cmd(t_data *data, t_token *start, t_token *end)
 	return (new_node);
 }
 
-t_node	*handle_operator(t_data *data, t_token *start, t_token *end, \
+t_node	*handle_operator(t_data *data, t_token *start, t_token *end,
 	t_token *op_token)
 {
 	t_node			*new_node;

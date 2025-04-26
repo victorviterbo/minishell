@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 02:07:40 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/25 19:01:48 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 03:37:37 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ int	check_opening_par(t_data *data, t_token *token, t_token *last)
 			EXIT_FAILURE);
 	if (last != token && (last->type == WORD || last->type == CMD))
 	{
-		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected \
-token `%s'\n", SHELL_NAME, token->next->str);
+		ft_fprintf(STDERR_FILENO,
+			"%s: syntax error near unexpected token `%s'\n",
+			SHELL_NAME, token->next->str);
 		data->exit_status = EXIT_FAILURE;
 		return (EXIT_FAILURE);
 	}
@@ -47,8 +48,9 @@ int	check_closing_par(t_data *data, t_token *token, t_token *last)
 {
 	if (token->next && token->next->type == WORD)
 	{
-		ft_fprintf(STDERR_FILENO, "%s: syntax error near unexpected \
-token `%s'\n", SHELL_NAME, token->next->str);
+		ft_fprintf(STDERR_FILENO,
+			"%s: syntax error near unexpected token `%s'\n",
+			SHELL_NAME, token->next->str);
 		data->exit_status = EXIT_FAILURE;
 		return (EXIT_FAILURE);
 	}

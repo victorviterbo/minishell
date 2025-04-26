@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_ast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 11:47:44 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/21 09:29:45 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 03:41:51 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ t_token	*skip_parenthesis(t_data *data, t_token *token)
 		token = token->next;
 	}
 	if (scope > 0)
-		return (ft_error(data, "syntax error near unexpected token `('"), \
-				data->exit_status = EXIT_NUMARG, NULL);
+		return (ft_error(data, "syntax error near unexpected token `('"),
+			data->exit_status = EXIT_NUMARG, NULL);
 	if (scope < 0)
-		return (ft_error(data, "syntax error near unexpected token `)'"), \
-				data->exit_status = EXIT_NUMARG, NULL);
+		return (ft_error(data, "syntax error near unexpected token `)'"),
+			data->exit_status = EXIT_NUMARG, NULL);
 	return (NULL);
 }
 

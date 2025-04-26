@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:41:42 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 19:28:52 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 03:40:17 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ void	ft_error(t_data *data, const char *message)
 void	error_execve_format(t_data *data)
 {
 	data->exit_status = EXIT_NUMARG;
-	ft_fprintf(STDERR_FILENO, ".: filename argument required\n.: usage: . \
-		filename [arguments]\n");
+	ft_fprintf(STDERR_FILENO,
+		"%s: .: filename argument required\n"
+		".: usage: . filename [arguments]\n",
+		SHELL_NAME);
 	return ;
 }

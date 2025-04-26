@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:55:38 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 19:41:38 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 02:35:40 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	new_var(t_data *data, char *str)
 
 	first_equal = ft_strchr(str, '=');
 	append = false;
-	if (first_equal)
+	if (first_equal && first_equal != str)
 		append = (*(first_equal - 1) == '+');
 	if (first_equal)
 		name_len = first_equal - str - append;

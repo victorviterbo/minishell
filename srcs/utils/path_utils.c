@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 14:24:23 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 19:41:57 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 03:29:21 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ static int	check_path_auth(t_data *data, char *path)
 		ft_fprintf(STDERR_FILENO, "%s: %s: %s\n", SHELL_NAME, path,
 			strerror(errno));
 		data->exit_status = EXIT_FAILURE;
+		free(parent_path);
 		return (data->exit_status);
 	}
+	free(parent_path);
 	return (EXIT_SUCCESS);
 }
 
