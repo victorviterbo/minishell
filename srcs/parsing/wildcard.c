@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 19:31:23 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 01:10:28 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
 	char	**parsed_arr;
 
 	parsed_arr = NULL;
-	if ((type == STDIN || type == WORD) && ft_strchr(parsed, '*'))
+	if (STDOUT <= type && type <= STDIN && !ft_strcmp(parsed, "*"))
+		return (ft_error(data, "*: ambiguous redirect"), free(parsed), NULL);
+	else if ((type == STDIN || type == WORD) && ft_strchr(parsed, '*'))
 	{
 		parsed_arr = substitute_wildcard(data, parsed, isescaped);
 		if (data->exit_status == EXIT_FAILURE)
