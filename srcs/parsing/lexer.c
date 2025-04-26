@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:27:53 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/17 19:51:18 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 17:17:03 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static void	find_token_end(char *str, size_t *j, char type)
 		return ;
 	}
 	while (str[*j] && !ft_isspace(str[*j])
-		&& ft_strchr("|&()<>", str[*j]) == NULL)
+		&& ft_strchr("|()<>", str[*j]) == NULL
+		&& ft_strncmp(str + *j, "&&", 2))
 	{
 		if (str[*j] == '\'' || str[*j] == '"')
 		{

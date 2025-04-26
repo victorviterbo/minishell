@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:20:33 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 19:30:55 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 15:24:53 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
 	j = 0;
 	while (pattern[i] && candidate[j])
 	{
-		is_wildcard = (pattern[i] == '*' && isescaped != IS_NOT_QUOTED);
+		is_wildcard = (pattern[i] == '*' && isescaped[i] == IS_NOT_QUOTED);
 		while (is_wildcard && pattern[i + 1] && pattern[i + 1] == '*')
 			i++;
 		if (!is_wildcard && pattern[i] != candidate[j])
@@ -52,7 +52,7 @@ bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
 		i += (pattern[i] != '*');
 		j += 1;
 	}
-	if ((pattern[i] == '*' && isescaped != IS_NOT_QUOTED) && !pattern[i + 1])
+	if ((pattern[i] == '*' && isescaped[i] == IS_NOT_QUOTED) && !pattern[i + 1])
 		return (true);
 	return (!candidate[j] && !pattern[i]);
 }

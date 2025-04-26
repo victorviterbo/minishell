@@ -1,0 +1,12 @@
+bin
+ignore_readline_leaks.supp
+include
+lib
+Makefile
+minishell
+minishell_bonus
+minishell_tester
+objs
+outfile01
+srcs
+test_to_do.txt
