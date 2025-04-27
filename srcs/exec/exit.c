@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 02:26:46 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/26 03:30:53 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 03:32:02 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,15 @@ int	ft_exit(t_data *data, char **args, int argc)
 			ft_fprintf(2, "%s: exit: %s: numeric argument required\n",
 				SHELL_NAME, args[1]);
 			data->exit_status = EXIT_NUMARG;
+			data->last_exit_status = data->exit_status;
 		}
 		else
+		{
 			data->exit_status = ft_atoi(args[1]) & 0xFF;
+			data->last_exit_status = data->exit_status;
+		}
 	}
 	free_all(data);
 	ft_free_array((void **)args, argc);
-	exit(data->exit_status);
+	exit(data->last_exit_status);
 }

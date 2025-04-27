@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:27:53 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/26 17:17:03 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:04:05 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	lexer(t_data *data, char *str)
 		if (!current)
 			return (lexer_error(data, current));
 		current->type = get_token_type(&str[j]);
+		current->heredoc_fd = -1;
 		find_token_end(str, &j, current->type);
 		current->str = ft_substr(str, i, j - i);
 		if (!current->str)
