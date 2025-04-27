@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 18:55:19 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 20:16:53 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_var(t_data *data, char *str, int *isescaped)
+char	*expand_var(t_data *data, char *str, t_quotes *quotes)
 {
 	size_t	i;
 	size_t	j;
 	char	*expanded;
 
-	expanded = dry_run_allocate(data, str, isescaped);
+	expanded = dry_run_allocate(data, str, quotes);
 	if (!expanded)
 		return (NULL);
 	i = 0;
 	j = 0;
 	while (str[j] && data->exit_status == EXIT_SUCCESS)
 	{
-		if (str[j] == '$' && need_expand(data, str, isescaped, j))
+		if (str[j] == '$' && need_expand(data, str, quotes->old, j))
 		{
 			if (replace_var(data, str, expanded, &j) != EXIT_SUCCESS)
 				return (free(expanded), NULL);
-			i = ft_strlen(expanded);
 		}
 		else if (data->exit_status == EXIT_SUCCESS)
 		{
 			expanded[i] = str[j];
-			i++;
+			quotes->new[i] = quotes->old[j];
 			j++;
 		}
+		i = ft_strlen(expanded);
 	}
 	return (expanded);
 }
@@ -56,9 +56,8 @@ int	replace_var(t_data *data, char *str, char *expanded, size_t *j)
 	if (!varvalue && data->exit_status == EXIT_SUCCESS)
 		varvalue = ft_strdup("");
 	if (!varvalue)
-		return (ft_error(data,
-				"variable substitution: memory allocation failed"),
-			EXIT_FAILURE);
+		return (ft_error(data, "variable substitution: memory allocation\
+ failed"), EXIT_FAILURE);
 	ft_strlcat(expanded, varvalue,
 		ft_strlen(expanded) + ft_strlen(varvalue) + 1);
 	free(varvalue);

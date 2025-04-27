@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 03:27:42 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/27 13:58:54 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 19:25:40 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	handle_child_expansion(t_data *data, char **line, int is_quoted)
 	isescaped = ft_calloc(ft_strlen(*line) + 1, sizeof(int));
 	if (!isescaped)
 		return ;
-	expanded = expand_var(data, *line, isescaped);
+	expanded = expand_var_hd(data, *line, isescaped);
 	if (expanded)
 	{
 		free(*line);

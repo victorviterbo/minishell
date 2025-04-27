@@ -6,7 +6,7 @@
 #    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/04/27 11:24:09 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/04/27 19:21:10 by vviterbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ EXEC_F		=	cd.c echo.c pwd.c export.c unset.c env.c execve.c exit.c \
 SRCS_EXEC	=	$(addprefix exec/, $(EXEC_F))
 
 PARSING_F		= 	expand.c parse.c build_ast_helpers.c build_ast.c lexer.c \
-					syntax_check.c wildcard.c
+					syntax_check.c wildcard.c parse_heredoc.c
 SRCS_PARSING	=	$(addprefix parsing/, $(PARSING_F))
 
 UTILS_F		= 	error_utils.c variables.c env_to_arr.c parsing_utils.c \
