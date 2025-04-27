@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/27 19:11:26 by vviterbo         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/27 18:55:19 by vbronov          ###   ########.fr       */
->>>>>>> ddeed62223f51692da8e6e51a0d47ec0ea508560
+/*   Updated: 2025/04/27 20:08:55 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +57,8 @@ int	replace_var(t_data *data, char *str, char *expanded, size_t *j)
 	if (!varvalue && data->exit_status == EXIT_SUCCESS)
 		varvalue = ft_strdup("");
 	if (!varvalue)
-<<<<<<< HEAD
 		return (ft_error(data, "variable substitution: memory allocation\
  failed"), EXIT_FAILURE);
-=======
-		return (ft_error(data,
-				"variable substitution: memory allocation failed"),
-			EXIT_FAILURE);
->>>>>>> ddeed62223f51692da8e6e51a0d47ec0ea508560
 	ft_strlcat(expanded, varvalue,
 		ft_strlen(expanded) + ft_strlen(varvalue) + 1);
 	free(varvalue);
