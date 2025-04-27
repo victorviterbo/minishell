@@ -6,18 +6,21 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 15:20:33 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 15:24:53 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:21:38 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	handle_match(t_data *data, t_list **matches, char *new_match)
+int	handle_match(t_data *data, t_list **matches, char *new_match, char *pattern)
 {
 	t_list	*new_match_node;
 	char	*tmp;
 
-	tmp = ft_strdup(new_match);
+	if (!ft_strncmp(pattern, "./", 2))
+		tmp = ft_strjoin("./", new_match);
+	else
+		tmp = ft_strdup(new_match);
 	if (!tmp)
 		return (ft_error(data, "wildcard: memory allocation failed"),
 			EXIT_FAILURE);
@@ -35,7 +38,7 @@ bool	is_wildcard_match(char *pattern, char *candidate, int *isescaped)
 	int		j;
 	bool	is_wildcard;
 
-	i = 0;
+	i = 2 * (!ft_strncmp("./", pattern, 2));
 	j = 0;
 	while (pattern[i] && candidate[j])
 	{

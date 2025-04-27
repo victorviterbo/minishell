@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 11:05:31 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:19:04 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,6 @@ char			**filter_sort_matches(t_data *data, char **candidates,
 					char *pattern, int *isescaped);
 bool			is_wildcard_match(char *pattern, char *candidate,
 					int *isescaped);
-
 // UTILS
 //utils/ast_utils.c
 t_node			*new_tree_node(t_data *data, char type);
@@ -262,7 +261,8 @@ void			display_tree(t_node *node);
 //utils/wildcard_utils.c
 char			**merge_strarr(t_data *data, char **arr1, char **arr2,
 					t_Inplace_Type inplace);
-int				handle_match(t_data *data, t_list **matches, char *new_match);
+int				handle_match(t_data *data, t_list **matches, char *new_match,
+					char *pattern);
 //utils/wildcard_sort_utils.c
 char			**sort_matches(t_data *data, t_list **matches);
 //utils/signal_utils.c

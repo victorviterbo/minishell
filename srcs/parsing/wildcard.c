@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 01:10:28 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:47:31 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ char	**wildcard_handle(t_data *data, char *parsed, int *isescaped,
 	char	**parsed_arr;
 
 	parsed_arr = NULL;
-	if (STDOUT <= type && type <= STDIN && !ft_strcmp(parsed, "*"))
-		return (ft_error(data, "*: ambiguous redirect"), free(parsed), NULL);
-	else if ((type == STDIN || type == WORD) && ft_strchr(parsed, '*'))
+	if (type < STDIN_HEREDOC && ft_strchr(parsed, '*'))
 	{
 		parsed_arr = substitute_wildcard(data, parsed, isescaped);
 		if (data->exit_status == EXIT_FAILURE)
 			return (free(parsed), NULL);
 	}
+	if (STDOUT <= type && type <= STDIN && parsed_arr
+		&& ft_arrlen(parsed_arr) > 1)
+		return (ft_error(data, "*: ambiguous redirect"), free(parsed),
+			ft_free_array((void **)parsed_arr, ft_arrlen(parsed_arr)), NULL);
 	if (!parsed_arr)
 	{
 		parsed_arr = ft_str_to_arr(parsed);
@@ -65,6 +67,8 @@ char	**ls_curr_dir(t_data *data)
 	dp = readdir(curr_dir);
 	while (dp)
 	{
+		while (dp && (!ft_strcmp(dp->d_name, ".") || !ft_strcmp(dp->d_name, "..")))
+			dp = readdir(curr_dir);
 		files = add_fname_to_arr(data, dp->d_name, files);
 		if (!files)
 			return (closedir(curr_dir), NULL);
@@ -105,16 +109,16 @@ char	**filter_sort_matches(t_data *data, char **candidates, char *pattern,
 	i = 0;
 	while (candidates[i])
 	{
-		if ((candidates[i][0] == '.' && pattern[0] != '.')
-			|| !ft_strcmp(candidates[i], ".")
-			|| !ft_strcmp(candidates[i], ".."))
+		if ((candidates[i][0] == '.'
+			&& pattern[2 * !ft_strncmp(pattern, "./", 2)] != '.'))
 		{
 			i++;
 			continue ;
 		}
 		else if (is_wildcard_match(pattern, candidates[i], isescaped))
 		{
-			if (handle_match(data, matches, candidates[i]) == EXIT_FAILURE)
+			if (handle_match(data, matches, candidates[i], pattern)
+				== EXIT_FAILURE)
 				return (ft_lstclear(matches, free), NULL);
 		}
 		i++;
