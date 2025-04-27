@@ -6,26 +6,26 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 17:15:36 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:11:26 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_var(t_data *data, char *str, int *isescaped)
+char	*expand_var(t_data *data, char *str, t_quotes *quotes)
 {
 	size_t	i;
 	size_t	j;
 	char	*expanded;
 
-	expanded = dry_run_allocate(data, str, isescaped);
+	expanded = dry_run_allocate(data, str, quotes);
 	if (!expanded)
 		return (NULL);
 	i = 0;
 	j = 0;
 	while (str[j] && data->exit_status == EXIT_SUCCESS)
 	{
-		if (str[j] == '$' && need_expand(data, str, isescaped, j))
+		if (str[j] == '$' && need_expand(data, str, quotes->old, j))
 		{
 			if (replace_var(data, str, expanded, &j) != EXIT_SUCCESS)
 				return (free(expanded), NULL);
@@ -34,6 +34,7 @@ char	*expand_var(t_data *data, char *str, int *isescaped)
 		else if (data->exit_status == EXIT_SUCCESS)
 		{
 			expanded[i] = str[j];
+			quotes->new[i] = quotes->old[j];
 			i++;
 			j++;
 		}
@@ -56,13 +57,10 @@ int	replace_var(t_data *data, char *str, char *expanded, size_t *j)
 	if (!varvalue && data->exit_status == EXIT_SUCCESS)
 		varvalue = ft_strdup("");
 	if (!varvalue)
-		return (ft_error(data,
-				"variable substitution: memory allocation failed"),
-			EXIT_FAILURE);
-	expanded[ft_strlen(expanded)] = '"';
+		return (ft_error(data, "variable substitution: memory allocation\
+ failed"), EXIT_FAILURE);
 	ft_strlcat(expanded, varvalue,
 		ft_strlen(expanded) + ft_strlen(varvalue) + 1);
-	expanded[ft_strlen(expanded)] = '"';
 	free(varvalue);
 	return (EXIT_SUCCESS);
 }

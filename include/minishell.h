@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 13:53:58 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:27:38 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ typedef enum e_token_type
 	OR,
 	CMD,
 }	t_token_type;
+
+typedef struct s_quotes
+{
+	int	*old;
+	int	*new;
+}	t_quotes;
 
 typedef struct s_token
 {
@@ -188,8 +194,11 @@ t_node			*handle_operator(t_data *data, t_token *start, t_token *end,
 t_node			*build_tree(t_data *data, t_token *start, t_token *end);
 //parsing/parse.c
 char			**parse_str(t_data *data, char *str, t_token_type type);
+//parsing/parse_heredoc.
+char			*expand_var_hd(t_data *data, char *str, int *isescaped);
+char			*dry_run_allocate_hd(t_data *data, char *str, int *isescaped);
 //parsing/expand.c
-char			*expand_var(t_data *data, char *str, int *isescaped);
+char			*expand_var(t_data *data, char *str, t_quotes *quotes);
 int				replace_var(t_data *data, char *str, char *expanded, size_t *j);
 char			*get_varname(t_data *data, char *str, size_t *j);
 char			*parse_varname(t_data *data, char *str, size_t *j);
@@ -231,7 +240,7 @@ int				check_file_error(t_data *data, char *parsed, char type);
 void			exec_path_preprocess(t_data *data, char **out_path,
 					char **args);
 //utils//expand_utils.c
-char			*dry_run_allocate(t_data *data, char *str, int *isescaped);
+char			*dry_run_allocate(t_data *data, char *str, t_quotes *quotes);
 void			dry_run_skip_var(t_data *data, char *str, size_t *new_size,
 					size_t *i);
 //utils/parsing_utils.c
