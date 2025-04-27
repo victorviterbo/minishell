@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 14:46:41 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 14:51:05 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*parse_varname(t_data *data, char *str, size_t *j)
 	}
 	else if (str[i + 1] != '?')
 	{
-		*j = go_to_next(str, "\"\\\n $'.{}/", i + 1);
+		*j = go_to_next(str, "\"\\\n $'.{}+-*/=", i + 1);
 		varname = ft_substr(str, i + 1, *j - (i + 1));
 	}
 	else
