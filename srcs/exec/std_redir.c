@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 01:51:13 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/26 03:51:53 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 01:29:19 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,36 +54,29 @@ static int	redirect(t_data *data, int redi_fd, char *path, int flags)
 	return (data->exit_status);
 }
 
-int	handle_stdin_redirection(t_data *data, t_token *token,
-	int *heredoc_fd)
+int	handle_stdin_redirection(t_data *data, t_token *token)
 {
 	char	**parsed;
 	int		len;
 
-	if (*heredoc_fd != -1)
-	{
-		close(*heredoc_fd);
-		*heredoc_fd = -1;
-	}
 	parsed = parse_str(data, token->str, STDIN);
 	if (!parsed)
 		return (EXIT_FAILURE);
 	len = ft_arrlen(parsed);
 	if (len == 0 && token->str[0] == '$')
-		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
+		return (handle_ambiguous_redirect(data, token, parsed));
 	if (len == 0)
 		return (ft_free_array((void **)parsed, len),
 			redirect(data, STDIN_FILENO, token->str, O_RDONLY));
 	if (len > 1 || ft_strlen(parsed[0]) == 0)
-		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
+		return (handle_ambiguous_redirect(data, token, parsed));
 	if (check_file_error(data, parsed[0], 'r') != EXIT_SUCCESS
 		|| redirect(data, STDIN_FILENO, parsed[0], O_RDONLY))
 		return (ft_free_array((void **)parsed, len), EXIT_FAILURE);
 	return (ft_free_array((void **)parsed, len), EXIT_SUCCESS);
 }
 
-int	handle_stdout_redirection(t_data *data, t_token *token,
-	int *heredoc_fd, int append)
+int	handle_stdout_redirection(t_data *data, t_token *token, int append)
 {
 	char	**parsed;
 	int		len;
@@ -93,21 +86,21 @@ int	handle_stdout_redirection(t_data *data, t_token *token,
 		+ append * (O_CREAT | O_WRONLY | O_APPEND);
 	parsed = parse_str(data, token->str, STDOUT);
 	if (!parsed)
-		return (redir_error(*heredoc_fd));
+		return (EXIT_FAILURE);
 	len = ft_arrlen(parsed);
 	if (len == 0 && token->str[0] == '$')
-		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
+		return (handle_ambiguous_redirect(data, token, parsed));
 	if (len == 0)
 	{
 		ft_free_array((void **)parsed, len);
 		if (redirect(data, STDOUT_FILENO, token->str, flags))
-			return (redir_error(*heredoc_fd));
+			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
 	if (len > 1 || ft_strlen(parsed[0]) == 0)
-		return (handle_ambiguous_redirect(data, token, parsed, *heredoc_fd));
+		return (handle_ambiguous_redirect(data, token, parsed));
 	if (check_file_error(data, parsed[0], 'w') != EXIT_SUCCESS
 		|| redirect(data, STDOUT_FILENO, parsed[0], flags))
-		return (ft_free_array((void **)parsed, len), redir_error(*heredoc_fd));
+		return (ft_free_array((void **)parsed, len), EXIT_FAILURE);
 	return (ft_free_array((void **)parsed, len), EXIT_SUCCESS);
 }

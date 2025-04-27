@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 22:24:53 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/17 03:24:50 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 03:49:34 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	wait_pid(t_data *data, int child_pid)
 		if (data->exit_status == 130)
 			ft_fprintf(STDERR_FILENO, "\n");
 		if (data->exit_status == 131)
-			ft_fprintf(STDERR_FILENO, "Quit (core dumped)\n");
+			ft_fprintf(STDOUT_FILENO, "Quit (core dumped)\n");
 	}
 	else if (WIFSTOPPED(status))
 		data->exit_status = 128 + WSTOPSIG(status);
