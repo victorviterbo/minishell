@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 13:01:57 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:41:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,10 @@ int	exec_non_builtin(t_data *data, char **args)
 		exec_path_preprocess(data, &path, args);
 		set_signal(SIGINT, SIG_DFL);
 		set_signal(SIGQUIT, SIG_DFL);
-		if (data->exit_status == EXIT_SUCCESS)
+		if (data->exit_status == EXIT_SUCCESS && path)
 			ft_execve(data, path, args);
+		else if (data->exit_status == EXIT_SUCCESS && !path)
+			ft_execve(data, args[0], args);
 		if (path)
 			free(path);
 		ft_free_array((void **)args, ft_arrlen(args));

@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 14:24:23 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 10:51:01 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:49:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ bool	ft_isdirectory(char *path)
 {
 	DIR	*directory;
 
+	if (!path)
+		return (false);
+	if (access(path, F_OK) != 0)
+		return (false);
 	directory = opendir(path);
 	if (directory == NULL)
 	{

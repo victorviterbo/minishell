@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 14:45:49 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 19:35:30 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:28:11 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	free_quotes(t_quotes *quotes)
 {
 	if (!quotes)
-		return;
+		return ;
 	if (quotes->old)
 		free(quotes->old);
 	if (quotes->new)

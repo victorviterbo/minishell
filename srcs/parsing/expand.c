@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 20:13:30 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:16:53 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,14 @@ char	*expand_var(t_data *data, char *str, t_quotes *quotes)
 		{
 			if (replace_var(data, str, expanded, &j) != EXIT_SUCCESS)
 				return (free(expanded), NULL);
-			i = ft_strlen(expanded);
 		}
 		else if (data->exit_status == EXIT_SUCCESS)
 		{
 			expanded[i] = str[j];
 			quotes->new[i] = quotes->old[j];
-			i++;
 			j++;
 		}
+		i = ft_strlen(expanded);
 	}
 	return (expanded);
 }

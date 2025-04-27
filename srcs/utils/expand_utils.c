@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:03:51 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 20:08:21 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:45:31 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*dry_run_allocate(t_data *data, char *str, t_quotes *quotes)
 	}
 	new_str = ft_calloc(new_size + 1, sizeof(char));
 	if (!new_str)
-		ft_error(data, "variable substitution: memory allocation failed");
+		return (ft_error(data, "variable substitution: memory allocation failed"), NULL);
 	quotes->new = ft_calloc(new_size + 1, sizeof(int));
 	if (!quotes)
 		return (ft_error(data, "variable substitution: memory allocation\
