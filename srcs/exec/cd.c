@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 19:07:54 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 13:57:38 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:16:13 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ int	ft_cd(t_data *data, char **args, int argc)
 	if (ft_update_oldpwd(data) || ft_update_pwd(data, abspath))
 		return (free(abspath), EXIT_FAILURE);
 	if (!ft_strcmp(args[1], "-"))
-		ft_pwd(data, NULL, 0); 
+		ft_pwd(data, NULL, 0);
 	return (free(abspath), EXIT_SUCCESS);
 }

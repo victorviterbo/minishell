@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 16:10:09 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 13:47:31 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:18:15 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ char	**ls_curr_dir(t_data *data)
 	dp = readdir(curr_dir);
 	while (dp)
 	{
-		while (dp && (!ft_strcmp(dp->d_name, ".") || !ft_strcmp(dp->d_name, "..")))
+		while (dp && (!ft_strcmp(dp->d_name, ".")
+				|| !ft_strcmp(dp->d_name, "..")))
 			dp = readdir(curr_dir);
 		files = add_fname_to_arr(data, dp->d_name, files);
 		if (!files)
@@ -78,8 +79,7 @@ char	**ls_curr_dir(t_data *data)
 		return (ft_error(data, "wildcard: could not read directory"),
 			ft_free_array((void **)files, ft_arrlen(files)),
 			closedir(curr_dir), NULL);
-	closedir(curr_dir);
-	return (files);
+	return (closedir(curr_dir), files);
 }
 
 char	**add_fname_to_arr(t_data *data, const char *fname, char **files)
