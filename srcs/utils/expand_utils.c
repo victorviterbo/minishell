@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:03:51 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 18:15:26 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 19:02:56 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ char	*dry_run_allocate(t_data *data, char *str, int *isescaped)
 
 	j = 0;
 	new_size = 0;
-	while (str[j])
+	while (str && str[j])
 	{
 		if (str[j] == '$' && need_expand(data, str, isescaped, j))
 		{
 			dry_run_skip_var(data, str, &new_size, &j);
 			if (data->exit_status)
 				return (NULL);
-			j += 2;
 		}
 		else
 		{
