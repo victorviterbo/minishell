@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 22:14:44 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 10:48:57 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	signal_handler(int signum)
 
 static int	init_data(t_data *data, char **envp)
 {
-	char	*pwd;
-
 	if (save_std_streams(data) != EXIT_SUCCESS)
 		return (data->exit_status);
 	data->env_arr = NULL;
@@ -51,19 +49,8 @@ static int	init_data(t_data *data, char **envp)
 	init_env(data, envp);
 	if (data->exit_status != EXIT_SUCCESS)
 		return (data->exit_status);
-	pwd = get_var(data, "PWD");
-	if (data->exit_status != EXIT_SUCCESS)
+	if (init_pwd_oldpwd(data) != EXIT_SUCCESS)
 		return (data->exit_status);
-	if (pwd)
-		free(pwd);
-	else
-	{
-		if (ft_update_pwd(data, NULL))
-			return (data->exit_status);
-		new_var(data, "OLDPWD");
-		if (data->exit_status != EXIT_SUCCESS)
-			return (data->exit_status);
-	}
 	init_builtin(data);
 	return (data->exit_status);
 }

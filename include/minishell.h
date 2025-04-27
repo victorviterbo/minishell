@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 22:09:49 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 11:05:31 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,9 +223,12 @@ void			change_shlvl(t_data *data, int change);
 void			*copy_var(void	*var);
 //utils/env_utils.c
 void			init_env(t_data *data, char **envp);
-//utils/error_handlings.c
+//utils/error_utils.c
 void			ft_error(t_data *data, const char *message);
 void			error_execve_format(t_data *data);
+//utils/execve_utils.c
+int				check_file_error(t_data *data, char *parsed, char type);
+void			exec_path_preprocess(t_data *data, char **args);
 //utils//expand_utils.c
 char			*dry_run_allocate(t_data *data, char *str, int *isescaped);
 void			dry_run_skip_var(t_data *data, char *str, size_t *new_size,
@@ -236,9 +239,9 @@ void			remove_quotes(char *str, int *isescaped);
 size_t			go_to_next(char *str, char *chars, size_t i);
 //path_utils.c
 bool			ft_isdirectory(char *path);
-int				check_file_error(t_data *data, char *parsed, char type);
 char			*get_absolute_path(t_data *data, char *path);
 char			*get_absolute_path_backup_method(t_data *data, char *path);
+int				init_pwd_oldpwd(t_data *data);
 //utils/token_utils.c
 void			free_token(void *content);
 void			free_tokens(t_token *head);
