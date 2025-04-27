@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 20:41:49 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 21:03:13 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	get_exec_path(t_data *data, char **out_path, char **args)
 	free(path_list);
 	if (data->exit_status)
 		return ;
-	if (!out_path)
+	if (!*out_path)
 	{
 		data->exit_status = 127;
 		ft_fprintf(STDERR_FILENO, "%s: command not found\n", args[0]);
