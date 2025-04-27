@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 16:33:11 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 11:04:12 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,7 @@ int	exec_non_builtin(t_data *data, char **args)
 	pid = fork();
 	if (pid == 0)
 	{
-		get_exec_path(data, args);
-		if (!data->exit_status && ft_isdirectory(args[0]))
-		{
-			data->exit_status = 126;
-			ft_fprintf(STDERR_FILENO,
-				"%s: %s: Is a directory\n", SHELL_NAME, args[0]);
-		}
-		if (data->exit_status)
-			exit (data->exit_status);
+		exec_path_preprocess(data, args);
 		set_signal(SIGINT, SIG_DFL);
 		set_signal(SIGQUIT, SIG_DFL);
 		if (data->exit_status == EXIT_SUCCESS)

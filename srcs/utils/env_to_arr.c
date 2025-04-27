@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 21:49:19 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/25 15:45:58 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 23:43:49 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ char	*var_to_str(t_data *data, t_list *current)
 	varstr = ft_strjoin(curr_var->name, "=");
 	if (!varstr)
 		return (ft_error(data, "env parsing: memory allocation failed"), NULL);
+	if (!curr_var->value)
+		return (varstr);
 	varstr = ft_strjoin_ip(varstr, curr_var->value, FREE_S1);
 	if (!varstr)
 		return (ft_error(data, "env parsing: memory allocation failed"), NULL);
@@ -94,6 +96,8 @@ void	*copy_var(void	*var)
 	copy->name = ft_strdup(((t_var *)var)->name);
 	if (!copy->name)
 		return (free(copy), NULL);
+	if (((t_var *)var)->value == NULL)
+		return (copy);
 	copy->value = ft_strdup(((t_var *)var)->value);
 	if (!copy->value)
 		return (free(copy->name), free(copy), NULL);

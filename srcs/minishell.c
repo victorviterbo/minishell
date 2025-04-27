@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 03:37:58 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 10:48:57 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ static int	init_data(t_data *data, char **envp)
 	data->last_exit_status = EXIT_SUCCESS;
 	data->tree = NULL;
 	init_env(data, envp);
+	if (data->exit_status != EXIT_SUCCESS)
+		return (data->exit_status);
+	if (init_pwd_oldpwd(data) != EXIT_SUCCESS)
+		return (data->exit_status);
 	init_builtin(data);
 	return (data->exit_status);
 }

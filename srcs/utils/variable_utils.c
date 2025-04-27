@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 16:31:31 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 03:39:53 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/26 21:45:48 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*check_varname(t_data *data, char *str, int name_len)
 	i = 0;
 	while (varname[i])
 	{
-		if (ft_strchr(" +-{}/!@#$", varname[i]))
+		if (ft_strchr(" +-*{}/!@#$", varname[i]))
 		{
 			ft_fprintf(STDERR_FILENO,
 				"%s: export: %s: not a valid identifier\n",

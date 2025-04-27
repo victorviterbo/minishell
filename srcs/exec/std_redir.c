@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   std_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 01:51:13 by vbronov           #+#    #+#             */
 /*   Updated: 2025/04/27 01:29:19 by vbronov          ###   ########.fr       */
