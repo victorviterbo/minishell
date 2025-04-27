@@ -6,13 +6,12 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 22:24:53 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/27 03:49:34 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 16:06:03 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// TODO: verify what we should print for SIGSTOP and SIGTERM
 int	wait_pid(t_data *data, int child_pid)
 {
 	int	pid_tmp;
@@ -27,7 +26,7 @@ int	wait_pid(t_data *data, int child_pid)
 	{
 		data->exit_status = 128 + WTERMSIG(status);
 		if (data->exit_status == 130)
-			ft_fprintf(STDERR_FILENO, "\n");
+			ft_fprintf(STDOUT_FILENO, "\n");
 		if (data->exit_status == 131)
 			ft_fprintf(STDOUT_FILENO, "Quit (core dumped)\n");
 	}

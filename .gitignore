@@ -1,5 +1,6 @@
 minishell_tester/
-*.vscode
 *.a
 *.o
 bin/*
+minishell_bonus
+minishell

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:10:43 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 15:39:37 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:45:59 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static	int	check_redi(t_data *data, t_token *token)
 	if (!token->next)
 	{
 		ft_fprintf(STDERR_FILENO,
-			"%s: syntax error near unexpected token `newline'", SHELL_NAME);
+			"%s: syntax error near unexpected token `newline'\n", SHELL_NAME);
 		data->exit_status = EXIT_NUMARG;
 		return (EXIT_FAILURE);
 	}
