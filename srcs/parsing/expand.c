@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 03:43:36 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 17:15:36 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ int	replace_var(t_data *data, char *str, char *expanded, size_t *j)
 		return (ft_error(data,
 				"variable substitution: memory allocation failed"),
 			EXIT_FAILURE);
+	expanded[ft_strlen(expanded)] = '"';
 	ft_strlcat(expanded, varvalue,
 		ft_strlen(expanded) + ft_strlen(varvalue) + 1);
+	expanded[ft_strlen(expanded)] = '"';
 	free(varvalue);
 	return (EXIT_SUCCESS);
 }
@@ -78,7 +80,7 @@ char	*parse_varname(t_data *data, char *str, size_t *j)
 	}
 	else if (str[i + 1] != '?')
 	{
-		*j = go_to_next(str, "\"\\\n $'.{}", i + 1);
+		*j = go_to_next(str, "\"\\\n $'.{}+-*/=", i + 1);
 		varname = ft_substr(str, i + 1, *j - (i + 1));
 	}
 	else

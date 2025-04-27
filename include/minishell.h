@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 16:12:13 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 13:53:58 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,6 @@ char			**filter_sort_matches(t_data *data, char **candidates,
 					char *pattern, int *isescaped);
 bool			is_wildcard_match(char *pattern, char *candidate,
 					int *isescaped);
-
 // UTILS
 //utils/ast_utils.c
 t_node			*new_tree_node(t_data *data, char type);
@@ -264,7 +263,8 @@ void			display_tree(t_node *node);
 //utils/wildcard_utils.c
 char			**merge_strarr(t_data *data, char **arr1, char **arr2,
 					t_Inplace_Type inplace);
-int				handle_match(t_data *data, t_list **matches, char *new_match);
+int				handle_match(t_data *data, t_list **matches, char *new_match,
+					char *pattern);
 //utils/wildcard_sort_utils.c
 char			**sort_matches(t_data *data, t_list **matches);
 //utils/signal_utils.c
