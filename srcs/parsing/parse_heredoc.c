@@ -6,7 +6,7 @@
 /*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:51:06 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 19:30:48 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 20:13:23 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,13 @@ char	*dry_run_allocate_hd(t_data *data, char *str, int *isescaped)
 
 	j = 0;
 	new_size = 0;
-	while (str[j])
+	while (str && str[j])
 	{
 		if (str[j] == '$' && need_expand(data, str, isescaped, j))
 		{
 			dry_run_skip_var(data, str, &new_size, &j);
 			if (data->exit_status)
 				return (NULL);
-			j += 2;
 		}
 		else
 		{
