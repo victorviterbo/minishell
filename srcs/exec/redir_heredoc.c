@@ -6,7 +6,7 @@
 /*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 03:27:42 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/27 04:14:20 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 13:58:54 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	handle_heredoc_parent(t_data *data, int fd, pid_t pid, char *filename)
 {
 	if (wait_pid(data, pid) != EXIT_SUCCESS)
 	{
-		ft_fprintf(STDERR_FILENO, "TESTER\n");
 		close(fd);
 		unlink(filename);
 		free(filename);

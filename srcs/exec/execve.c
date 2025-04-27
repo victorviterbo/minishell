@@ -3,40 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 11:10:47 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 11:04:12 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:28:11 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_exec_path(t_data *data, char **args)
+void	get_exec_path(t_data *data, char **out_path, char **args)
 {
 	char	*path_list;
-	char	*full_path;
 
 	if (!args || !args[0] || args[0][0] == '/' || !ft_strncmp(args[0], "./", 2)
 		|| !ft_strncmp(args[0], "../", 3))
+	{
+		*out_path = ft_strdup(args[0]);
+		if (!*out_path)
+			return (ft_error(data, "execve: memory allocation failed"));
 		return ;
+	}
 	if (!ft_strcmp(args[0], "."))
 		return (error_execve_format(data));
 	path_list = get_var(data, "PATH");
 	if (!path_list)
 		return ;
-	full_path = find_exec(data, path_list, args[0]);
+	*out_path = find_exec(data, path_list, args[0]);
 	free(path_list);
 	if (data->exit_status)
 		return ;
-	if (!full_path)
+	if (!out_path)
 	{
 		data->exit_status = 127;
 		ft_fprintf(STDERR_FILENO, "%s: command not found\n", args[0]);
 		return ;
 	}
-	free(args[0]);
-	args[0] = full_path;
 }
 
 char	*find_exec(t_data *data, char *path_list, char *cmd)
@@ -68,29 +70,29 @@ char	*find_exec(t_data *data, char *path_list, char *cmd)
 	return (ft_free_array((void **)paths, ft_arrlen(paths)), free(cmd), NULL);
 }
 
-int	ft_execve(t_data *data, char **args)
+int	ft_execve(t_data *data, char *path, char **args)
 {
-	if (access(args[0], X_OK) != 0)
+	if (access(path, X_OK) != 0)
 	{
 		if (errno == ENOENT)
-			return (ft_error(data, args[0]), data->exit_status = 127);
+			return (ft_error(data, path), data->exit_status = 127);
 		else if (errno == EACCES)
-			return (ft_error(data, args[0]), data->exit_status = 126);
+			return (ft_error(data, path), data->exit_status = 126);
 		else
-			return (ft_error(data, args[0]), data->exit_status);
+			return (ft_error(data, path), data->exit_status);
 	}
 	update_env_arr(data);
 	if (data->exit_status)
 		return (data->exit_status);
-	if (execve(args[0], args, data->env_arr) == -1)
+	if (execve(path, args, data->env_arr) == -1)
 	{
 		data->exit_status = errno;
 		if (errno == ENOENT)
-			return (ft_error(data, args[0]), data->exit_status = 127);
+			return (ft_error(data, path), data->exit_status = 127);
 		else if (errno == EACCES)
-			return (ft_error(data, args[0]), data->exit_status = 126);
+			return (ft_error(data, path), data->exit_status = 126);
 		else
-			return (ft_error(data, args[0]), data->exit_status);
+			return (ft_error(data, path), data->exit_status);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -98,15 +100,19 @@ int	ft_execve(t_data *data, char **args)
 int	exec_non_builtin(t_data *data, char **args)
 {
 	pid_t	pid;
+	char	*path;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		exec_path_preprocess(data, args);
+		path = NULL;
+		exec_path_preprocess(data, &path, args);
 		set_signal(SIGINT, SIG_DFL);
 		set_signal(SIGQUIT, SIG_DFL);
 		if (data->exit_status == EXIT_SUCCESS)
-			ft_execve(data, args);
+			ft_execve(data, path, args);
+		if (path)
+			free(path);
 		ft_free_array((void **)args, ft_arrlen(args));
 		free_all(data);
 		exit (data->exit_status);
