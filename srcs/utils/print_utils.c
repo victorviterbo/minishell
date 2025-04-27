@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 03:57:29 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/17 19:34:59 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 01:38:58 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	display_token_list(t_token *token)
 	}
 	while (token)
 	{
-		ft_printf("\"%s\" TYPE: %i ", token->str, token->type);
+		ft_printf("\"%s\" TYPE: %i HEREDOC_FD: %i ",
+			token->str, token->type, token->heredoc_fd);
 		token = token->next;
 	}
 	ft_printf("\n");
