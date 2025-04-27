@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
+/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:03:51 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/26 02:50:09 by vbronov          ###   ########.fr       */
+/*   Updated: 2025/04/27 16:49:24 by vviterbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*dry_run_allocate(t_data *data, char *str, int *isescaped)
 			dry_run_skip_var(data, str, &new_size, &j);
 			if (data->exit_status)
 				return (NULL);
+			j += 2;
 		}
 		else
 		{
