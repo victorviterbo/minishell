@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:26:45 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/17 23:35:11 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:00:33 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ void	free_token(void *content)
 		token->str = NULL;
 	}
 	token->next = NULL;
+	if (token->heredoc_fd != -1)
+	{
+		close(token->heredoc_fd);
+		token->heredoc_fd = -1;
+	}
 	free(token);
 }
 
@@ -59,6 +64,7 @@ t_token	*copy_token(t_data *data, t_token *token)
 		return (NULL);
 	}
 	new_tok->type = token->type;
+	new_tok->heredoc_fd = token->heredoc_fd;
 	return (new_tok);
 }
 

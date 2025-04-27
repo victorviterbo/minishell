@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 20:04:30 by vviterbo          #+#    #+#             */
 /*   Updated: 2025/04/27 11:05:31 by vviterbo         ###   ########.fr       */
@@ -54,6 +54,7 @@ enum e_signal
 {
 	READLINE_MODE,
 	EXECUTION_MODE,
+	GOT_SIGINT,
 };
 
 typedef enum e_token_type
@@ -75,6 +76,7 @@ typedef struct s_token
 {
 	char			*str;
 	int				type;
+	int				heredoc_fd;
 	struct s_token	*next;
 }	t_token;
 
@@ -138,20 +140,20 @@ int				handle_pipex(t_data *data, t_node *node);
 int				ft_pwd(t_data *data, char **args, int argc);
 char			*ft_get_current_path(t_data *data);
 //exec/redir_check.c
-int				check_next_token(t_data *data, t_token *next, int heredoc_fd);
-int				redir_error(int heredoc_fd);
+int				check_next_token(t_data *data, t_token *next);
 int				handle_ambiguous_redirect(t_data *data, t_token *token,
-					char **parsed, int heredoc_fd);
+					char **parsed);
 //exec/redir_heredoc_handler.c
 int				handle_heredoc_redirection(t_data *data, t_token *token,
 					int *heredoc_fd);
 //exec/redir_heredoc.c
-void			handle_heredoc_child(t_data *data, int *pipe_fds,
+void			handle_heredoc_child(t_data *data, int fd,
 					char *delimiter, int is_quoted);
-int				handle_heredoc_parent(t_data *data, int *pipe_fds,
-					pid_t pid);
+int				handle_heredoc_parent(t_data *data, int fd, pid_t pid,
+					char *filename);
 //exec/redir.c
 void			apply_redirections(t_data *data, t_token *redi);
+void			prepare_heredocs(t_data *data, t_node *node);
 //exec/unset.c
 int				ft_unset(t_data *data, char **args, int argc);
 void			pop_var(t_data *data, char *varname);
@@ -171,10 +173,9 @@ int				handle_command(t_data *data, t_node *node);
 //exec/std_redir.c
 int				save_std_streams(t_data *data);
 int				restore_std_streams(t_data *data, int saved_streams[2]);
-int				handle_stdin_redirection(t_data *data, t_token *token,
-					int *heredoc_fd);
+int				handle_stdin_redirection(t_data *data, t_token *token);
 int				handle_stdout_redirection(t_data *data, t_token *token,
-					int *heredoc_fd, int append);
+					int append);
 //exec/wait.c
 int				wait_pid(t_data *data, int child_pid);
 

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
 /*   Updated: 2025/04/27 10:48:57 by vviterbo         ###   ########.fr       */
@@ -27,8 +27,10 @@ enum e_signal	g_signal;
  */
 void	signal_handler(int signum)
 {
-	if (signum == SIGINT && g_signal == READLINE_MODE)
+	if (signum == SIGINT
+		&& (g_signal == READLINE_MODE || g_signal == GOT_SIGINT))
 	{
+		g_signal = GOT_SIGINT;
 		rl_replace_line("", 0);
 		ft_printf("\n");
 		rl_on_new_line();
@@ -68,9 +70,10 @@ static void	process_line(t_data *data, char *line)
 		if (syntax_check(data, data->tokens) != EXIT_SUCCESS)
 			return ;
 		data->tree = build_tree(data, data->tokens, NULL);
+		prepare_heredocs(data, data->tree);
 		if (DEBUG)
 			display_tree(data->tree);
-		if (data->tree)
+		if (data->exit_status == EXIT_SUCCESS)
 			ft_run_ast(data, data->tree);
 	}
 }
@@ -83,12 +86,14 @@ static void	main_loop(t_data *data)
 	{
 		g_signal = READLINE_MODE;
 		line = readline(SHELL_PROMPT);
+		if (g_signal == GOT_SIGINT)
+		{
+			data->exit_status = 130;
+			data->last_exit_status = data->exit_status;
+		}
 		g_signal = EXECUTION_MODE;
 		if (!line)
-		{
-			data->exit_status = EXIT_SUCCESS;
 			ft_exit(data, NULL, 0);
-		}
 		process_line(data, line);
 		free(line);
 		free_tree(data->tree);

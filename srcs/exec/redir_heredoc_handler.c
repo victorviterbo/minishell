@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc_handler.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 03:30:24 by vbronov           #+#    #+#             */
-/*   Updated: 2025/04/21 21:10:09 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 02:46:16 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,36 +24,63 @@ static void	process_quoted_delimiter(t_data *data, char **delimiter)
 	}
 }
 
+int	create_tmp_heredoc_file(t_data *data, char **out_fname)
+{
+	static unsigned int	index;
+	char				*filename;
+	int					fd;
+
+	while (TRUE)
+	{
+		filename = ft_utoa_base(++index, "0123456789");
+		if (!filename)
+			return (ft_error(data, "heredoc: malloc"), -1);
+		filename = ft_strjoin_ip("/tmp/.heredoc_", filename, FREE_S2);
+		if (!filename)
+			return (ft_error(data, "heredoc: malloc"), -1);
+		fd = open(filename, O_CREAT | O_RDWR | O_EXCL, 0600);
+		if (fd >= 0)
+			return (*out_fname = filename, fd);
+		else if (errno != EEXIST)
+		{
+			ft_fprintf(STDERR_FILENO,
+				"%s: %s: %s\n", SHELL_NAME, filename, strerror(errno));
+			return (data->exit_status = EXIT_FAILURE, free(filename), -1);
+		}
+		free(filename);
+	}
+}
+
 static int	handle_heredoc(t_data *data, char *delimiter, int is_quoted)
 {
-	int		pipe_fds[2];
+	int		fd;
 	pid_t	pid;
 	char	*processed_delimiter;
+	char	*filename;
 
-	if (pipe(pipe_fds) == -1)
-		return (ft_error(data, "pipe"), -1);
+	fd = create_tmp_heredoc_file(data, &filename);
+	if (fd == -1)
+		return (-1);
 	processed_delimiter = ft_strdup(delimiter);
 	if (!processed_delimiter)
-		return (ft_error(data, "malloc"), close_pipe(data, pipe_fds), -1);
+		return (ft_error(data, "malloc"), close(fd), free(filename), -1);
 	if (is_quoted)
 		process_quoted_delimiter(data, &processed_delimiter);
 	pid = fork();
 	if (pid == -1)
 		return (ft_error(data, "fork"), free(processed_delimiter),
-			close_pipe(data, pipe_fds), -1);
+			close(fd), free(filename), -1);
 	if (pid == 0)
 	{
-		set_signal(SIGINT, SIG_DFL);
-		set_signal(SIGQUIT, SIG_IGN);
-		handle_heredoc_child(data, pipe_fds, processed_delimiter, is_quoted);
+		free(filename);
+		handle_heredoc_child(data, fd, processed_delimiter, is_quoted);
 		return (-1);
 	}
 	free(processed_delimiter);
-	return (handle_heredoc_parent(data, pipe_fds, pid));
+	return (handle_heredoc_parent(data, fd, pid, filename));
 }
 
-int	handle_heredoc_redirection(t_data *data, t_token *token,
-	int *heredoc_fd)
+int	handle_heredoc_redirection(t_data *data, t_token *token, int *heredoc_fd)
 {
 	int		is_quoted;
 
