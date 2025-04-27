@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 13:03:51 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 20:45:31 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 21:29:19 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*dry_run_allocate(t_data *data, char *str, t_quotes *quotes)
 {
-	char	*new_str;
+	char	*tmp;
 	size_t	new_size;
 	size_t	j;
 
@@ -23,25 +23,22 @@ char	*dry_run_allocate(t_data *data, char *str, t_quotes *quotes)
 	while (str && str[j])
 	{
 		if (str[j] == '$' && need_expand(data, str, quotes->old, j))
-		{
 			dry_run_skip_var(data, str, &new_size, &j);
-			if (data->exit_status)
-				return (NULL);
-		}
 		else
 		{
 			new_size++;
 			j++;
 		}
+		if (data->exit_status)
+			return (NULL);
 	}
-	new_str = ft_calloc(new_size + 1, sizeof(char));
-	if (!new_str)
-		return (ft_error(data, "variable substitution: memory allocation failed"), NULL);
+	tmp = ft_calloc(new_size + 1, sizeof(char));
+	if (!tmp)
+		return (ft_error(data, "memory allocation failed"), NULL);
 	quotes->new = ft_calloc(new_size + 1, sizeof(int));
 	if (!quotes)
-		return (ft_error(data, "variable substitution: memory allocation\
- failed"), free(new_str), NULL);
-	return (new_str);
+		return (ft_error(data, "memory allocation failed"), free(tmp), NULL);
+	return (tmp);
 }
 
 void	dry_run_skip_var(t_data *data, char *str, size_t *new_size, size_t *j)
