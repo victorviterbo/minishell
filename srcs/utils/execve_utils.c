@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vbronov <vbronov@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 10:39:31 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 13:07:55 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/04/27 16:25:45 by vbronov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int	check_file_error(t_data *data, char *path, char type)
 	return (EXIT_SUCCESS);
 }
 
-void	exec_path_preprocess(t_data *data, char **args)
+void	exec_path_preprocess(t_data *data, char **out_path, char **args)
 {
-	get_exec_path(data, args);
-	if (!data->exit_status && ft_isdirectory(args[0]))
+	get_exec_path(data, out_path, args);
+	if (!data->exit_status && ft_isdirectory(*out_path))
 	{
 		data->exit_status = 126;
 		ft_fprintf(STDERR_FILENO,
-			"%s: %s: Is a directory\n", SHELL_NAME, args[0]);
+			"%s: %s: Is a directory\n", SHELL_NAME, *out_path);
 	}
 	if (data->exit_status)
 	{

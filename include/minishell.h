@@ -159,7 +159,7 @@ int				ft_unset(t_data *data, char **args, int argc);
 void			pop_var(t_data *data, char *varname);
 void			free_var(void *data);
 //exec/execve.c
-void			get_exec_path(t_data *data, char **args);
+void			get_exec_path(t_data *data, char **out_path, char **args);
 char			*find_exec(t_data *data, char *path_list, char *exec);
 int				exec_non_builtin(t_data *data, char **args);
 void			init_builtin(t_data *data);
@@ -228,7 +228,8 @@ void			ft_error(t_data *data, const char *message);
 void			error_execve_format(t_data *data);
 //utils/execve_utils.c
 int				check_file_error(t_data *data, char *parsed, char type);
-void			exec_path_preprocess(t_data *data, char **args);
+void			exec_path_preprocess(t_data *data, char **out_path,
+					char **args);
 //utils//expand_utils.c
 char			*dry_run_allocate(t_data *data, char *str, int *isescaped);
 void			dry_run_skip_var(t_data *data, char *str, size_t *new_size,
