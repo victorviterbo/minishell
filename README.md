@@ -2,8 +2,6 @@
 
 A custom shell implementation as part of the 42 curriculum. This project aims to create a simplified version of the Bash shell, implementing various features including command execution, builtin commands, and more.
 
-![Minishell Banner](https://i.imgur.com/pWw8LYh.png)
-
 ## 📋 Table of Contents
 
 - [Overview](#overview)
