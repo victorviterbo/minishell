@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 08:35:11 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 13:52:07 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:42:43 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+         #
+#    By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/01 12:45:22 by vviterbo          #+#    #+#              #
-#    Updated: 2025/04/27 19:21:10 by vviterbo         ###   ########.fr        #
+#    Updated: 2025/09/02 10:41:32 by victorviter      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = bin/minishell
 HEADER = minishell.h
 
 CFLAGS = -Wall -Wextra -Werror -g
+
+OS := $(shell uname)
 
 ifdef SANITIZE
     SANITIZE_FLAGS = -fsanitize=address
@@ -57,8 +59,13 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 
 CC = cc
 
-INCLUDE = -I./include/ -I$(LIBFT_DIR)
-LDFLAGS = -L$(LIBFT_DIR) -lft -lreadline
+ifeq ($(OS), Darwin)
+	INCLUDE = -I./include/ -I$(LIBFT_DIR) -I/opt/homebrew/opt/readline/include
+	LDFLAGS = -L$(LIBFT_DIR) -lft -L/opt/homebrew/opt/readline/lib -lreadline
+else ifeq ($(OS), Linux)
+	INCLUDE = -I./include/ -I$(LIBFT_DIR)
+	LDFLAGS = -L$(LIBFT_DIR) -lft -lreadline
+endif
 
 all: folders $(LIBFT) $(NAME)
 
