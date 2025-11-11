@@ -158,7 +158,7 @@ minishell/
 
 This project was developed by:
 
-- [Victo Bronov](https://github.com/VictorBro) - vbronov@student.42lausanne.ch
+- [Victor Bronov](https://github.com/VictorBro) - vbronov@student.42lausanne.ch
 - [Victor Viterbo](https://github.com/victorviterbo) - vviterbo@student.42.fr
 
 ---
