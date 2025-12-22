@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vviterbo <vviterbo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victorviterbo <victorviterbo@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 14:24:23 by vviterbo          #+#    #+#             */
-/*   Updated: 2025/04/27 20:49:49 by vviterbo         ###   ########.fr       */
+/*   Updated: 2025/12/22 22:30:42 by victorviter      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ bool	ft_isdirectory(char *path)
 		return (false);
 	directory = opendir(path);
 	if (directory == NULL)
-	{
-		closedir(directory);
 		return (false);
-	}
 	else
 	{
 		closedir(directory);

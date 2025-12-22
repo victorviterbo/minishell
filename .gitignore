@@ -4,3 +4,5 @@ minishell_tester/
 bin/*
 minishell_bonus
 minishell
+Dockerfile
+docker-compose.yml
